@@ -22,25 +22,25 @@ export default function HomeScreen() {
       <Column gap={15}>
         <Column>
           <Typography variant={TypographyVariant.Display} size={Size.Large} color={theme.colors.text} fontWeight='700'>
-            Display Large
+            Display Lg
           </Typography>
           <Typography variant={TypographyVariant.Display} size={Size.Medium} color={theme.colors.text} fontWeight='700'>
-            Display Medium
+            Display Md
           </Typography>
           <Typography variant={TypographyVariant.Display} size={Size.Small} color={theme.colors.text} fontWeight='700'>
-            Display Small
+            Display Sm
           </Typography>
         </Column>
 
         <Column>
           <Typography variant={TypographyVariant.Headline} size={Size.Large} color={theme.colors.text} fontWeight='700'>
-            Headline Large
+            Headline Lg
           </Typography>
           <Typography variant={TypographyVariant.Headline} size={Size.Medium} color={theme.colors.text} fontWeight='700'>
-            Headline Medium
+            Headline Md
           </Typography>
           <Typography variant={TypographyVariant.Headline} size={Size.Small} color={theme.colors.text} fontWeight='700'>
-            Headline Small
+            Headline Sm
           </Typography>
         </Column>
       </Column>
