@@ -1,0 +1,100 @@
+// https://docs.expo.dev/guides/using-eslint/
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "expo", 
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "@typescript-eslint/eslint-plugin"],
+  "rules": {
+    "@typescript-eslint/ban-types": 0,
+    "import/order": 2,
+    "no-trailing-spaces": [
+      0,
+      {
+        "skipBlankLines": true
+      }
+    ],
+    "prettier/prettier": 0,
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-curly-spacing": 2,
+    "react/jsx-equals-spacing": 2,
+    "jsx-quotes": ["error", "prefer-single"],
+    "semi": ["error", "always"],
+    "no-console": 0,
+    "no-underscore-dangle": 0,
+    "indent": ["error", 2],
+    "no-use-before-define": 0,
+    "no-multi-str": 0,
+    "space-before-function-paren": 0,
+    "no-multiple-empty-lines": 0,
+    "object-curly-spacing": [
+      2,
+      "always",
+      {
+        "objectsInObjects": true
+      }
+    ],
+    "comma-dangle": 0,
+    "no-useless-escape": 0,
+    "prefer-template": 0,
+    "quotes": [
+      2,
+      "single",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
+    "no-param-reassign": 0,
+    "prefer-destructuring": 0,
+    "object-shorthand": 0,
+    "no-path-concat": 0,
+    "no-bitwise": 0,
+    "arrow-body-style": 0,
+    "max-len": 0,
+    "no-await-in-loop": 0,
+    "no-multi-spaces": 0,
+    "@typescript-eslint/ban-ts-comment": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "react/display-name": 0,
+    "react/prop-types": 0,
+    "arrow-parens": ["error", "always"],
+    "object-curly-newline": [
+      "error",
+      {
+        "ObjectExpression": "always",
+        "ObjectPattern": {
+          "multiline": true
+        },
+        "ImportDeclaration": {
+          "multiline": true,
+          "minProperties": 4
+        },
+        "ExportDeclaration": {
+          "multiline": true,
+          "minProperties": 1
+        }
+      }
+    ],
+    "space-infix-ops": [
+      "error",
+      {
+        "int32Hint": false
+      }
+    ],
+    "keyword-spacing": [
+      "error",
+      {
+        "after": true
+      }
+    ],
+    "comma-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true
+      }
+    ]
+  }
+}
