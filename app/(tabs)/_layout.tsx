@@ -5,8 +5,9 @@ import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { BlurView } from 'expo-blur';
 import { HapticTab } from '@/components/archive/HapticTab';
-import { IconSymbol } from '@/components/archive/ui/IconSymbol';
 import { RootState } from '@/redux/rootReducer';
+import { Icon } from '@/components/CoreUI/Icons';
+import { IconLibraryName } from '@/utils/enum';
 
 export default function TabLayout() {
   const { theme } = useSelector((state: RootState) => state.theme);
@@ -25,17 +26,21 @@ export default function TabLayout() {
         },
       }}>
       <Tabs.Screen
-        name='index'
+        name='(home)'
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name='house.fill' color={color} />,
+          tabBarIcon: () => (
+            <Icon name='home' library={IconLibraryName.MaterialIcons} size={28} color={theme.colors.text} />
+          ),
         }}
       />
       <Tabs.Screen
         name='explore'
         options={{
           title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name='paperplane.fill' color={color} />,
+          tabBarIcon: () => (
+            <Icon name='edit' library={IconLibraryName.MaterialIcons} size={28} color={theme.colors.text} />
+          ),
         }}
       />
     </Tabs>

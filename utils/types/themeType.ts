@@ -8,7 +8,27 @@ export interface ITheme {
     notification: string;
   };
   typography: {
-    fontSize: {
+    display?: {
+      small: number;
+      medium: number;
+      large: number;
+    };
+    headline?: {
+      small: number;
+      medium: number;
+      large: number;
+    };
+    title?: {
+      small: number;
+      medium: number;
+      large: number;
+    };
+    body?: {
+      small: number;
+      medium: number;
+      large: number;
+    };
+    label?: {
       small: number;
       medium: number;
       large: number;

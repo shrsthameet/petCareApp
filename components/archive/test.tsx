@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import {
-  View, Text, Button, StyleSheet 
+  View, Text, Button, StyleSheet,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 
@@ -84,13 +84,13 @@ export default function HomeScreen() {
 //     gap: 8,
 //     marginBottom: 8,
 //   },
-//   reactLogo: {
-//     height: 178,
-//     width: 290,
-//     bottom: 0,
-//     left: 0,
-//     position: 'absolute',
-//   },
+// reactLogo: {
+//   height: 178,
+//   width: 290,
+//   bottom: 0,
+//   left: 0,
+//   position: 'absolute',
+// },
 // });
 const styles = StyleSheet.create({
   container: {
@@ -101,5 +101,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     marginBottom: 20,
+  },
+  reactLogo: {
+    height: 178,
+    width: 290,
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
   },
 });

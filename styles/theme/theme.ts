@@ -57,10 +57,10 @@ const lightTheme: ITheme = {
     notification: '#ff6347',
   },
   typography: {
-    fontSize: {
-      small: 12,
-      medium: 16,
-      large: 20,
+    display: {
+      large: 68,
+      medium: 58,
+      small: 48,
     },
     fontWeightRegular: '400',
     fontWeightBold: '700',
@@ -103,7 +103,7 @@ const darkTheme: ITheme = {
     notification: '#ff6347',
   },
   typography: {
-    fontSize: {
+    display: {
       small: 12,
       medium: 16,
       large: 20,
