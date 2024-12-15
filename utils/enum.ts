@@ -10,6 +10,11 @@ export enum Fonts {
   Montserrat_Black = 'Montserrat_900Black',
 }
 
+export enum Theme {
+  Dark = 'dark',
+  Light = 'light'
+}
+
 export enum Position {
   Left = 'left',
   Center = 'center',
@@ -71,7 +76,7 @@ export enum TypographyVariant {
   Headline = 'headline',
   Title = 'title',
   Body = 'body',
-  Label = 'label',
+  Caption = 'caption',
 }
 
 export enum FlexDirection {

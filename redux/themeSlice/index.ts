@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Appearance } from 'react-native';
-import { ITheme } from '@/utils/types';
-import { darkTheme, lightTheme } from '@/styles/theme/theme';
+import { ITheme, ThemeVariant } from '@/utils/types';
+import { darkTheme, lightTheme } from '@/styles/theme';
+import { Theme } from '@/utils/enum';
 
 type ThemeState = {
   theme: ITheme;
@@ -9,8 +10,8 @@ type ThemeState = {
 };
 
 const initialState: ThemeState = {
-  theme: Appearance.getColorScheme() === 'dark' ? darkTheme : lightTheme,
-  isDarkMode: Appearance.getColorScheme() === 'dark',
+  theme: Appearance.getColorScheme() === Theme.Dark ? darkTheme : lightTheme,
+  isDarkMode: Appearance.getColorScheme() === Theme.Dark,
 };
 
 const themeSlice = createSlice({
@@ -21,12 +22,12 @@ const themeSlice = createSlice({
       state.isDarkMode = !state.isDarkMode;
       state.theme = state.isDarkMode ? darkTheme : lightTheme;
     },
-    setTheme: (state, action: PayloadAction<'light' | 'dark'>) => {
-      state.isDarkMode = action.payload === 'dark';
-      state.theme = action.payload === 'dark' ? darkTheme : lightTheme;
+    setTheme: (state, action: PayloadAction<ThemeVariant>) => {
+      state.isDarkMode = action.payload === Theme.Dark;
+      state.theme = action.payload === Theme.Dark ? darkTheme : lightTheme;
     },
     setSystemTheme: (state) => {
-      const isDarkMode = Appearance.getColorScheme() === 'dark';
+      const isDarkMode = Appearance.getColorScheme() === Theme.Dark;
       state.isDarkMode = isDarkMode;
       state.theme = isDarkMode ? darkTheme : lightTheme;
     },

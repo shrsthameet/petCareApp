@@ -11,16 +11,16 @@ export const GreetingHeader: FC = () => {
       style={greetingHeaderStyles.greetingContainer}
     >
       <Column>
-        <Typography variant={TypographyVariant.Headline} size={Size.Medium} fontWeight='400'>
+        <Typography variant={TypographyVariant.Title} size={Size.Medium} fontWeight='400'>
           Hello,
         </Typography>
-        <Typography variant={TypographyVariant.Display} size={Size.Medium} fontWeight='700'>
+        <Typography variant={TypographyVariant.Display} size={Size.Medium} fontWeight='700' color='#181616'>
           Yuvisha,
         </Typography>
       </Column>
 
       <Column>
-        <Typography variant={TypographyVariant.Body} size={Size.Large} fontWeight='400'>
+        <Typography variant={TypographyVariant.Body} size={Size.Medium} fontWeight='400'>
           Let's take care of your pets!
         </Typography>
       </Column>

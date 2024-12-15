@@ -1,3 +1,10 @@
+import { TextStyle } from 'react-native';
+
+interface TypographyProperties {
+  fontSize: number;
+  fontWeight: TextStyle['fontWeight'];
+}
+
 export interface ITheme {
   colors: {
     primary: string;
@@ -6,35 +13,34 @@ export interface ITheme {
     card: string;
     border: string;
     notification: string;
+    white: string;
   };
   typography: {
     display?: {
-      small: number;
-      medium: number;
-      large: number;
+      small: TypographyProperties;
+      medium: TypographyProperties;
+      large: TypographyProperties;
     };
     headline?: {
-      small: number;
-      medium: number;
-      large: number;
+      small: TypographyProperties;
+      medium: TypographyProperties;
+      large: TypographyProperties;
     };
     title?: {
-      small: number;
-      medium: number;
-      large: number;
+      small: TypographyProperties;
+      medium: TypographyProperties;
+      large: TypographyProperties;
     };
     body?: {
-      small: number;
-      medium: number;
-      large: number;
+      small: TypographyProperties;
+      medium: TypographyProperties;
+      large: TypographyProperties;
     };
-    label?: {
-      small: number;
-      medium: number;
-      large: number;
+    caption?: {
+      small: TypographyProperties;
+      medium: TypographyProperties;
+      large: TypographyProperties;
     };
-    fontWeightRegular: string;
-    fontWeightBold: string;
     fontFamily: {
       regular: string;
       bold: string;

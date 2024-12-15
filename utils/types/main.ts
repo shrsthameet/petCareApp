@@ -38,9 +38,12 @@ export interface ApiResponseType<T>  {
   data: T
 }
 
+// Define theme
+export type ThemeVariant = 'light' | 'dark';
+
 // Define the available variants
 export type TypographyTextAlign = 'left' | 'center' | 'right' | 'justify';
-export type TypographyVariantsType = 'display' | 'headline' | 'title' | 'body' | 'label';
+export type TypographyVariantsType = 'display' | 'headline' | 'title' | 'body' | 'caption';
 
 // Define size
 export type SizeType = 'small' | 'medium' | 'large';
