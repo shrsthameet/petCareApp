@@ -1,37 +1,52 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
-import { reminderStyles } from './reminderComponent.style';
-import { globalStyles } from '@/styles/global';
+import { Link } from 'expo-router';
+import { myPetsStyles } from './myPetsComponent.style';
+import GingerImg from '@/assets/images/ginger.jpg';
 import {
   FlexAlignItems, FlexJustifyContent, Size, TypographyVariant 
 } from '@/utils/enum';
 import { Typography } from '@/components/CoreUI/Typography';
+import { globalStyles } from '@/styles/global';
+import LabImg from '@/assets/images/lab.jpg';
 import { Column, Row } from '@/components/CoreUI/Flex';
 import { RootState } from '@/redux/rootReducer';
-import { ReminderCard } from '@/components/reminderCard';
+import { PetCard } from '@/components/petCard';
 
-export const ReminderComponent = () => {
+export const MyPetsComponent = () => {
   const { theme } = useSelector((state: RootState) => state.theme);
   return (
-    <Column gap={10} style={reminderStyles.reminderContainer}>
-
+    <Column gap={10} style={myPetsStyles.petsContainer}>
       <Row justifyContent={FlexJustifyContent.Between} alignItems={FlexAlignItems.Center} style={globalStyles.horizontalPadding}>
-        {/* <Link href={buttonLink as Href}> */}
         <Typography variant={TypographyVariant.Title} size={Size.Large} color={theme.colors.text} fontWeight='700'>
-          Reminders
+          My Pets
         </Typography>
+        {/* <Link href='/(petProfile)/addNewPet'> */}
         {/* <IconButton icon='plus' mode={ButtonVariant.Contained} /> */}
         {/* </Link> */}
       </Row>
-
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <Row gap={10} style={globalStyles.horizontalPadding}>
-          <ReminderCard />
-          <ReminderCard />
+        <Row gap={30} style={myPetsStyles.petsContent}>
+
+          <Link href='/(petProfile)/view/1'>
+            <PetCard
+              imgSrc={LabImg}
+              petName='Tommy'
+              petAge='2 years 8 months'
+            />
+          </Link>
+
+          <Link href='/(petProfile)/view/2'>
+            <PetCard
+              imgSrc={GingerImg}
+              petName='Bob'
+              petAge='4 years 2 months'
+            />
+          </Link>
+
         </Row>
       </ScrollView>
-
     </Column>
   );
 };

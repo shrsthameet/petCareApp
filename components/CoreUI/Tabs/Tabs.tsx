@@ -26,7 +26,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
             style={[styles.tabButton, activeTab === index && styles.activeTabButton]}
             onPress={() => setActiveTab(index)}
           >
-            <Typography variant={TypographyVariant.Title} type={Size.Large} style={[styles.tabText, ...(activeTab === index ? [styles.activeTabText] : [])]}>
+            <Typography variant={TypographyVariant.Title} size={Size.Large} style={[styles.tabText, ...(activeTab === index ? [styles.activeTabText] : [])]}>
               {tab.title}
             </Typography>
           </TouchableOpacity>
