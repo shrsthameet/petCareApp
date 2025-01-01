@@ -43,6 +43,15 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name='(components)'
+        options={{
+          title: 'Components UI',
+          tabBarIcon: () => (
+            <Icon name='library' library={IconLibraryName.Ionicons} size={28} color={theme.colors.text} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

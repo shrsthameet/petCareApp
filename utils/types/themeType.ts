@@ -39,14 +39,14 @@ export interface ITheme {
     surfaceDisabled: string;
     onSurfaceDisabled: string;
     backdrop: string;
-    // elevation: {
-    //   level0: string;
-    //   level1: string;
-    //   level2: string;
-    //   level3: string;
-    //   level4: string;
-    //   level5: string;
-    // };
+    elevation: {
+      level0: string;
+      level1: string;
+      level2: string;
+      level3: string;
+      level4: string;
+      level5: string;
+    };
     text: string;
     card: string;
     border: string;
@@ -98,9 +98,10 @@ export interface ITheme {
     large: number;
   };
   borderRadius: {
-    small: number;
-    medium: number;
-    large: number;
+    flat: number;
+    curve: number;
+    arch: number;
+    pill: number;
   };
   shadows: {
     small: string;

@@ -1,6 +1,5 @@
 import React, { ForwardedRef } from 'react';
 import {
-  Text,
   TouchableOpacity,
   ViewStyle,
   TextStyle,
@@ -8,19 +7,33 @@ import {
   View,
 } from 'react-native';
 import { useSelector } from 'react-redux';
+import { Icon } from '../Icons';
+import { Typography } from '../Typography';
 import { RootState } from '@/redux/rootReducer';
-import { ButtonVariantType, ColorVariantType, SizeType } from '@/utils/types';
-import { ButtonVariant, ColorVariant, Size } from '@/utils/enum';
+import {
+  BorderRadiusType, ButtonVariantType, ColorVariantType, IconLibraries, PositionType, SizeType 
+} from '@/utils/types';
+import {
+  BorderRadius, ButtonVariant, ColorVariant, Size, 
+  TypographyVariant
+} from '@/utils/enum';
 
 interface ButtonProps {
   variant?: ButtonVariantType;
   color?: ColorVariantType;
   title: string;
-  onPress: (event: GestureResponderEvent) => void;
+  onPress?: (event: GestureResponderEvent) => void;
   disabled?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;
   size?: SizeType;
+  shape?: BorderRadiusType;
+  showIcon?: boolean; // Show icon in button
+  iconName?: string; // Icon name
+  iconLibrary?: keyof typeof IconLibraries | 'AntDesign'; // Icon library
+  iconSize?: number; // Icon size
+  iconColor?: string; // Icon color
+  iconPosition?: PositionType; // Position of the icon (default is left)
 }
 
 export const Button = (
@@ -33,7 +46,14 @@ export const Button = (
       disabled = false,
       style,
       textStyle,
-      size = Size.Medium
+      size = Size.Medium,
+      shape = BorderRadius.Flat,
+      showIcon = false,
+      iconName = 'plus',
+      iconLibrary,
+      iconColor = ColorVariant.Primary,
+      iconPosition,
+      iconSize = 18
     }: ButtonProps,
     ref: ForwardedRef<View>
   ) => {
@@ -46,13 +66,8 @@ export const Button = (
       case ButtonVariant.Contained:
         return theme.colors[color.toLowerCase() as keyof typeof theme.colors] || theme.colors.primary;
       case ButtonVariant.Outlined:
-        return theme.colors[color.toLowerCase() as keyof typeof theme.colors] || theme.colors.primary;
       case ButtonVariant.Text:
-        return theme.colors[color.toLowerCase() as keyof typeof theme.colors] || theme.colors.primary;
-      case ButtonVariant.Elevated:
-        return theme.colors[color.toLowerCase() as keyof typeof theme.colors] || theme.colors.primary;
-      case ButtonVariant.ContainedTonal:
-        return theme.colors.primaryContainer;
+        return 'transparent';
       default:
         return theme.colors.primary;
       }
@@ -62,8 +77,6 @@ export const Button = (
       if (disabled) return theme.colors.onSurfaceDisabled;
       switch (variant) {
       case ButtonVariant.Contained:
-      case ButtonVariant.Elevated:
-      case ButtonVariant.ContainedTonal:
         return theme.colors.onPrimary;
       case ButtonVariant.Outlined:
       case ButtonVariant.Text:
@@ -93,21 +106,30 @@ export const Button = (
     }[size];
 
     const buttonStyles: ViewStyle = {
-      backgroundColor: getBackgroundColor(),
-      borderRadius: theme.borderRadius.medium,
+      backgroundColor: getBackgroundColor() as string,
+      borderRadius: shape ? theme.borderRadius[shape] : theme.borderRadius.flat,
+      display: 'flex',
+      flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: variant === ButtonVariant.Outlined ? 1 : 0,
-      borderColor: theme.colors[color.toLowerCase() as keyof typeof theme.colors] || theme.colors.primary,
-      ...sizeStyles,
+      borderColor: theme.colors[color as keyof typeof theme.colors] as string || theme.colors.primary as string,
+      paddingHorizontal: sizeStyles.paddingHorizontal, // Ensure consistent horizontal padding
+      paddingVertical: sizeStyles.paddingVertical,   // Ensure consistent vertical padding
       ...style,
     };
 
     const textStyles: TextStyle = {
-      color: getTextColor(),
+      color: getTextColor() as string,
       // fontSize: theme.typography.body?.fontSize || 16,
       // fontWeight: theme.typography.body?.fontWeight || '600',
       ...textStyle,
+    };
+
+    // Define spacing for the icon
+    const iconSpacing = {
+      marginRight: iconPosition === 'left' ? theme.spacing.xs : 0,
+      marginLeft: iconPosition === 'right' ? theme.spacing.xs : 0,
     };
 
     return (
@@ -118,7 +140,25 @@ export const Button = (
         disabled={disabled}
         activeOpacity={0.7}
       >
-        <Text style={textStyles}>{title}</Text>
+        {showIcon && iconPosition === 'left' && iconName && (
+          <Icon
+            library={iconLibrary ? iconLibrary : 'AntDesign'}
+            name={iconName}
+            size={iconSize}
+            color={'#fff'}
+            style={iconSpacing}
+          />
+        )}
+        <Typography variant={TypographyVariant.Body} size={Size.Small}  style={textStyles}>{title}</Typography>
+        {showIcon && iconPosition === 'right' && iconName && (
+          <Icon
+            library={iconLibrary ? iconLibrary : 'AntDesign'}
+            name={iconName}
+            size={iconSize}
+            color={iconColor}
+            style={iconSpacing}
+          />
+        )}
       </TouchableOpacity>
     );
   }

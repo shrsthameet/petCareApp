@@ -45,7 +45,7 @@ export const baseTypography = {
   },
   body: {
     small: {
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: '400' as TextStyle['fontWeight']
     },
     medium: {
@@ -67,7 +67,7 @@ export const baseTypography = {
       fontWeight: '500' as TextStyle['fontWeight']
     },
     large: {
-      fontSize: 11,
+      fontSize: 12,
       fontWeight: '500' as TextStyle['fontWeight']
     },
   },

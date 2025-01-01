@@ -32,14 +32,14 @@ export const darkTheme: ITheme = {
     inverseSurface: 'rgb(231, 225, 229)',
     inverseOnSurface: 'rgb(50, 47, 51)',
     inversePrimary: 'rgb(120, 69, 172)',
-    // elevation: {
-    //   level0: 'transparent',
-    //   level1: 'rgb(39, 35, 41)',
-    //   level2: 'rgb(44, 40, 48)',
-    //   level3: 'rgb(50, 44, 55)',
-    //   level4: 'rgb(52, 46, 57)',
-    //   level5: 'rgb(56, 49, 62)'
-    // },
+    elevation: {
+      level0: 'transparent',
+      level1: 'rgb(39, 35, 41)',
+      level2: 'rgb(44, 40, 48)',
+      level3: 'rgb(50, 44, 55)',
+      level4: 'rgb(52, 46, 57)',
+      level5: 'rgb(56, 49, 62)'
+    },
     surfaceDisabled: 'rgba(231, 225, 229, 0.12)',
     onSurfaceDisabled: 'rgba(231, 225, 229, 0.38)',
     backdrop: 'rgba(51, 47, 55, 0.4)',
@@ -65,9 +65,10 @@ export const darkTheme: ITheme = {
     large: 30,
   },
   borderRadius: {
-    small: 4,
-    medium: 8,
-    large: 16,
+    flat: 0,
+    curve: 4,
+    arch: 15,
+    pill: 25,
   },
   shadows: {
     small: '0px 2px 4px rgba(0, 0, 0, 0.1)',

@@ -47,8 +47,8 @@ export type TypographyVariantsType = 'display' | 'headline' | 'title' | 'body' |
 
 // Define size
 export type SizeType = 'small' | 'medium' | 'large';
-export type IconPosition = 'left' | 'right';
-export type ColorVariantType = 'Default' | 'Primary' | 'Success' | 'Secondary' | 'Error' | 'Info' | 'Warning' | 'Link';
+export type PositionType = 'top' | 'right' | 'bottom' | 'left' | 'center';
+export type ColorVariantType = 'default' | 'primary' | 'success' | 'secondary' | 'error' | 'info' | 'warning' | 'link';
 
 // Define Flex types
 export type FlexDirectionType = 'column' | 'row';
@@ -58,7 +58,8 @@ export type FlexWrapType = 'wrap' | 'nowrap' | 'wrap-reverse';
 
 // Define button type
 export type ButtonTitleType = 'Submit' | 'Edit' | 'Delete' | 'Save' | 'Update';
-export type ButtonVariantType = 'text' | 'outlined' | 'contained' | 'elevated' | 'contained-tonal';
+export type ButtonVariantType = 'text' | 'outlined' | 'contained';
+export type BorderRadiusType = 'flat' | 'curve' | 'arch' | 'pill';
 
 // Define available icon libraries
 export const IconLibraries = {

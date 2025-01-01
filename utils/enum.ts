@@ -16,9 +16,11 @@ export enum Theme {
 }
 
 export enum Position {
+  Top = 'top',
+  Right = 'right',
+  Bottom = 'bottom',
   Left = 'left',
   Center = 'center',
-  Right = 'right'
 }
 
 export enum OSType {
@@ -36,19 +38,17 @@ export enum ButtonVariant {
   Text = 'text',
   Contained = 'contained',
   Outlined = 'outlined',
-  Elevated = 'elevated',
-  ContainedTonal = 'contained-tonal'
 }
 
 export enum ColorVariant {
-  Default = 'Default',
-  Primary = 'Primary',
-  Secondary = 'Secondary',
-  Success = 'Success',
-  Error = 'Error',
-  Info = 'Info',
-  Warning = 'Warning',
-  Link = 'Link'
+  Default = 'default',
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Success = 'success',
+  Error = 'error',
+  Info = 'info',
+  Warning = 'warning',
+  Link = 'link'
 }
 
 export enum ButtonTitle {
@@ -104,4 +104,11 @@ export enum FlexWrap {
   Wrap = 'wrap',
   Nowrap = 'nowrap',
   wrapReverse = 'wrap-reverse',
+}
+
+export enum BorderRadius {
+  Flat = 'flat',
+  Curve = 'curve',
+  Arch = 'arch',
+  Pill = 'pill',
 }
