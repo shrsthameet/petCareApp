@@ -14,7 +14,7 @@ import {
   BorderRadiusType, ButtonVariantType, ColorVariantType, IconLibraries, PositionType, SizeType 
 } from '@/utils/types';
 import {
-  BorderRadius, ButtonVariant, ColorVariant, Size, 
+  BorderRadius, ButtonVariant, ColorVariant, FlexAlignItems, FlexDirection, FlexJustifyContent, Position, Size, 
   TypographyVariant
 } from '@/utils/enum';
 
@@ -32,7 +32,7 @@ interface ButtonProps {
   iconName?: string; // Icon name
   iconLibrary?: keyof typeof IconLibraries | 'AntDesign'; // Icon library
   iconSize?: number; // Icon size
-  iconColor?: string; // Icon color
+  // iconColor?: string; // Icon color
   iconPosition?: PositionType; // Position of the icon (default is left)
 }
 
@@ -51,9 +51,9 @@ export const Button = (
       showIcon = false,
       iconName = 'plus',
       iconLibrary,
-      iconColor = ColorVariant.Primary,
+      // iconColor = ColorVariant.Primary,
       iconPosition,
-      iconSize = 18
+      iconSize = 16
     }: ButtonProps,
     ref: ForwardedRef<View>
   ) => {
@@ -89,19 +89,19 @@ export const Button = (
     // Define size-based styles
     const sizeStyles = {
       small: {
-        paddingVertical: theme.spacing.xs,
+        paddingVertical: theme.spacing.sm,
         paddingHorizontal: theme.spacing.sm,
-        fontSize: theme.typography.body?.small.fontSize ? theme.typography.body.small.fontSize : 14,
+        fontSize: theme.typography.caption?.large.fontSize,
       },
       medium: {
         paddingVertical: theme.spacing.sm,
         paddingHorizontal: theme.spacing.lg,
-        fontSize: theme.typography.body?.medium.fontSize || 16,
+        fontSize: theme.typography.body?.medium.fontSize,
       },
       large: {
         paddingVertical: theme.spacing.md,
         paddingHorizontal: theme.spacing.xl,
-        fontSize: theme.typography.body?.large.fontSize ? theme.typography.body.large.fontSize : 18,
+        fontSize: theme.typography.body?.large.fontSize,
       },
     }[size];
 
@@ -109,9 +109,9 @@ export const Button = (
       backgroundColor: getBackgroundColor() as string,
       borderRadius: shape ? theme.borderRadius[shape] : theme.borderRadius.flat,
       display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
+      flexDirection: FlexDirection.Row,
+      alignItems: FlexAlignItems.Center,
+      justifyContent: FlexJustifyContent.Center,
       borderWidth: variant === ButtonVariant.Outlined ? 1 : 0,
       borderColor: theme.colors[color as keyof typeof theme.colors] as string || theme.colors.primary as string,
       paddingHorizontal: sizeStyles.paddingHorizontal, // Ensure consistent horizontal padding
@@ -121,6 +121,7 @@ export const Button = (
 
     const textStyles: TextStyle = {
       color: getTextColor() as string,
+      fontSize: sizeStyles.fontSize,
       // fontSize: theme.typography.body?.fontSize || 16,
       // fontWeight: theme.typography.body?.fontWeight || '600',
       ...textStyle,
@@ -128,8 +129,8 @@ export const Button = (
 
     // Define spacing for the icon
     const iconSpacing = {
-      marginRight: iconPosition === 'left' ? theme.spacing.xs : 0,
-      marginLeft: iconPosition === 'right' ? theme.spacing.xs : 0,
+      marginRight: iconPosition === Position.Left ? theme.spacing.xs : 0,
+      marginLeft: iconPosition === Position.Right ? theme.spacing.xs : 0,
     };
 
     return (
@@ -140,22 +141,22 @@ export const Button = (
         disabled={disabled}
         activeOpacity={0.7}
       >
-        {showIcon && iconPosition === 'left' && iconName && (
+        {showIcon && iconPosition === Position.Left && iconName && (
           <Icon
             library={iconLibrary ? iconLibrary : 'AntDesign'}
             name={iconName}
             size={iconSize}
-            color={'#fff'}
+            color={textStyles.color as string}
             style={iconSpacing}
           />
         )}
-        <Typography variant={TypographyVariant.Body} size={Size.Small}  style={textStyles}>{title}</Typography>
-        {showIcon && iconPosition === 'right' && iconName && (
+        <Typography variant={TypographyVariant.Body} size={Size.Small} style={textStyles}>{title}</Typography>
+        {showIcon && iconPosition === Position.Right && iconName && (
           <Icon
             library={iconLibrary ? iconLibrary : 'AntDesign'}
             name={iconName}
             size={iconSize}
-            color={iconColor}
+            color={textStyles.color as string}
             style={iconSpacing}
           />
         )}

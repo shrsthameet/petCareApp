@@ -5,10 +5,13 @@ import {
   TouchableOpacity
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { useSelector } from 'react-redux';
 import { Typography } from '../Typography';
-import { FlexContainer } from '../FlexContainer';
-import { Colors } from '@/constants/Colors';
+import { Column } from '../Flex';
 import DogImgPlaceholder from '@/assets/images/dogPlaceholder.jpeg';
+import { FlexAlignItems, Size, TypographyVariant } from '@/utils/enum';
+import { RootState } from '@/redux/rootReducer';
+import { ITheme } from '@/utils/types';
 
 interface ImageUploadProps {
   image: string | null; // Image URI managed by the parent component
@@ -28,6 +31,8 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   imageStyle,
   placeholder = DogImgPlaceholder
 }) => {
+  const { theme } = useSelector((state: RootState) => state.theme);
+
   const pickImage = async () => {
     // Launch the image library
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -43,29 +48,30 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
     }
   };
 
+  const customStyle = getStyles(theme);
+
   return (
-    <FlexContainer style={[containerStyle]}>
-      <TouchableOpacity onPress={pickImage} style={styles.imgContainer}>
+    <Column style={[containerStyle]}>
+      <TouchableOpacity onPress={pickImage} style={customStyle.imgContainer}>
         {image ? (
           <Image source={{
             uri: image 
-          }} style={[styles.image, imageStyle]} />
+          }} style={[customStyle.image, imageStyle]} />
         ) : (
           <Image
             source={placeholder} // Show a placeholder if no image is selected
-            style={[styles.image, imageStyle]}
+            style={[customStyle.image, imageStyle]}
           />
         )}
-        <Typography variant='span'>{title}</Typography>
+        <Typography variant={TypographyVariant.Body} size={Size.Small}>{title}</Typography>
       </TouchableOpacity>
-    </FlexContainer>
+    </Column>
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (theme: ITheme) => StyleSheet.create({
   imgContainer: {
-    display: 'flex',
-    alignItems: 'center',
+    alignItems: FlexAlignItems.Center,
     gap: 10
   },
   image: {
@@ -73,7 +79,7 @@ const styles = StyleSheet.create({
     height: 100, // Set height for the avatar
     borderRadius: 50, // Make the image circular
     marginTop: 10,
-    borderColor: Colors.lightGrey,
+    borderColor: theme.colors.primary,
     borderWidth: 1
   },
 });

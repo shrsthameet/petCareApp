@@ -36,10 +36,10 @@ export default function PetProfileLayout() {
           </TouchableOpacity>
         )
       }}/>
-      {/* <Stack.Screen name='edit/[id]' options={{
+      <Stack.Screen name='edit/[id]' options={{
         headerTitle: 'Edit'
       }}/>
-      <Stack.Screen name='create/index' /> */}
+      {/* <Stack.Screen name='create/index' /> */}
     </Stack>
   );
 }

@@ -1,24 +1,24 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
-// import { useDispatch } from 'react-redux';
+import { ScrollView, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { GreetingHeader } from '@/screens/home/greetingHeader';
 import { ReminderComponent } from '@/screens/home/reminderComponent';
 import { MyPetsComponent } from '@/screens/home/myPetsComponent';
-// import { Typography } from '@/components/CoreUI/Typography';
-// import { toggleTheme } from '@/redux/themeSlice';
+import { Typography } from '@/components/CoreUI/Typography';
+import { toggleTheme } from '@/redux/themeSlice';
 
 export default function HomeScreen() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <GreetingHeader />
 
-      {/* <TouchableOpacity onPress={() => dispatch(toggleTheme())}>
+      <TouchableOpacity onPress={() => dispatch(toggleTheme())}>
         <Typography>
           Dark mode
         </Typography>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
 
       {/* Reminder Section */}
       <ReminderComponent />

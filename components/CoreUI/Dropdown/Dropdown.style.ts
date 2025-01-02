@@ -1,56 +1,56 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '@/constants/Colors';
+import { ITheme } from '@/utils/types';
+import { FlexAlignItems, FlexDirection, FlexJustifyContent } from '@/utils/enum';
 
-export const dropdownStyles = StyleSheet.create({
+export const getDropdownStyle = (theme: ITheme) => StyleSheet.create({
   container: {
-    // backgroundColor: 'red'
+    backgroundColor: theme.colors.surface, // Dynamically use surface color from the theme
   },
-  select: {
+  selectContainer: {
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
-    paddingHorizontal: 15,
-    borderWidth: 1,
-    borderColor: Colors.grey,
-    borderRadius: 8,
-    backgroundColor: Colors.white,
+    flexDirection: FlexDirection.Row,
+    alignItems: FlexAlignItems.Center,
+    justifyContent: FlexJustifyContent.Between,
   },
   selectedText: {
     fontSize: 15,
-    color: Colors.black,
+    color: theme.colors.text, // Use text color from theme
   },
   selectedBackground: {
-    backgroundColor: Colors.lightGrey
+    backgroundColor: theme.colors.secondaryContainer, // Use secondaryContainer color from theme
   },
   option: {
     padding: 10,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   optionText: {
     fontSize: 16,
+    color: theme.colors.onSurface, // Use onSurface color from theme
   },
   sectionHeader: {
     fontSize: 18,
     fontWeight: 'bold',
     padding: 10,
-    backgroundColor: Colors.pitchBlack,
-    color: Colors.white
+    backgroundColor: theme.colors.primary, // Use primary color from theme
+    color: theme.colors.onPrimary, // Use onPrimary color from theme
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: theme.colors.backdrop, // Use backdrop color from theme
   },
   dropdown: {
     position: 'absolute',
-    backgroundColor: Colors.white,
+    top: 0, // Adjust according to your input field's height
+    zIndex: 1000,
+    width: '100%',
+    backgroundColor: theme.colors.white, // Use white color from theme
     borderWidth: 1,
-    borderColor: Colors.grey,
+    borderColor: theme.colors.border, // Use border color from theme
     borderRadius: 5,
-    maxHeight: 200, // Max height for the dropdown
-    shadowColor: Colors.pitchBlack,
+    maxHeight: 200,
+    shadowColor: theme.colors.shadow, // Use shadow color from theme
     shadowOffset: {
       width: 0,
       height: 2,
@@ -60,6 +60,6 @@ export const dropdownStyles = StyleSheet.create({
     elevation: 5,
   },
   rounded: {
-    borderRadius: 50, // Make the input fully rounded
+    borderRadius: theme.borderRadius.pill, // Use pill border radius from theme
   },
 });

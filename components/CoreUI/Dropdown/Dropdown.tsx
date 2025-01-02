@@ -10,11 +10,18 @@ import {
   StyleProp,
   Pressable,
   Platform,
+  findNodeHandle,
 } from 'react-native';
-import { FlexContainer } from '../FlexContainer';
+import { useSelector } from 'react-redux';
 import { Icon } from '../Icons/Icons';
-import { dropdownStyles } from './Dropdown.style';
-import { IconLibraryName, OSType } from '@/utils/enum';
+import { Typography } from '../Typography';
+import { Row } from '../Flex';
+import { getDropdownStyle } from './Dropdown.style';
+import {
+  BorderRadius, IconLibraryName, OSType, Size, TypographyVariant 
+} from '@/utils/enum';
+import { RootState } from '@/redux/rootReducer';
+import { BorderRadiusType } from '@/utils/types';
 
 interface Option {
   label: string;
@@ -34,7 +41,7 @@ interface DropdownProps {
   style?: StyleProp<ViewStyle>; // Optional custom styles for the select input
   isSectioned?: boolean; // Flag to indicate sectioned list
   isMultiSelect?: boolean; // Flag to allow multiple selections
-  isRounded?: boolean; // Flag to display rounded corner
+  shape?: BorderRadiusType; // Flag to display rounded corner
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -45,14 +52,19 @@ export const Dropdown: React.FC<DropdownProps> = ({
   style,
   isSectioned = false,
   isMultiSelect = false,
-  isRounded = false
+  shape = BorderRadius.Flat,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [localSelectedValues, setLocalSelectedValues] = useState<string[]>([]);
   const [dropdownPosition, setDropdownPosition] = useState({
-    top: 0, left: 0, width: 0
+    top: 0,
+    left: 0,
+    width: 0,
   });
-  const selectRef = useRef<TouchableOpacity>(null); // Use TouchableOpacity ref
+  const selectRef = useRef<View>(null); // Use View ref instead of TouchableOpacity
+  const { theme } = useSelector((state: RootState) => state.theme);
+
+  const customStyles = getDropdownStyle(theme);
 
   // Initialize local selected values based on selectedValues prop
   React.useEffect(() => {
@@ -67,10 +79,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     if (isMultiSelect) {
       let updatedSelectedValues = [...localSelectedValues];
       if (updatedSelectedValues.includes(value)) {
-        // Remove value if already selected
         updatedSelectedValues = updatedSelectedValues.filter((item) => item !== value);
       } else {
-        // Add value if not already selected
         updatedSelectedValues.push(value);
       }
       setLocalSelectedValues(updatedSelectedValues);
@@ -83,12 +93,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
   };
 
   const openDropdown = () => {
-    if (selectRef.current) {
-      selectRef.current.measure((fx, fy, width, height, px, py) => {
-        // Adjust the top position slightly for Android to align properly
-        const additionalOffset = Platform.OS === OSType.ANDROID ? -22 : 5; // Adjust as needed for Android
+    const nodeHandle = findNodeHandle(selectRef.current);
+    if (nodeHandle) {
+      selectRef.current?.measure((fx, fy, width, height, px, py) => {
+        const additionalOffset = Platform.OS === OSType.ANDROID ? -22 : 5; // Adjust for Android
         setDropdownPosition({
-          top: py + height + additionalOffset, // Position the dropdown below the select box
+          top: py + height + additionalOffset,
           left: px,
           width: width,
         });
@@ -98,8 +108,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
   };
 
   const renderOption = ({ item }: { item: Option }) => (
-    <TouchableOpacity onPress={() => handleOptionPress(item.value)} style={[dropdownStyles.option, localSelectedValues.includes(item.value) && dropdownStyles.selectedBackground]}>
-      <Text style={dropdownStyles.optionText}>{item.label}</Text>
+    <TouchableOpacity
+      onPress={() => handleOptionPress(item.value)}
+      style={[
+        customStyles.option,
+        localSelectedValues.includes(item.value) && customStyles.selectedBackground,
+      ]}
+    >
+      <Text style={customStyles.optionText}>{item.label}</Text>
       {localSelectedValues.includes(item.value) && (
         <Icon name='check' library={IconLibraryName.FontAwesome5} size={15} />
       )}
@@ -107,7 +123,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   );
 
   const renderSectionHeader = ({ section }: { section: Section }) => (
-    <Text style={dropdownStyles.sectionHeader}>{section.title}</Text>
+    <Text style={customStyles.sectionHeader}>{section.title}</Text>
   );
 
   const renderContent = () => {
@@ -154,28 +170,55 @@ export const Dropdown: React.FC<DropdownProps> = ({
       .join(', ')
     : getLabelForValue(localSelectedValues[0]);
 
+  // Helper function to get the border radius based on the shape
+  const getShapeStyle = (shape: BorderRadiusType) => {
+    switch (shape) {
+    case BorderRadius.Curve:
+      return theme.borderRadius.curve; // square corners
+    case BorderRadius.Arch:
+      return theme.borderRadius.arch; // square corners
+    case BorderRadius.Pill:
+      return theme.borderRadius.pill; // rounded corners
+    default:
+      return theme.borderRadius.flat; // default to rounded
+    }
+  };
+
+  const dropDownStyle: ViewStyle = {
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    borderWidth: 1,
+    borderColor: theme.colors.border, // Use border color from theme
+    borderRadius: getShapeStyle(shape),
+    backgroundColor: theme.colors.white, // Use white color from theme
+    // width: 120
+    position: 'relative'
+  };
+
   return (
-    <FlexContainer style={[dropdownStyles.container, style]}>
-      <Pressable ref={selectRef} onPress={openDropdown} 
-        style={[
-          dropdownStyles.select, isRounded && dropdownStyles.rounded
-        ]}
-      >
-        <Text style={dropdownStyles.selectedText}>
-          {selectedLabels ? selectedLabels : placeholder}
-        </Text>
-        <Icon name={isVisible ? 'chevron-up' : 'chevron-down'} library={IconLibraryName.FontAwesome5} size={15} />
-      </Pressable>
+    <Row style={[customStyles.container, style]}>
+      <View ref={selectRef} style={[dropDownStyle, style]}>
+        <Pressable onPress={openDropdown} style={customStyles.selectContainer}>
+          <Typography variant={TypographyVariant.Body} size={Size.Small} style={customStyles.selectedText}>
+            {selectedLabels || placeholder}
+          </Typography>
+          <Icon
+            name={isVisible ? 'chevron-up' : 'chevron-down'}
+            library={IconLibraryName.FontAwesome5}
+            size={15}
+          />
+        </Pressable>
+      </View>
 
       {isVisible && (
-        <Modal transparent={true} visible={isVisible} animationType='fade'>
+        <Modal transparent={true} visible={isVisible}>
           <TouchableOpacity
-            style={dropdownStyles.modalOverlay}
+            style={customStyles.modalOverlay}
             onPress={() => setIsVisible(false)}
           >
             <View
               style={[
-                dropdownStyles.dropdown,
+                customStyles.dropdown,
                 {
                   top: dropdownPosition.top,
                   left: dropdownPosition.left,
@@ -188,6 +231,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
           </TouchableOpacity>
         </Modal>
       )}
-    </FlexContainer>
+    </Row>
   );
 };

@@ -46,7 +46,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name='(components)'
         options={{
-          title: 'Components UI',
+          title: 'UI Library',
           tabBarIcon: () => (
             <Icon name='library' library={IconLibraryName.Ionicons} size={28} color={theme.colors.text} />
           ),
