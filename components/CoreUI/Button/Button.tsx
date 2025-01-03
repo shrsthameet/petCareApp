@@ -11,10 +11,10 @@ import { Icon } from '../Icons';
 import { Typography } from '../Typography';
 import { RootState } from '@/redux/rootReducer';
 import {
-  BorderRadiusType, ButtonVariantType, ColorVariantType, IconLibraries, PositionType, SizeType 
+  ShapeType, ButtonVariantType, ColorVariantType, IconLibraries, PositionType, SizeType 
 } from '@/utils/types';
 import {
-  BorderRadius, ButtonVariant, ColorVariant, FlexAlignItems, FlexDirection, FlexJustifyContent, Position, Size, 
+  Shape, ButtonVariant, ColorVariant, FlexAlignItems, FlexDirection, FlexJustifyContent, Fonts, Position, Size, 
   TypographyVariant
 } from '@/utils/enum';
 
@@ -27,7 +27,7 @@ interface ButtonProps {
   style?: ViewStyle;
   textStyle?: TextStyle;
   size?: SizeType;
-  shape?: BorderRadiusType;
+  shape?: ShapeType;
   showIcon?: boolean; // Show icon in button
   iconName?: string; // Icon name
   iconLibrary?: keyof typeof IconLibraries | 'AntDesign'; // Icon library
@@ -47,7 +47,7 @@ export const Button = (
       style,
       textStyle,
       size = Size.Medium,
-      shape = BorderRadius.Flat,
+      shape = Shape.Flat,
       showIcon = false,
       iconName = 'plus',
       iconLibrary,
@@ -115,7 +115,7 @@ export const Button = (
       borderWidth: variant === ButtonVariant.Outlined ? 1 : 0,
       borderColor: theme.colors[color as keyof typeof theme.colors] as string || theme.colors.primary as string,
       paddingHorizontal: sizeStyles.paddingHorizontal, // Ensure consistent horizontal padding
-      paddingVertical: sizeStyles.paddingVertical,   // Ensure consistent vertical padding
+      paddingVertical: sizeStyles.paddingVertical, // Ensure consistent vertical padding
       ...style,
     };
 
@@ -150,7 +150,7 @@ export const Button = (
             style={iconSpacing}
           />
         )}
-        <Typography variant={TypographyVariant.Body} size={Size.Small} style={textStyles}>{title}</Typography>
+        <Typography variant={TypographyVariant.Body} size={Size.Small} style={textStyles} fontFamilyStyle={Fonts.Montserrat_Medium}>{title}</Typography>
         {showIcon && iconPosition === Position.Right && iconName && (
           <Icon
             library={iconLibrary ? iconLibrary : 'AntDesign'}

@@ -9,6 +9,6 @@ export const globalStyles = StyleSheet.create({
     flex: 1
   },
   horizontalPadding: {
-    paddingHorizontal: 25,
+    paddingHorizontal: 15,
   }
 });

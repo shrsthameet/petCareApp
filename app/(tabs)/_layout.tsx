@@ -1,9 +1,9 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+// import { StyleSheet } from 'react-native';
 
 import { useSelector } from 'react-redux';
-import { BlurView } from 'expo-blur';
+// import { BlurView } from 'expo-blur';
 import { HapticTab } from '@/components/archive/HapticTab';
 import { RootState } from '@/redux/rootReducer';
 import { Icon } from '@/components/CoreUI/Icons';
@@ -18,12 +18,12 @@ export default function TabLayout() {
         tabBarActiveTintColor: theme.colors.text,
         headerShown: false,
         tabBarButton: HapticTab,
-        tabBarBackground: () => (
-          <BlurView tint='light' intensity={100} style={StyleSheet.absoluteFill} />
-        ),
-        tabBarStyle: {
-          position: 'absolute' 
-        },
+        // tabBarBackground: () => (
+        //   <BlurView tint='light' intensity={100} style={StyleSheet.absoluteFill} />
+        // ),
+        // tabBarStyle: {
+        //   position: 'absolute'
+        // },
       }}>
       <Tabs.Screen
         name='(home)'

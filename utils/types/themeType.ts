@@ -1,8 +1,5 @@
-import { TextStyle } from 'react-native';
-
 interface TypographyProperties {
   fontSize: number;
-  fontWeight: TextStyle['fontWeight'];
 }
 
 export interface ITheme {
@@ -80,12 +77,19 @@ export interface ITheme {
       large: TypographyProperties;
     };
     fontFamily: {
+      thin: string;
+      thinItalic: string;
+      medium: string;
+      mediumItalic: string;
       regular: string;
+      semiBold: string;
+      semiBoldItalic: string;
       bold: string;
-      italic: string;
+      boldItalic: string;
     };
   };
   spacing: {
+    xxs: number;
     xs: number;
     sm: number;
     md: number;
@@ -102,14 +106,13 @@ export interface ITheme {
     curve: number;
     arch: number;
     pill: number;
+    circle: number;
   };
   shadows: {
     small: string;
     medium: string;
   };
 }
-
-// export const lightTheme: Theme = {
 //   colors: {
 //     primary: '#3498db',
 //     background: '#ffffff',

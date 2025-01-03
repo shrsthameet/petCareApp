@@ -3,18 +3,18 @@ import { ITheme } from '@/utils/types';
 
 export const lightTheme: ITheme = {
   colors: {
-    primary: 'rgb(120, 69, 172)',
+    primary: 'rgb(1, 160, 195)',
     onPrimary: 'rgb(255, 255, 255)',
-    primaryContainer: 'rgb(240, 219, 255)',
-    onPrimaryContainer: 'rgb(44, 0, 81)',
-    secondary: 'rgb(102, 90, 111)',
+    primaryContainer: 'rgb(229, 251, 255)',
+    onPrimaryContainer: 'rgb(1, 181, 217)',
+    secondary: 'rgb(164, 240, 255)', // New secondary
     onSecondary: 'rgb(255, 255, 255)',
-    secondaryContainer: 'rgb(237, 221, 246)',
-    onSecondaryContainer: 'rgb(33, 24, 42)',
-    tertiary: 'rgb(128, 81, 88)',
+    secondaryContainer: 'rgb(201,247,255)',
+    onSecondaryContainer: 'rgb(1,155,186)',
+    tertiary: 'rgb(180, 75, 60)', // New tertiary
     onTertiary: 'rgb(255, 255, 255)',
-    tertiaryContainer: 'rgb(255, 217, 221)',
-    onTertiaryContainer: 'rgb(50, 16, 23)',
+    tertiaryContainer: 'rgb(255, 205, 195)',
+    onTertiaryContainer: 'rgb(90, 30, 20)',
     error: 'rgb(186, 26, 26)',
     onError: 'rgb(255, 255, 255)',
     errorContainer: 'rgb(255, 218, 214)',
@@ -53,8 +53,9 @@ export const lightTheme: ITheme = {
     ...baseTypography
   },
   spacing: {
-    xs: 4,
-    sm: 8,
+    xxs: 4,
+    xs: 8,
+    sm: 12,
     md: 16,
     lg: 24,
     xl: 32,
@@ -69,6 +70,7 @@ export const lightTheme: ITheme = {
     curve: 4,
     arch: 10,
     pill: 25,
+    circle: 50
   },
   shadows: {
     small: '0px 2px 4px rgba(0, 0, 0, 0.1)',

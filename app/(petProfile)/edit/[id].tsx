@@ -7,8 +7,11 @@ import { ImageUpload } from '@/components/CoreUI/ImageUpload';
 import { Typography } from '@/components/CoreUI/Typography';
 import { globalStyles } from '@/styles/global';
 import {
-  ButtonTitle, ButtonVariant, ColorVariant, Size, TypographyVariant 
+  Shape,
+  ButtonTitle, ButtonVariant, ColorVariant, IconLibraryName, Size, TypographyVariant, 
+  Fonts
 } from '@/utils/enum';
+import { Input } from '@/components/CoreUI/Input';
 
 interface IFormState {
   text: string;
@@ -90,27 +93,31 @@ const EditPet = () => {
         </Column>
 
         <Column>
-          <Typography variant={TypographyVariant.Body} size={Size.Medium}>Name:</Typography>
-          {/* <Input
-          value={text}
-          onChangeText={(value) => handleChange('text', value)}
-          placeholder='Enter a name'
-          keyboardType='numeric'
-          iconName='person'
-          iconLibrary={IconLibraryName.MaterialIcons}
-          iconSize={25}
-          iconColor='black'
-        /> */}
+          <Typography variant={TypographyVariant.Body} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_Medium}>Name:</Typography>
+          <Input
+            value={text}
+            onChangeText={(value) => handleChange('text', value)}
+            placeholder='Enter a name'
+            keyboardType='numeric'
+            iconName='person'
+            iconLibrary={IconLibraryName.MaterialIcons}
+            iconSize={25}
+            // iconColor={theme}
+            leftIcon={true}
+            size={Size.Medium}
+            shape={Shape.Arch}
+          />
         </Column>
         <Column>
-          <Typography variant={TypographyVariant.Body} size={Size.Medium}>Description:</Typography>
-          {/* <Input
-          value={description}
-          onChangeText={(value) => handleChange('description', value)}
-          placeholder='Enter description'
-          multiline={true}
-          numberOfLines={4}
-        /> */}
+          <Typography variant={TypographyVariant.Body} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_Medium}>Description:</Typography>
+          <Input
+            value={description}
+            onChangeText={(value) => handleChange('description', value)}
+            placeholder='Enter description'
+            multiline={true}
+            numberOfLines={4}
+            shape={Shape.Arch}
+          />
         </Column>
 
         <Column>
@@ -128,6 +135,7 @@ const EditPet = () => {
             title={ButtonTitle.Update}
             variant={ButtonVariant.Contained}
             color={ColorVariant.Primary}
+            shape={Shape.Arch}
           />
 
           <Button 
@@ -135,6 +143,7 @@ const EditPet = () => {
             title={ButtonTitle.Delete}
             variant={ButtonVariant.Contained}
             color={ColorVariant.Error}
+            shape={Shape.Arch}
           />
         </Column>
       </Column>

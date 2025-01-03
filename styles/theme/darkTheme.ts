@@ -53,8 +53,9 @@ export const darkTheme: ITheme = {
     ...baseTypography
   },
   spacing: {
-    xs: 4,
-    sm: 8,
+    xxs: 4,
+    xs: 8,
+    sm: 12,
     md: 16,
     lg: 24,
     xl: 32,
@@ -69,6 +70,7 @@ export const darkTheme: ITheme = {
     curve: 4,
     arch: 15,
     pill: 25,
+    circle: 50
   },
   shadows: {
     small: '0px 2px 4px rgba(0, 0, 0, 0.1)',

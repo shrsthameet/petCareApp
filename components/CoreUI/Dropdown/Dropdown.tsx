@@ -18,10 +18,10 @@ import { Typography } from '../Typography';
 import { Row } from '../Flex';
 import { getDropdownStyle } from './Dropdown.style';
 import {
-  BorderRadius, IconLibraryName, OSType, Size, TypographyVariant 
+  Shape, IconLibraryName, OSType, Size, TypographyVariant 
 } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
-import { BorderRadiusType } from '@/utils/types';
+import { ShapeType } from '@/utils/types';
 
 interface Option {
   label: string;
@@ -41,7 +41,7 @@ interface DropdownProps {
   style?: StyleProp<ViewStyle>; // Optional custom styles for the select input
   isSectioned?: boolean; // Flag to indicate sectioned list
   isMultiSelect?: boolean; // Flag to allow multiple selections
-  shape?: BorderRadiusType; // Flag to display rounded corner
+  shape?: ShapeType; // Flag to display rounded corner
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -52,7 +52,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   style,
   isSectioned = false,
   isMultiSelect = false,
-  shape = BorderRadius.Flat,
+  shape = Shape.Flat,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [localSelectedValues, setLocalSelectedValues] = useState<string[]>([]);
@@ -171,13 +171,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
     : getLabelForValue(localSelectedValues[0]);
 
   // Helper function to get the border radius based on the shape
-  const getShapeStyle = (shape: BorderRadiusType) => {
+  const getShapeStyle = (shape: ShapeType) => {
     switch (shape) {
-    case BorderRadius.Curve:
+    case Shape.Curve:
       return theme.borderRadius.curve; // square corners
-    case BorderRadius.Arch:
+    case Shape.Arch:
       return theme.borderRadius.arch; // square corners
-    case BorderRadius.Pill:
+    case Shape.Pill:
       return theme.borderRadius.pill; // rounded corners
     default:
       return theme.borderRadius.flat; // default to rounded

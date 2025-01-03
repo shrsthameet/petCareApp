@@ -1,10 +1,12 @@
 import React from 'react';
+import { ScrollView } from 'react-native';
 import { Column, Row } from '@/components/CoreUI/Flex';
 import { Typography } from '@/components/CoreUI/Typography';
 import { Button } from '@/components/CoreUI/Button';
 import {
-  BorderRadius, ButtonVariant, ColorVariant, FlexWrap, Position, 
-  Size
+  Shape, ButtonVariant, ColorVariant, FlexWrap, Position, 
+  Size,
+  TypographyVariant
 } from '@/utils/enum';
 import { Dropdown } from '@/components/CoreUI/Dropdown';
 
@@ -28,37 +30,96 @@ const ComponentsUI = () => {
   };
 
   return (
-    <Column>
-      <Typography>
+    <ScrollView>
+      <Column style={{
+        marginBottom: 105
+      }}>
+        <Typography>
         Header
-      </Typography>
-      <Row flexWrap={FlexWrap.Wrap}>
+        </Typography>
+        <Row flexWrap={FlexWrap.Wrap}>
+          <Column>
+            <Button title='Button' variant={ButtonVariant.Contained} color={ColorVariant.Primary} shape={Shape.Flat} size={Size.Large} />
+          </Column>
+          <Column>
+            <Button title='Button' showIcon={true} iconPosition={Position.Left} variant={ButtonVariant.Contained} color={ColorVariant.Primary} shape={Shape.Curve} size={Size.Medium} />
+          </Column>
+          <Column>
+            <Button title='Button' variant={ButtonVariant.Contained} color={ColorVariant.Primary} shape={Shape.Arch} />
+          </Column>
+          <Column>
+            <Button title='Button' showIcon={true} iconPosition={Position.Left} variant={ButtonVariant.Contained} color={ColorVariant.Primary} shape={Shape.Pill} size={Size.Medium} />
+          </Column>
+          <Column>
+            <Button title='Button' showIcon={true} iconPosition={Position.Left} variant={ButtonVariant.Contained} color={ColorVariant.Primary} shape={Shape.Pill} size={Size.Small} />
+          </Column>
+        </Row>
         <Column>
-          <Button title='Button' variant={ButtonVariant.Contained} color={ColorVariant.Primary} shape={BorderRadius.Flat} size={Size.Large} />
+          <Dropdown
+            options={options}
+            placeholder='Select'
+            onSelect={handleSelect}
+            // style={styles.dropdown}
+            shape={Shape.Arch}
+          />
         </Column>
         <Column>
-          <Button title='Button' showIcon={true} iconPosition={Position.Left} variant={ButtonVariant.Contained} color={ColorVariant.Primary} shape={BorderRadius.Curve} size={Size.Medium} />
+          <Typography variant={TypographyVariant.Display} size={Size.Large}>
+          Display
+          </Typography>
+          <Typography variant={TypographyVariant.Display} size={Size.Medium}>
+          Display
+          </Typography>
+          <Typography variant={TypographyVariant.Display} size={Size.Small}>
+          Display
+          </Typography>
         </Column>
         <Column>
-          <Button title='Button' variant={ButtonVariant.Contained} color={ColorVariant.Primary} shape={BorderRadius.Arch} />
+          <Typography variant={TypographyVariant.Headline} size={Size.Large}>
+          Headline
+          </Typography>
+          <Typography variant={TypographyVariant.Headline} size={Size.Medium}>
+          Headline
+          </Typography>
+          <Typography variant={TypographyVariant.Headline} size={Size.Small}>
+          Headline
+          </Typography>
         </Column>
         <Column>
-          <Button title='Button' showIcon={true} iconPosition={Position.Left} variant={ButtonVariant.Contained} color={ColorVariant.Primary} shape={BorderRadius.Pill} size={Size.Medium} />
+          <Typography variant={TypographyVariant.Title} size={Size.Large}>
+          Title
+          </Typography>
+          <Typography variant={TypographyVariant.Title} size={Size.Medium}>
+          Title
+          </Typography>
+          <Typography variant={TypographyVariant.Title} size={Size.Small}>
+          Title
+          </Typography>
         </Column>
         <Column>
-          <Button title='Button' showIcon={true} iconPosition={Position.Left} variant={ButtonVariant.Contained} color={ColorVariant.Primary} shape={BorderRadius.Pill} size={Size.Small} />
+          <Typography variant={TypographyVariant.Body} size={Size.Large}>
+         Body
+          </Typography>
+          <Typography variant={TypographyVariant.Body} size={Size.Medium}>
+         Body
+          </Typography>
+          <Typography variant={TypographyVariant.Body} size={Size.Small}>
+         Body
+          </Typography>
         </Column>
-      </Row>
-      <Column>
-        <Dropdown
-          options={options}
-          placeholder='Select'
-          onSelect={handleSelect}
-          // style={styles.dropdown}
-          shape={BorderRadius.Arch}
-        />
+        <Column>
+          <Typography variant={TypographyVariant.Caption} size={Size.Large}>
+            Caption
+          </Typography>
+          <Typography variant={TypographyVariant.Caption} size={Size.Medium}>
+           Caption
+          </Typography>
+          <Typography variant={TypographyVariant.Caption} size={Size.Small}>
+          Caption
+          </Typography>
+        </Column>
       </Column>
-    </Column>
+    </ScrollView>
   );
 };
 

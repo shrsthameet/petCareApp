@@ -1,12 +1,22 @@
-import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
+import { useFonts } from 'expo-font';
 import { Provider } from 'react-redux';
-import SpaceMonoFont from '@/assets/fonts/SpaceMono-Regular.ttf';
+import MontserratThin from '@/assets/fonts/Montserrat-Thin.ttf';
+import MontserratThinItalic from '@/assets/fonts/Montserrat-ThinItalic.ttf';
+import MontserratMedium from '@/assets/fonts/Montserrat-Medium.ttf';
+import MontserratMediumItalic from '@/assets/fonts/Montserrat-MediumItalic.ttf';
+import MontserratRegular from '@/assets/fonts/Montserrat-Regular.ttf';
+import MontserratSemiBold from '@/assets/fonts/Montserrat-SemiBold.ttf';
+import MontserratSemiBoldItalic from '@/assets/fonts/Montserrat-SemiBoldItalic.ttf';
+import MontserratBold from '@/assets/fonts/Montserrat-Bold.ttf';
+import MontserratBoldItalic from '@/assets/fonts/Montserrat-BoldItalic.ttf';
+import MontserratExtraBold from '@/assets/fonts/Montserrat-ExtraBold.ttf';
+import MontserratExtraBoldItalic from '@/assets/fonts/Montserrat-ExtraBoldItalic.ttf';
 import { store } from '@/redux/store';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -14,7 +24,17 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    SpaceMono: SpaceMonoFont,
+    MontserratThin,
+    MontserratThinItalic,
+    MontserratMedium,
+    MontserratMediumItalic,
+    MontserratRegular,
+    MontserratSemiBold,
+    MontserratSemiBoldItalic,
+    MontserratBold,
+    MontserratBoldItalic,
+    MontserratExtraBold,
+    MontserratExtraBoldItalic,
   });
 
   useEffect(() => {
@@ -30,7 +50,7 @@ export default function RootLayout() {
   return (
     <Provider store={store}>
       <Stack screenOptions={{
-        headerShown: false
+        headerShown: false,
       }}>
         <Stack.Screen name='(tabs)' options={{
           headerShown: false 

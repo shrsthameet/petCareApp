@@ -1,41 +1,58 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '@/constants/Colors';
+import { ITheme, ShapeType, SizeType } from '@/utils/types';
+import { Shape, Size } from '@/utils/enum';
 
-export const inputStyles = (leftIcon?: boolean | null) => StyleSheet.create({
-  container: {
-    width: '100%',
-    paddingVertical: 2,
-  },
-  inputWrapper: {
-    position: 'relative',
-    justifyContent: 'center',
-  },
-  input: {
-    borderColor: Colors.grey,
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    fontSize: 16,
-    color: Colors.black,
-    paddingLeft: leftIcon ? 45 : 15, // Default padding for text
-  },
-  textarea: {
-    height: 150,
-    textAlignVertical: 'top',
-    paddingVertical: 10,
-  },
-  rounded: {
-    borderRadius: 50, // Make the input fully rounded
-  },
-  iconLeft: {
-    position: 'absolute',
-    left: 10,
-    zIndex: 1,
-  },
-  iconRight: {
-    position: 'absolute',
-    right: 10,
-    zIndex: 1,
-  },
-});
+function getSize(theme: ITheme, size?: SizeType) {
+  switch (size) {
+  case Size.Small:
+    return theme.spacing.xs;
+  case Size.Medium:
+    return theme.spacing.sm;
+  case Size.Large:
+    return theme.spacing.md;
+  default:
+    return theme.spacing.sm;
+  }
+}
+
+export const getInputStyles = (
+  theme: ITheme,
+  leftIcon?: boolean,
+  size?: SizeType,
+  shape?: ShapeType,
+  isFocused?: boolean // Pass focus state
+) =>
+  StyleSheet.create({
+    container: {
+      paddingVertical: 2,
+    },
+    inputWrapper: {
+      position: 'relative',
+      justifyContent: 'center',
+    },
+    input: {
+      outline: isFocused ? theme.colors.primary : theme.colors.surfaceVariant, // Change border color on focus
+      borderColor: isFocused ? theme.colors.primary : theme.colors.surfaceVariant,
+      borderWidth: 1,
+      borderRadius: shape ? theme.borderRadius[shape] : theme.borderRadius[Shape.Flat],
+      paddingVertical: getSize(theme, size),
+      fontSize: 16,
+      color: theme.colors.onBackground,
+      paddingLeft: leftIcon ? 45 : 15, // Default padding for text
+    },
+    textarea: {
+      height: 150,
+      textAlignVertical: 'top',
+      paddingVertical: 10,
+    },
+    iconLeft: {
+      position: 'absolute',
+      left: 10,
+      zIndex: 1,
+    },
+    iconRight: {
+      position: 'absolute',
+      right: 10,
+      zIndex: 1,
+    },
+  });

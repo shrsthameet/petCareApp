@@ -9,7 +9,7 @@ import { Typography } from '@/components/CoreUI/Typography';
 import { globalStyles } from '@/styles/global';
 import { Icon } from '@/components/CoreUI/Icons/Icons';
 import {
-  FlexAlignItems, FlexJustifyContent, IconLibraryName, Size, TypographyVariant 
+  FlexAlignItems, FlexJustifyContent, Fonts, IconLibraryName, Size, TypographyVariant 
 } from '@/utils/enum';
 import { Tabs } from '@/components/CoreUI/Tabs';
 import { Column, Row } from '@/components/CoreUI/Flex';
@@ -27,10 +27,10 @@ export default function PetId() {
       content: (
         <Column>
           <Column>
-            <Typography variant={TypographyVariant.Title} size={Size.Medium} fontWeight={700}>
+            <Typography variant={TypographyVariant.Title} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_SemiBold}>
               Description
             </Typography>
-            <Typography variant={TypographyVariant.Body} size={Size.Medium}>
+            <Typography variant={TypographyVariant.Body} size={Size.Small} lineHeight={22}>
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem 
               Ipsum has been the industry's standard dummy text ever since the 1500s, when an 
               unknown printer took a galley of type and scrambled it to make a type specimen book. It 
@@ -46,7 +46,7 @@ export default function PetId() {
       content: (
         <Column gap={20}>
           <Column>
-            <Typography variant={TypographyVariant.Title} size={Size.Medium} fontWeight={700}>
+            <Typography variant={TypographyVariant.Title} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_SemiBold}>
               Medical Conditions
             </Typography>
             <Typography variant={TypographyVariant.Body} size={Size.Medium}>
@@ -55,7 +55,7 @@ export default function PetId() {
           </Column>
 
           <Column gap={10}>
-            <Typography variant={TypographyVariant.Title} size={Size.Medium} fontWeight={700}>
+            <Typography variant={TypographyVariant.Title} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_SemiBold}>
               Vaccinations
             </Typography>
             <Typography variant={TypographyVariant.Body} size={Size.Medium}>
@@ -64,7 +64,7 @@ export default function PetId() {
           </Column>
 
           <Column gap={10}>
-            <Typography variant={TypographyVariant.Title} size={Size.Medium} fontWeight={700}>
+            <Typography variant={TypographyVariant.Title} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_SemiBold}>
               Medications
             </Typography>
             <Typography variant={TypographyVariant.Body} size={Size.Medium}>
@@ -113,57 +113,65 @@ export default function PetId() {
 
         {/* Detail */}
         <Column gap={20} style={[globalStyles.horizontalPadding, customStyles.contentWrapper]}>
-          <Column gap={15}>
+          <Column gap={10}>
             <Row justifyContent={FlexJustifyContent.Start} alignItems={FlexAlignItems.Center}>
-              <Typography variant={TypographyVariant.Headline} size={Size.Medium} fontWeight={600}>
+              <Typography variant={TypographyVariant.Headline} size={Size.Small} fontFamilyStyle={Fonts.Montserrat_Bold}>
                 Tommy
               </Typography>
               <Icon library={IconLibraryName.Ionicons} name='male' size={25} />
             </Row>
             <Row alignItems={FlexAlignItems.Center}>
               <Icon library={IconLibraryName.MaterialCommunityIcons} name='cake' size={15} />
-              <Typography variant={TypographyVariant.Body} size={Size.Medium}>
+              <Typography variant={TypographyVariant.Body} size={Size.Small} fontFamilyStyle={Fonts.Montserrat_Medium}>
                 02 Nov, 2018
               </Typography>
             </Row>
             <Row alignItems={FlexAlignItems.Center}>
               <Icon library={IconLibraryName.Ionicons} name='location-sharp' size={15} />
-              <Typography variant={TypographyVariant.Body} size={Size.Medium}>
+              <Typography variant={TypographyVariant.Body} size={Size.Small} fontFamilyStyle={Fonts.Montserrat_Medium}>
                 Parramatta, Sydney, 2150
               </Typography>
             </Row>
           </Column>
 
           <Row justifyContent={FlexJustifyContent.Between}>
-            <Column style={customStyles.infoCard}>
-              <Typography variant={TypographyVariant.Body} size={Size.Medium} color={theme.colors.onPrimary}fontWeight={500}>
+            <Column style={[customStyles.infoCard, {
+              backgroundColor: 'rgb(232, 242, 255)'
+            }]}>
+              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onBackground} fontFamilyStyle={Fonts.Montserrat_Medium}>
                 Age
               </Typography>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} fontWeight={600} color={theme.colors.onPrimary}>
+              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onBackground}>
                 12 year
               </Typography>
             </Column>
-            <Column style={customStyles.infoCard}>
-              <Typography variant={TypographyVariant.Body} size={Size.Medium} color={theme.colors.onPrimary} fontWeight={500}>
+            <Column style={[customStyles.infoCard, {
+              backgroundColor: 'rgb(239, 249, 232)'
+            }]}>
+              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onBackground} fontFamilyStyle={Fonts.Montserrat_Medium}>
                 Breed
               </Typography>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} fontWeight={600} color={theme.colors.onPrimary}>
+              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onBackground}>
                 Labrador
               </Typography>
             </Column>
-            <Column style={customStyles.infoCard}>
-              <Typography variant={TypographyVariant.Body} size={Size.Medium} color={theme.colors.onPrimary} fontWeight={500}>
+            <Column style={[customStyles.infoCard, {
+              backgroundColor: 'rgb(255, 238, 219)'
+            }]}>
+              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onBackground} fontFamilyStyle={Fonts.Montserrat_Medium}>
                 Nutered
               </Typography>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} fontWeight={600} color={theme.colors.onPrimary}>
+              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onBackground}>
                 Yes
               </Typography>
             </Column>
-            <Column style={customStyles.infoCard}>
-              <Typography variant={TypographyVariant.Body} size={Size.Medium} color={theme.colors.onPrimary} fontWeight={500}>
+            <Column style={[customStyles.infoCard, {
+              backgroundColor: 'rgb(229, 251, 255)'
+            }]}>
+              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onBackground} fontFamilyStyle={Fonts.Montserrat_Medium}>
                 Weight
               </Typography>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} fontWeight={600} color={theme.colors.onPrimary}>
+              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onBackground}>
                 8 Kg
               </Typography>
             </Column>
@@ -191,7 +199,8 @@ const createPetCardStyles = (theme: ITheme) => StyleSheet.create({
   },
   infoCard: {
     padding: 10,
-    backgroundColor: theme.colors.onBackground,
+    // backgroundColor: theme.colors.onBackground,
+    // backgroundColor: 'rgb(232, 242, 255)',
     borderRadius: 10,
   },
   btn: {

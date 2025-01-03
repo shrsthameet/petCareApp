@@ -1,13 +1,14 @@
 import { StyleSheet } from 'react-native';
+import { ITheme } from '@/utils/types';
 
-export const petStyles = StyleSheet.create({
+export const getPetCardStyles = (theme: ITheme) => StyleSheet.create({
   boxShadow: {
     borderRadius: 15,
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.onPrimary,
     height: 240,
     width: 200,
     // For ios shadow
-    shadowColor: '#333333',
+    shadowColor: '#a5a5a5',
     shadowOffset: {
       width: 2,
       height: 2

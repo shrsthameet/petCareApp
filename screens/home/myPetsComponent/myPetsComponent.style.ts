@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native';
+import { ITheme } from '@/utils/types';
 
-export const myPetsStyles = StyleSheet.create({
+export const getMyPetStyles = (theme: ITheme) => StyleSheet.create({
   petsContainer: {
-    marginTop: 30,
+    paddingHorizontal: theme.spacing.md,
   },
   petsContent: {
-    paddingTop: 10,
+    paddingTop: 5,
     paddingBottom: 20,
-    paddingHorizontal: 25,
+    paddingHorizontal: 8,
   },
 });

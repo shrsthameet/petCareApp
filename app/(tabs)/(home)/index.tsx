@@ -1,31 +1,43 @@
 import React from 'react';
-import { ScrollView, TouchableOpacity } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { 
+  ScrollView, 
+  // TouchableOpacity 
+} from 'react-native';
+// import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { GreetingHeader } from '@/screens/home/greetingHeader';
+import { ServicesComponent } from '@/screens/home/servicesComponent';
 import { ReminderComponent } from '@/screens/home/reminderComponent';
+import { Column } from '@/components/CoreUI/Flex';
 import { MyPetsComponent } from '@/screens/home/myPetsComponent';
-import { Typography } from '@/components/CoreUI/Typography';
-import { toggleTheme } from '@/redux/themeSlice';
+// import { Typography } from '@/components/CoreUI/Typography';
+// import { toggleTheme } from '@/redux/themeSlice';
 
 export default function HomeScreen() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <GreetingHeader />
+      <Column gap={30} style={{
+        marginBottom: 85,
+      }}>
+      
+        <GreetingHeader />
 
-      <TouchableOpacity onPress={() => dispatch(toggleTheme())}>
+        <ServicesComponent />
+
+        {/* <TouchableOpacity onPress={() => dispatch(toggleTheme())}>
         <Typography>
           Dark mode
         </Typography>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
-      {/* Reminder Section */}
-      <ReminderComponent />
+        {/* Reminder Section */}
+        <ReminderComponent />
 
-      {/* My pets */}
-      <MyPetsComponent />
-      {/* <Column gap={15}>
+        {/* My pets */}
+        <MyPetsComponent />
+        {/* <Column gap={15}>
         <Column>
           <Typography variant={TypographyVariant.Display} size={Size.Large} color={theme.colors.text}>
             Display Lg
@@ -86,6 +98,8 @@ export default function HomeScreen() {
           </Typography>
         </Column>
       </Column> */}
+
+      </Column>
     </ScrollView>
   );
 }

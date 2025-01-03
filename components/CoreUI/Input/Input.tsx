@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   TextInput, TextInputProps, StyleProp, ViewStyle, TextStyle, View
 } from 'react-native';
-import { FlexContainer } from '../FlexContainer';
+import { useSelector } from 'react-redux';
 import { Icon } from '../Icons/Icons';
-import { inputStyles } from './Input.style';
-import { IconLibraries } from '@/utils/types';
+import { Column } from '../Flex';
+import { getInputStyles } from './Input.style';
+import { ShapeType, IconLibraries, SizeType } from '@/utils/types';
+import { RootState } from '@/redux/rootReducer';
+import { Shape, Size } from '@/utils/enum';
 
 interface InputProps extends TextInputProps {
   containerStyle?: StyleProp<ViewStyle>;
@@ -14,8 +17,8 @@ interface InputProps extends TextInputProps {
   value: string;
   onChangeText: (text: string) => void;
   multiline?: boolean;
-  size?: 'small' | 'medium' | 'large'; // Add size prop
-  isRounded?: boolean; // Add isRounded prop
+  size?: SizeType; // Add size prop
+  shape?: ShapeType; // Add isRounded prop
   rightIcon?: boolean; // Right icon component
   leftIcon?: boolean; // Left icon component
   iconName?: string; // Icon name
@@ -34,8 +37,8 @@ export const Input: React.FC<InputProps> = ({
   value,
   onChangeText,
   multiline = false,
-  size = 'medium', // Default size
-  isRounded = false, // Default to false
+  size = Size.Medium, // Default size
+  shape = Shape.Flat, // Default to false
   rightIcon = false,
   leftIcon = false,
   iconName,
@@ -47,34 +50,28 @@ export const Input: React.FC<InputProps> = ({
   editable = true, // Editable input
   ...rest
 }) => {
-  // const getInputHeight = () => {
-  //   switch (size) {
-  //   case 'small': return 40;
-  //   case 'large': return 60;
-  //   default: return 50; // medium as default
-  //   }
-  // };
+  const { theme } = useSelector((state: RootState) => state.theme);
+  const [isFocused, setIsFocused] = useState(false); // Add focus state
+
+  const styles = getInputStyles(theme, leftIcon, size, shape, isFocused); // Pass focus state to styles
+  const customIconColor = iconColor ? iconColor : theme.colors.outline;
 
   return (
-    <FlexContainer style={[inputStyles().container, containerStyle as ViewStyle]}>
-      <View style={inputStyles().inputWrapper}>
+    <Column style={[styles.container, containerStyle as ViewStyle]}>
+      <View style={[styles.inputWrapper]}>
         {leftIcon && (
           <Icon
             library={iconLibrary ? iconLibrary : 'AntDesign'}
             name={iconName}
             size={iconSize}
-            color={iconColor}
-            style={inputStyles().iconLeft}
+            color={customIconColor}
+            style={styles.iconLeft}
           />
         )}
         <TextInput
           style={[
-            inputStyles(leftIcon).input,
-            multiline && inputStyles().textarea,
-            {
-              // height: getInputHeight() 
-            }, // Adjust height based on size prop
-            isRounded && inputStyles().rounded, // Apply rounded style if isRounded is true
+            styles.input,
+            multiline && styles.textarea,
             inputStyle,
           ]}
           placeholder={placeholder}
@@ -84,6 +81,8 @@ export const Input: React.FC<InputProps> = ({
           numberOfLines={numberOfLines} // Multiline prop for number of lines
           maxLength={maxLength} // Max length for input
           editable={editable} // Editable input
+          onFocus={() => setIsFocused(true)} // Handle focus
+          onBlur={() => setIsFocused(false)} // Handle blur
           {...rest} // Spread other props like keyboardType, returnKeyType, etc.
         />
         {rightIcon && (
@@ -92,10 +91,10 @@ export const Input: React.FC<InputProps> = ({
             name={iconName}
             size={iconSize}
             color={iconColor}
-            style={inputStyles().iconRight}
+            style={styles.iconRight}
           />
         )}
       </View>
-    </FlexContainer>
+    </Column>
   );
 };

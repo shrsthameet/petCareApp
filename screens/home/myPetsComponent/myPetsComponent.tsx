@@ -2,32 +2,36 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Link } from 'expo-router';
-import { myPetsStyles } from './myPetsComponent.style';
+import { getMyPetStyles } from './myPetsComponent.style';
 import GingerImg from '@/assets/images/ginger.jpg';
 import {
-  FlexAlignItems, FlexJustifyContent, Size, TypographyVariant 
+  ColorVariant,
+  FlexAlignItems, FlexJustifyContent, Fonts, Size, TypographyVariant 
 } from '@/utils/enum';
 import { Typography } from '@/components/CoreUI/Typography';
-import { globalStyles } from '@/styles/global';
 import LabImg from '@/assets/images/lab.jpg';
 import { Column, Row } from '@/components/CoreUI/Flex';
 import { RootState } from '@/redux/rootReducer';
 import { PetCard } from '@/components/petCard';
+import { IconButton } from '@/components/CoreUI/IconButton';
 
 export const MyPetsComponent = () => {
   const { theme } = useSelector((state: RootState) => state.theme);
+
+  const styles = getMyPetStyles(theme);
+
   return (
-    <Column gap={10} style={myPetsStyles.petsContainer}>
-      <Row justifyContent={FlexJustifyContent.Between} alignItems={FlexAlignItems.Center} style={globalStyles.horizontalPadding}>
-        <Typography variant={TypographyVariant.Title} size={Size.Large} color={theme.colors.text} fontWeight='700'>
+    <Column gap={10} style={styles.petsContainer}>
+      <Row justifyContent={FlexJustifyContent.Between} alignItems={FlexAlignItems.Center}>
+        <Typography variant={TypographyVariant.Title} size={Size.Medium} color={theme.colors.text} fontFamilyStyle={Fonts.Montserrat_SemiBold}>
           My Pets
         </Typography>
-        {/* <Link href='/(petProfile)/addNewPet'> */}
-        {/* <IconButton icon='plus' mode={ButtonVariant.Contained} /> */}
-        {/* </Link> */}
+        <Link href='/'>
+          <IconButton iconName='plus' iconColor={ColorVariant.Primary} size={Size.Small} />
+        </Link>
       </Row>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <Row gap={30} style={myPetsStyles.petsContent}>
+        <Row gap={30} style={styles.petsContent}>
 
           <Link href='/(petProfile)/view/1'>
             <PetCard

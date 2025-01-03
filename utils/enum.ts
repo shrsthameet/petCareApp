@@ -1,13 +1,15 @@
 export enum Fonts {
-  Montserrat_Thin = 'Montserrat_100Thin',
-  Montserrat_ExtraLight = 'Montserrat_200ExtraLight',
-  Montserrat_Light = 'Montserrat_300Light',
-  Montserrat_Regular = 'Montserrat_400Regular',
-  Montserrat_Medium = 'Montserrat_500Medium',
-  Montserrat_SemiBold = 'Montserrat_600SemiBold',
-  Montserrat_Bold = 'Montserrat_700Bold',
-  Montserrat_ExtraBold = 'Montserrat_800ExtraBold',
-  Montserrat_Black = 'Montserrat_900Black',
+  Montserrat_Thin = 'MontserratThin',
+  Montserrat_Thin_Italic = 'MontserratThinItalic',
+  Montserrat_Medium = 'MontserratMedium',
+  Montserrat_Medium_Italic = 'MontserratMediumItalic',
+  Montserrat_Regular = 'MontserratRegular',
+  Montserrat_SemiBold = 'MontserratSemiBold',
+  Montserrat_SemiBold_Italic = 'MontserratSemiBoldItalic',
+  Montserrat_Bold = 'MontserratBold',
+  Montserrat_Bold_Italic = 'MontserratBoldItalic',
+  Montserrat_Extra_Bold = 'MontserratExtraBold',
+  Montserrat_Extra_Bold_Italic = 'MontserratExtraBoldItalic',
 }
 
 export enum Theme {
@@ -106,9 +108,10 @@ export enum FlexWrap {
   wrapReverse = 'wrap-reverse',
 }
 
-export enum BorderRadius {
+export enum Shape {
   Flat = 'flat',
   Curve = 'curve',
   Arch = 'arch',
   Pill = 'pill',
+  Circle = 'circle'
 }

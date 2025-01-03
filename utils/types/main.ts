@@ -44,6 +44,18 @@ export type ThemeVariant = 'light' | 'dark';
 // Define the available variants
 export type TypographyTextAlign = 'left' | 'center' | 'right' | 'justify';
 export type TypographyVariantsType = 'display' | 'headline' | 'title' | 'body' | 'caption';
+export type TypographyFontType = 
+'MontserratThin' |
+'MontserratThinItalic' |
+'MontserratMedium' |
+'MontserratMediumItalic' |
+'MontserratRegular' |
+'MontserratSemiBold' |
+'MontserratSemiBoldItalic' |
+'MontserratBold' |
+'MontserratBoldItalic' |
+'MontserratExtraBold' |
+'MontserratExtraBoldItalic';
 
 // Define size
 export type SizeType = 'small' | 'medium' | 'large';
@@ -59,7 +71,8 @@ export type FlexWrapType = 'wrap' | 'nowrap' | 'wrap-reverse';
 // Define button type
 export type ButtonTitleType = 'Submit' | 'Edit' | 'Delete' | 'Save' | 'Update';
 export type ButtonVariantType = 'text' | 'outlined' | 'contained';
-export type BorderRadiusType = 'flat' | 'curve' | 'arch' | 'pill';
+
+export type ShapeType = 'flat' | 'curve' | 'arch' | 'pill' | 'circle';
 
 // Define available icon libraries
 export const IconLibraries = {
