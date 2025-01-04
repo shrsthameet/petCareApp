@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,149 +6,146 @@ import {
   FlatList,
   SectionList,
   Modal,
-  ViewStyle,
   StyleProp,
-  Pressable,
-  Platform,
-  findNodeHandle,
+  ViewStyle,
 } from 'react-native';
 import { useSelector } from 'react-redux';
-import { Icon } from '../Icons/Icons';
-import { Typography } from '../Typography';
 import { Row } from '../Flex';
-import { getDropdownStyle } from './Dropdown.style';
+import { Icon } from '../Icons';
+import { getDropdownStyles } from './Dropdown.style';
 import {
-  Shape, IconLibraryName, OSType, Size, TypographyVariant 
+  FlexAlignItems, FlexJustifyContent, IconLibraryName, Shape, 
+  Size
 } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
-import { ShapeType } from '@/utils/types';
+import { ShapeType, SizeType } from '@/utils/types';
 
-interface Option {
+type DropdownItem = {
   label: string;
   value: string;
-}
+};
 
-interface Section {
+type SectionedDropdownItem = {
   title: string;
-  data: Option[];
-}
+  data: DropdownItem[];
+};
 
-interface DropdownProps {
-  options: Option[] | Section[]; // Flat options or sectioned options
-  placeholder?: string; // Placeholder text
-  onSelect: (values: string | string[]) => void; // Callback when options are selected
-  selectedValues?: string | string[]; // Allow selected values as either a string or an array of strings
-  style?: StyleProp<ViewStyle>; // Optional custom styles for the select input
-  isSectioned?: boolean; // Flag to indicate sectioned list
-  isMultiSelect?: boolean; // Flag to allow multiple selections
-  shape?: ShapeType; // Flag to display rounded corner
-}
+type DropdownProps = {
+  items: DropdownItem[] | SectionedDropdownItem[];
+  onSelect: (value: string[] | string) => void;
+  placeholder?: string;
+  isSectioned?: boolean;
+  isMultiSelect?: boolean;
+  selectedValues?: string | string[]; // Preselected values
+  style?: StyleProp<ViewStyle>; // Custom styles
+  shape?: ShapeType;
+  size?: SizeType; // Add size prop
+};
 
 export const Dropdown: React.FC<DropdownProps> = ({
-  options,
-  placeholder = 'Select options',
+  items,
   onSelect,
-  selectedValues = '',
-  style,
+  placeholder = 'Select an item',
   isSectioned = false,
   isMultiSelect = false,
+  selectedValues = '',
+  style,
   shape = Shape.Flat,
+  size = Size.Medium, // Default size
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [localSelectedValues, setLocalSelectedValues] = useState<string[]>([]);
-  const [dropdownPosition, setDropdownPosition] = useState({
-    top: 0,
-    left: 0,
-    width: 0,
-  });
-  const selectRef = useRef<View>(null); // Use View ref instead of TouchableOpacity
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
   const { theme } = useSelector((state: RootState) => state.theme);
 
-  const customStyles = getDropdownStyle(theme);
+  const styles = getDropdownStyles(theme, shape, size);
 
-  // Initialize local selected values based on selectedValues prop
-  React.useEffect(() => {
+  // Only update the selectedItems state if selectedValues changes
+  useEffect(() => {
     if (typeof selectedValues === 'string') {
-      setLocalSelectedValues([selectedValues]);
+      setSelectedItems([selectedValues]);
     } else if (Array.isArray(selectedValues)) {
-      setLocalSelectedValues(selectedValues);
+      setSelectedItems(selectedValues);
     }
   }, [selectedValues]);
 
-  const handleOptionPress = (value: string) => {
+  const handleSelect = (item: DropdownItem) => {
+    let updatedSelection = [...selectedItems];
     if (isMultiSelect) {
-      let updatedSelectedValues = [...localSelectedValues];
-      if (updatedSelectedValues.includes(value)) {
-        updatedSelectedValues = updatedSelectedValues.filter((item) => item !== value);
+      // Toggle the item in the selected items
+      if (updatedSelection.includes(item.value)) {
+        updatedSelection = updatedSelection.filter((value) => value !== item.value);
       } else {
-        updatedSelectedValues.push(value);
+        updatedSelection.push(item.value);
       }
-      setLocalSelectedValues(updatedSelectedValues);
-      onSelect(updatedSelectedValues);
     } else {
-      setLocalSelectedValues([value]);
-      onSelect(value);
-      setIsVisible(false); // Close dropdown after selecting an item in single-select mode
+      updatedSelection = [item.value]; // Single selection
+      setIsVisible(false);
     }
+    setSelectedItems(updatedSelection);
+    onSelect(updatedSelection);
   };
 
-  const openDropdown = () => {
-    const nodeHandle = findNodeHandle(selectRef.current);
-    if (nodeHandle) {
-      selectRef.current?.measure((fx, fy, width, height, px, py) => {
-        const additionalOffset = Platform.OS === OSType.ANDROID ? -22 : 5; // Adjust for Android
-        setDropdownPosition({
-          top: py + height + additionalOffset,
-          left: px,
-          width: width,
-        });
-      });
-    }
-    setIsVisible(true);
-  };
+  const isSelected = (value: string) => selectedItems.includes(value);
 
-  const renderOption = ({ item }: { item: Option }) => (
-    <TouchableOpacity
-      onPress={() => handleOptionPress(item.value)}
-      style={[
-        customStyles.option,
-        localSelectedValues.includes(item.value) && customStyles.selectedBackground,
-      ]}
-    >
-      <Text style={customStyles.optionText}>{item.label}</Text>
-      {localSelectedValues.includes(item.value) && (
-        <Icon name='check' library={IconLibraryName.FontAwesome5} size={15} />
+  const renderFlatList = () => (
+    <FlatList
+      data={items as DropdownItem[]}
+      keyExtractor={(item) => item.value}
+      renderItem={({ item }) => (
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => handleSelect(item)}
+        >
+          <Row justifyContent={FlexJustifyContent.Between}>
+            <Text style={styles.itemText}>{item.label}</Text>
+            {isSelected(item.value) && (
+              <Icon
+                name='check'
+                library={IconLibraryName.Entypo}
+                size={16}
+                color={theme.colors.primary}
+              />
+            )}
+          </Row>
+        </TouchableOpacity>
       )}
-    </TouchableOpacity>
+    />
   );
 
-  const renderSectionHeader = ({ section }: { section: Section }) => (
-    <Text style={customStyles.sectionHeader}>{section.title}</Text>
+  const renderSectionHeader = ({ section }: { section: SectionedDropdownItem }) => (
+    <Text style={styles.sectionHeader}>{section.title}</Text>
   );
 
-  const renderContent = () => {
-    if (isSectioned) {
-      return (
-        <SectionList
-          sections={options as Section[]}
-          renderItem={renderOption}
-          renderSectionHeader={renderSectionHeader}
-          keyExtractor={(item) => item.value}
-        />
-      );
-    }
-    return (
-      <FlatList
-        data={options as Option[]}
-        renderItem={renderOption}
-        keyExtractor={(item) => item.value}
-      />
-    );
-  };
+  const renderSectionList = () => (
+    <SectionList
+      sections={items as SectionedDropdownItem[]}
+      keyExtractor={(item) => item.value}
+      renderSectionHeader={renderSectionHeader}
+      renderItem={({ item }) => (
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => handleSelect(item)}
+        >
+          <Row justifyContent={FlexJustifyContent.Between}>
+            <Text style={styles.itemText}>{item.label}</Text>
+            {isSelected(item.value) && (
+              <Icon
+                name='check'
+                library={IconLibraryName.Entypo}
+                size={16}
+                color={theme.colors.primary}
+              />
+            )}
+          </Row>
+        </TouchableOpacity>
+      )}
+    />
+  );
 
   const getLabelForValue = (value: string): string | undefined => {
     if (isSectioned) {
-      const sections = options as Section[];
+      const sections = items as SectionedDropdownItem[];
       for (const section of sections) {
         const option = section.data.find((o) => o.value === value);
         if (option) {
@@ -156,81 +153,64 @@ export const Dropdown: React.FC<DropdownProps> = ({
         }
       }
     } else {
-      const flatOptions = options as Option[];
-      const option = flatOptions.find((o) => o.value === value);
+      const flatOptions = items as DropdownItem[];
+      const option = flatOptions?.find((o) => o.value === value);
       return option?.label;
     }
     return undefined;
   };
 
-  const selectedLabels = isMultiSelect
-    ? localSelectedValues
+  const selectedLabels: string | string[] | undefined = isMultiSelect
+    ? selectedItems
       .map((value) => getLabelForValue(value))
       .filter(Boolean)
       .join(', ')
-    : getLabelForValue(localSelectedValues[0]);
-
-  // Helper function to get the border radius based on the shape
-  const getShapeStyle = (shape: ShapeType) => {
-    switch (shape) {
-    case Shape.Curve:
-      return theme.borderRadius.curve; // square corners
-    case Shape.Arch:
-      return theme.borderRadius.arch; // square corners
-    case Shape.Pill:
-      return theme.borderRadius.pill; // rounded corners
-    default:
-      return theme.borderRadius.flat; // default to rounded
-    }
-  };
-
-  const dropDownStyle: ViewStyle = {
-    paddingVertical: 12,
-    paddingHorizontal: 15,
-    borderWidth: 1,
-    borderColor: theme.colors.border, // Use border color from theme
-    borderRadius: getShapeStyle(shape),
-    backgroundColor: theme.colors.white, // Use white color from theme
-    // width: 120
-    position: 'relative'
-  };
+    : getLabelForValue(selectedItems[0]);
 
   return (
-    <Row style={[customStyles.container, style]}>
-      <View ref={selectRef} style={[dropDownStyle, style]}>
-        <Pressable onPress={openDropdown} style={customStyles.selectContainer}>
-          <Typography variant={TypographyVariant.Body} size={Size.Small} style={customStyles.selectedText}>
+    <View style={[styles.container, style]}>
+      <TouchableOpacity
+        style={styles.dropdownButton}
+        onPress={() => setIsVisible(true)}
+      >
+        <Row alignItems={FlexAlignItems.Center} justifyContent={FlexJustifyContent.Between}>
+          <Text style={styles.buttonText}>
             {selectedLabels || placeholder}
-          </Typography>
+          </Text>
           <Icon
             name={isVisible ? 'chevron-up' : 'chevron-down'}
             library={IconLibraryName.FontAwesome5}
             size={15}
+            color={theme.colors.outline}
           />
-        </Pressable>
-      </View>
-
-      {isVisible && (
-        <Modal transparent={true} visible={isVisible}>
-          <TouchableOpacity
-            style={customStyles.modalOverlay}
-            onPress={() => setIsVisible(false)}
-          >
-            <View
-              style={[
-                customStyles.dropdown,
-                {
-                  top: dropdownPosition.top,
-                  left: dropdownPosition.left,
-                  width: dropdownPosition.width,
-                },
-              ]}
-            >
-              {renderContent()}
-            </View>
-          </TouchableOpacity>
-        </Modal>
-      )}
-    </Row>
+        </Row>
+      </TouchableOpacity>
+      <Modal
+        visible={isVisible}
+        transparent
+        animationType='slide'
+      >
+        <TouchableOpacity
+          style={styles.overlay}
+          onPress={() => setIsVisible(false)}
+        >
+          <View style={styles.dropdownContainer}>
+            <Row justifyContent={FlexJustifyContent.End}>
+              <TouchableOpacity
+                onPress={() => setIsVisible(false)}
+              >
+                <Icon
+                  name={'cross'}
+                  library={IconLibraryName.Entypo}
+                  size={20}
+                  color={theme.colors.outline}
+                />
+              </TouchableOpacity>
+            </Row>
+            {isSectioned ? renderSectionList() : renderFlatList()}
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    </View>
   );
 };

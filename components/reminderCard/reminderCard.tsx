@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { createReminderStyles } from './reminderCard.style';
 import { Column, Row } from '@/components/CoreUI/Flex';
 import {
-  FlexJustifyContent, Fonts, Size, TypographyVariant 
+  FlexJustifyContent, Fonts, IconLibraryName, Size, TypographyVariant 
 } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
 import { Icon } from '@/components/CoreUI/Icons';
@@ -23,7 +23,7 @@ export const ReminderCard: FC<IReminderCardProps> = ({ background }) => {
     }]}>
       <Column gap={30}>
         <Row alignItems='center' gap={10}>
-          <Icon library='FontAwesome' name='stethoscope' color={theme.colors.onPrimary} size={20} />
+          <Icon library={IconLibraryName.FontAwesome} name='stethoscope' color={theme.colors.onPrimary} size={20} />
           <Typography variant={TypographyVariant.Title} size={Size.Medium} color={theme.colors.onPrimary} fontFamilyStyle={Fonts.Montserrat_SemiBold}>
             Vaccination
           </Typography>
@@ -31,14 +31,14 @@ export const ReminderCard: FC<IReminderCardProps> = ({ background }) => {
 
         <Row alignItems='center' justifyContent='center' gap={15}>
           <Row>
-            <Icon library='MaterialCommunityIcons' name='alarm' color={theme.colors.onPrimary} size={15} />
+            <Icon library={IconLibraryName.MaterialCommunityIcons} name='alarm' color={theme.colors.onPrimary} size={15} />
             <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onPrimary} fontFamilyStyle={Fonts.Montserrat_Medium}>
               09:00 AM
             </Typography>
           </Row>
 
           <Row>
-            <Icon library='AntDesign' name='calendar' color={theme.colors.onPrimary} size={15} />
+            <Icon library={IconLibraryName.AntDesign} name='calendar' color={theme.colors.onPrimary} size={15} />
             <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onPrimary} fontFamilyStyle={Fonts.Montserrat_Medium}>
               14 November, 2024
             </Typography>
@@ -48,7 +48,7 @@ export const ReminderCard: FC<IReminderCardProps> = ({ background }) => {
       </Column>
 
       <Column>
-        <Icon library='Fontisto' name='injection-syringe' color={theme.colors.onPrimary} size={45} />
+        <Icon library={IconLibraryName.Fontisto} name='injection-syringe' color={theme.colors.onPrimary} size={45} />
       </Column>
     </Row>
   );

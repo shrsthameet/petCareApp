@@ -71,6 +71,7 @@ export enum IconLibraryName {
   FontAwesome6 = 'FontAwesome6',
   Fontisto = 'Fontisto',
   AntDesign = 'AntDesign',
+  Entypo = 'Entypo'
 }
 
 export enum TypographyVariant {

@@ -194,14 +194,13 @@ const createPetCardStyles = (theme: ITheme) => StyleSheet.create({
   },
   contentWrapper: {
     backgroundColor: theme.colors.onPrimary,
-    paddingTop: 15,
+    paddingTop: 5,
     marginBottom: 35
   },
   infoCard: {
     padding: 10,
-    // backgroundColor: theme.colors.onBackground,
-    // backgroundColor: 'rgb(232, 242, 255)',
     borderRadius: 10,
+    width: 85
   },
   btn: {
     width: '50%'

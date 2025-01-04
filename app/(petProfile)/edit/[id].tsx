@@ -123,9 +123,11 @@ const EditPet = () => {
         <Column>
           <Dropdown
             selectedValues={petType}
-            options={sections}
+            items={sections}
             onSelect={(value) => handleChange('petType', value)}
-            isSectioned={true}
+            isSectioned
+            // isMultiSelect
+            shape={Shape.Arch}
           />
         </Column>
 

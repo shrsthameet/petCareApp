@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView } from 'react-native';
 import { Column, Row } from '@/components/CoreUI/Flex';
 import { Typography } from '@/components/CoreUI/Typography';
@@ -6,11 +6,19 @@ import { Button } from '@/components/CoreUI/Button';
 import {
   Shape, ButtonVariant, ColorVariant, FlexWrap, Position, 
   Size,
-  TypographyVariant
+  TypographyVariant,
+  IconLibraryName
 } from '@/utils/enum';
 import { Dropdown } from '@/components/CoreUI/Dropdown';
+import { Menu } from '@/components/CoreUI/Menu';
 
 const ComponentsUI = () => {
+  const [menuVisible, setMenuVisible] = useState<boolean>(false);
+  
+  const toggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  };
+
   // Sample data for the dropdown options
   const options = [
     {
@@ -28,6 +36,22 @@ const ComponentsUI = () => {
   const handleSelect = (values: string | string[]) => {
     console.log('Selected values:', values);
   };
+
+  const handleMenuItemPress = (label: string) => {
+    console.log(`${label} pressed`);
+  };
+
+  const menuItems = [
+    {
+      label: 'Profile', onPress: () => handleMenuItemPress('Profile') 
+    },
+    {
+      label: 'Settings', onPress: () => handleMenuItemPress('Settings') 
+    },
+    {
+      label: 'Logout', onPress: () => handleMenuItemPress('Logout') 
+    }
+  ];
 
   return (
     <ScrollView>
@@ -56,7 +80,7 @@ const ComponentsUI = () => {
         </Row>
         <Column>
           <Dropdown
-            options={options}
+            items={options}
             placeholder='Select'
             onSelect={handleSelect}
             // style={styles.dropdown}
@@ -118,6 +142,18 @@ const ComponentsUI = () => {
           Caption
           </Typography>
         </Column>
+        <Row>
+          <Menu
+            menuItems={menuItems}
+            iconName='dots-three-vertical'
+            iconSize={24}
+            iconColor='#007BFF'
+            iconLibrary={IconLibraryName.Entypo}
+            menuVisible={menuVisible}
+            toggleMenu={toggleMenu}
+            position='right'
+          />
+        </Row>
       </Column>
     </ScrollView>
   );

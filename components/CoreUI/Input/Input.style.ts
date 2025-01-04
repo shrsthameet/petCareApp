@@ -1,19 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { ITheme, ShapeType, SizeType } from '@/utils/types';
-import { Shape, Size } from '@/utils/enum';
-
-function getSize(theme: ITheme, size?: SizeType) {
-  switch (size) {
-  case Size.Small:
-    return theme.spacing.xs;
-  case Size.Medium:
-    return theme.spacing.sm;
-  case Size.Large:
-    return theme.spacing.md;
-  default:
-    return theme.spacing.sm;
-  }
-}
+import { Shape } from '@/utils/enum';
+import { getSize } from '@/utils/types/appUtils';
 
 export const getInputStyles = (
   theme: ITheme,

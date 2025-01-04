@@ -6,7 +6,8 @@ import {
   Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
-  FontAwesome
+  FontAwesome,
+  Entypo
 } from '@expo/vector-icons';
 /** A high-level generic object. */
 
@@ -84,4 +85,5 @@ export const IconLibraries = {
   FontAwesome6: FontAwesome6,
   Fontisto: Fontisto,
   AntDesign: AntDesign,
+  Entypo: Entypo
 };
