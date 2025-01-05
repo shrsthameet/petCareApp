@@ -59,7 +59,8 @@ export enum ButtonTitle {
   Delete = 'Delete',
   Save = 'Save',
   Update = 'Update',
-  Login = 'Login'
+  Login = 'Login',
+  Register = 'Register'
 }
 
 export enum IconLibraryName {
@@ -115,4 +116,15 @@ export enum Shape {
   Arch = 'arch',
   Pill = 'pill',
   Circle = 'circle'
+}
+
+export enum InputField {
+  Email = 'email',
+  Password = 'password',
+  Text = 'text'
+}
+
+export enum FormTitles {
+  Login = 'Login',
+  Regsiter = 'Register'
 }

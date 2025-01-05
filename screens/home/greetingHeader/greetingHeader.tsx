@@ -12,7 +12,7 @@ export const GreetingHeader: FC = () => {
       style={[greetingHeaderStyles.greetingContainer, globalStyles.horizontalPadding]}
     >
       <Column>
-        <Typography variant={TypographyVariant.Title} size={Size.Medium}>
+        <Typography variant={TypographyVariant.Title} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_Medium}>
           Good morning,
           {/* <Typography variant={TypographyVariant.Title} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_Bold}>
             Yuvisha

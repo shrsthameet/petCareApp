@@ -19,7 +19,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
     if (!isAuthenticated && currentPath !== '/auth/login' && !isLoading) {
       router.replace('/auth/login');
     }
-    if (isAuthenticated && (currentPath === '/auth/login' || currentPath === '/register')) {
+    if (isAuthenticated && (currentPath === '/auth/login' || currentPath === '/auth/register')) {
       router.replace('/(tabs)');
     }
   }, [isAuthenticated, isLoading, segments, router]);

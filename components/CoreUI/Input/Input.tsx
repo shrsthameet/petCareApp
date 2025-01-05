@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
-  TextInput, TextInputProps, StyleProp, ViewStyle, TextStyle, View
+  TextInput, TextInputProps, StyleProp, ViewStyle, TextStyle, View,
+  Pressable
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Icon } from '../Icons/Icons';
@@ -8,14 +9,14 @@ import { Column } from '../Flex';
 import { getInputStyles } from './Input.style';
 import { ShapeType, IconLibraries, SizeType } from '@/utils/types';
 import { RootState } from '@/redux/rootReducer';
-import { Shape, Size } from '@/utils/enum';
+import { IconLibraryName, Shape, Size } from '@/utils/enum';
 
 interface InputProps extends TextInputProps {
   containerStyle?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextStyle>;
   placeholder?: string;
   value: string;
-  onChangeText: (text: string) => void;
+  onChangeText?: (text: string) => void;
   multiline?: boolean;
   size?: SizeType; // Add size prop
   shape?: ShapeType; // Add isRounded prop
@@ -28,6 +29,7 @@ interface InputProps extends TextInputProps {
   numberOfLines?: number; // Multiline input number of lines
   maxLength?: number; // Maximum number of characters
   editable?: boolean; // Editable prop
+  secureTextEntry?: boolean; // For password input
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -48,13 +50,19 @@ export const Input: React.FC<InputProps> = ({
   numberOfLines, // Multiline prop for number of lines
   maxLength, // Max length for input
   editable = true, // Editable input
+  secureTextEntry = false, // By default it's false
   ...rest
 }) => {
   const { theme } = useSelector((state: RootState) => state.theme);
   const [isFocused, setIsFocused] = useState(false); // Add focus state
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
   const styles = getInputStyles(theme, leftIcon, size, shape, isFocused); // Pass focus state to styles
   const customIconColor = iconColor ? iconColor : theme.colors.outline;
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   return (
     <Column style={[styles.container, containerStyle as ViewStyle]}>
@@ -83,6 +91,7 @@ export const Input: React.FC<InputProps> = ({
           editable={editable} // Editable input
           onFocus={() => setIsFocused(true)} // Handle focus
           onBlur={() => setIsFocused(false)} // Handle blur
+          secureTextEntry={secureTextEntry && !showPassword}
           {...rest} // Spread other props like keyboardType, returnKeyType, etc.
         />
         {rightIcon && (
@@ -93,6 +102,20 @@ export const Input: React.FC<InputProps> = ({
             color={iconColor}
             style={styles.iconRight}
           />
+        )}
+        {secureTextEntry && (
+          <Pressable
+            style={styles.iconRight}
+            onPress={togglePasswordVisibility} // Toggle visibility on press
+          >
+            <Icon
+              name={showPassword ? 'eye' : 'eye-slash'}
+              size={iconSize}
+              color={customIconColor}
+              
+              library={IconLibraryName.FontAwesome}
+            />
+          </Pressable>
         )}
       </View>
     </Column>

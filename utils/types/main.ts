@@ -70,10 +70,15 @@ export type FlexAlignItemsType = 'flex-start' | 'center' | 'flex-end' | 'stretch
 export type FlexWrapType = 'wrap' | 'nowrap' | 'wrap-reverse';
 
 // Define button type
-export type ButtonTitleType = 'Submit' | 'Edit' | 'Delete' | 'Save' | 'Update';
+export type ButtonTitleType = 'Submit' | 'Edit' | 'Delete' | 'Save' | 'Update' | 'Register';
 export type ButtonVariantType = 'text' | 'outlined' | 'contained';
 
 export type ShapeType = 'flat' | 'curve' | 'arch' | 'pill' | 'circle';
+
+// Form fields type
+export type InputFieldType = 'email' | 'password' | 'text';
+
+export type FormTitlesType = 'Login' | 'Register';
 
 // Define available icon libraries
 export const IconLibraries = {

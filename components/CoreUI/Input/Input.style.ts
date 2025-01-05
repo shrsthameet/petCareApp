@@ -27,6 +27,7 @@ export const getInputStyles = (
       fontSize: 16,
       color: theme.colors.onBackground,
       paddingLeft: leftIcon ? 45 : 15, // Default padding for text
+      backgroundColor: theme.colors.onPrimary
     },
     textarea: {
       height: 150,

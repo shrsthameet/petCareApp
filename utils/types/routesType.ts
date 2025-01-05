@@ -5,7 +5,7 @@ export const API_VERSION = {
 
 export const BASE_URL = `${process.env.EXPO_PUBLIC_API_URL}${API_VERSION.V1}`;
 
-export const ROUTES = {
+export const API_ROUTES = {
   PET: {
     TYPE: '/petTypes',
     TYPE_ID: '/petTypes/:id',
@@ -36,5 +36,13 @@ export const ROUTES = {
     REGISTER: '/register',
     LOGIN: '/login',
     LOGOUT: '/logout'
+  }
+};
+
+export const ROUTES = {
+  AUTH: {
+    REGISTER: '/auth/register',
+    LOGIN: '/auth/login',
+    LOGOUT: '/auth/logout'
   }
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Image, StyleSheet, StyleProp, ImageStyle, 
+  Image, StyleProp, ImageStyle, 
   ViewStyle,
   TouchableOpacity
 } from 'react-native';
@@ -8,10 +8,10 @@ import * as ImagePicker from 'expo-image-picker';
 import { useSelector } from 'react-redux';
 import { Typography } from '../Typography';
 import { Column } from '../Flex';
+import { getImageUploadStyles } from './ImageUpload.style';
 import DogImgPlaceholder from '@/assets/images/dogPlaceholder.jpeg';
-import { FlexAlignItems, Size, TypographyVariant } from '@/utils/enum';
+import { Size, TypographyVariant } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
-import { ITheme } from '@/utils/types';
 
 interface ImageUploadProps {
   image: string | null; // Image URI managed by the parent component
@@ -48,19 +48,19 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
     }
   };
 
-  const customStyle = getStyles(theme);
+  const styles = getImageUploadStyles(theme);
 
   return (
     <Column style={[containerStyle]}>
-      <TouchableOpacity onPress={pickImage} style={customStyle.imgContainer}>
+      <TouchableOpacity onPress={pickImage} style={styles.imgContainer}>
         {image ? (
           <Image source={{
             uri: image 
-          }} style={[customStyle.image, imageStyle]} />
+          }} style={[styles.image, imageStyle]} />
         ) : (
           <Image
             source={placeholder} // Show a placeholder if no image is selected
-            style={[customStyle.image, imageStyle]}
+            style={[styles.image, imageStyle]}
           />
         )}
         <Typography variant={TypographyVariant.Body} size={Size.Small}>{title}</Typography>
@@ -69,17 +69,3 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   );
 };
 
-const getStyles = (theme: ITheme) => StyleSheet.create({
-  imgContainer: {
-    alignItems: FlexAlignItems.Center,
-    gap: 10
-  },
-  image: {
-    width: 100, // Set width for the avatar
-    height: 100, // Set height for the avatar
-    borderRadius: 50, // Make the image circular
-    marginTop: 10,
-    borderColor: theme.colors.primary,
-    borderWidth: 1
-  },
-});

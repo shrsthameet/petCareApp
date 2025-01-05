@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React
+// { useState } 
+  from 'react';
 import { ScrollView } from 'react-native';
 import { Column, Row } from '@/components/CoreUI/Flex';
 import { Typography } from '@/components/CoreUI/Typography';
@@ -7,17 +9,12 @@ import {
   Shape, ButtonVariant, ColorVariant, FlexWrap, Position, 
   Size,
   TypographyVariant,
-  IconLibraryName
 } from '@/utils/enum';
 import { Dropdown } from '@/components/CoreUI/Dropdown';
-import { Menu } from '@/components/CoreUI/Menu';
+// import { Menu } from '@/components/CoreUI/Menu';
 
 const ComponentsUI = () => {
-  const [menuVisible, setMenuVisible] = useState<boolean>(false);
-  
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-  };
+  // const [menuVisible, setMenuVisible] = useState<boolean>(false);
 
   // Sample data for the dropdown options
   const options = [
@@ -37,21 +34,21 @@ const ComponentsUI = () => {
     console.log('Selected values:', values);
   };
 
-  const handleMenuItemPress = (label: string) => {
-    console.log(`${label} pressed`);
-  };
+  // const handleMenuItemPress = (label: string) => {
+  //   console.log(`${label} pressed`);
+  // };
 
-  const menuItems = [
-    {
-      label: 'Profile', onPress: () => handleMenuItemPress('Profile') 
-    },
-    {
-      label: 'Settings', onPress: () => handleMenuItemPress('Settings') 
-    },
-    {
-      label: 'Logout', onPress: () => handleMenuItemPress('Logout') 
-    }
-  ];
+  // const menuItems = [
+  //   {
+  //     label: 'Profile', onPress: () => handleMenuItemPress('Profile') 
+  //   },
+  //   {
+  //     label: 'Settings', onPress: () => handleMenuItemPress('Settings') 
+  //   },
+  //   {
+  //     label: 'Logout', onPress: () => handleMenuItemPress('Logout') 
+  //   }
+  // ];
 
   return (
     <ScrollView>
@@ -142,18 +139,12 @@ const ComponentsUI = () => {
           Caption
           </Typography>
         </Column>
-        <Row>
+        {/* <Row>
           <Menu
-            menuItems={menuItems}
-            iconName='dots-three-vertical'
-            iconSize={24}
-            iconColor='#007BFF'
-            iconLibrary={IconLibraryName.Entypo}
-            menuVisible={menuVisible}
-            toggleMenu={toggleMenu}
-            position='right'
+            options={['Option 1', 'Option 2', 'Option 3']} 
+            onSelect={handleSelect}
           />
-        </Row>
+        </Row> */}
       </Column>
     </ScrollView>
   );

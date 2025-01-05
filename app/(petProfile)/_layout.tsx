@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Stack, useRouter } from 'expo-router';
 import { TouchableOpacity } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Icon } from '@/components/CoreUI/Icons';
 import { IconLibraryName } from '@/utils/enum';
-import { Menu } from '@/components/CoreUI/Menu';
 
 export default function PetProfileLayout() {
   const router = useRouter();
-  const [menuVisible, setMenuVisible] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-  };
 
   const goBack = (): void => {
     router.back();
@@ -21,23 +15,6 @@ export default function PetProfileLayout() {
   const editPet = (): void => {
     router.push('/(petProfile)/edit/1');
   };
-
-  const handleMenuItemPress = (label: string) => {
-    console.log(`${label} pressed`);
-  };
-
-
-  const menuItems = [
-    {
-      label: 'Profile', onPress: () => handleMenuItemPress('Profile') 
-    },
-    {
-      label: 'Settings', onPress: () => handleMenuItemPress('Settings') 
-    },
-    {
-      label: 'Logout', onPress: () => handleMenuItemPress('Logout') 
-    }
-  ];
 
   return (
     <Stack screenOptions={{
@@ -55,19 +32,9 @@ export default function PetProfileLayout() {
         headerTransparent: true,
         headerRight: () => (
           <>
-            {/* <TouchableOpacity onPress={editPet}>
-            <Icon name='mode-edit' library={IconLibraryName.MaterialIcons} size={26} color={Colors.pitchBlack} />
-          </TouchableOpacity> */}
-            <Menu
-              menuItems={menuItems}
-              iconName='dots-three-vertical'
-              iconSize={24}
-              iconColor='#007BFF'
-              iconLibrary={IconLibraryName.Entypo}
-              menuVisible={menuVisible}
-              toggleMenu={toggleMenu}
-              position='right'
-            />
+            <TouchableOpacity onPress={editPet}>
+              <Icon name='mode-edit' library={IconLibraryName.MaterialIcons} size={26} color={Colors.pitchBlack} />
+            </TouchableOpacity>
           </>
         )
       }}/>

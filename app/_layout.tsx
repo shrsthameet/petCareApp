@@ -6,6 +6,8 @@ import 'react-native-reanimated';
 
 import { useFonts } from 'expo-font';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Text } from 'react-native';
 import MontserratThin from '@/assets/fonts/Montserrat-Thin.ttf';
 import MontserratThinItalic from '@/assets/fonts/Montserrat-ThinItalic.ttf';
 import MontserratMedium from '@/assets/fonts/Montserrat-Medium.ttf';
@@ -17,7 +19,8 @@ import MontserratBold from '@/assets/fonts/Montserrat-Bold.ttf';
 import MontserratBoldItalic from '@/assets/fonts/Montserrat-BoldItalic.ttf';
 import MontserratExtraBold from '@/assets/fonts/Montserrat-ExtraBold.ttf';
 import MontserratExtraBoldItalic from '@/assets/fonts/Montserrat-ExtraBoldItalic.ttf';
-import { store } from '@/redux/store';
+import { store, persistor } from '@/redux/store';
+import { AuthLayout } from '@/components/AuthLayout';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -49,15 +52,19 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <Stack screenOptions={{
-        headerShown: false,
-      }}>
-        <Stack.Screen name='(tabs)' options={{
-          headerShown: false 
-        }} />
-        <Stack.Screen name='+not-found' />
-      </Stack>
-      <StatusBar style='auto' />
+      <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
+        <AuthLayout>
+          <Stack screenOptions={{
+            headerShown: false,
+          }}>
+            <Stack.Screen name='(tabs)' options={{
+              headerShown: false 
+            }} />
+            <Stack.Screen name='+not-found' />
+          </Stack>
+          <StatusBar style='auto' />
+        </AuthLayout>
+      </PersistGate>
     </Provider>
   );
 }
