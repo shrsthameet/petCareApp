@@ -1,3 +1,4 @@
+import { AuthRoutes } from '../enum';
 
 export const API_VERSION = {
   V1: '/api/v1'
@@ -41,8 +42,7 @@ export const API_ROUTES = {
 
 export const ROUTES = {
   AUTH: {
-    REGISTER: '/auth/register',
-    LOGIN: '/auth/login',
-    LOGOUT: '/auth/logout'
+    REGISTER: AuthRoutes.Register,
+    LOGIN: AuthRoutes.Login,
   }
 };

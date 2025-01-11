@@ -78,7 +78,9 @@ export type ShapeType = 'flat' | 'curve' | 'arch' | 'pill' | 'circle';
 // Form fields type
 export type InputFieldType = 'email' | 'password' | 'text';
 
+// Auth Types
 export type FormTitlesType = 'Login' | 'Register';
+export type AuthRouteType = '/(auth)/register' | '/(auth)/login';
 
 // Define available icon libraries
 export const IconLibraries = {

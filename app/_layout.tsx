@@ -26,7 +26,7 @@ import { AuthLayout } from '@/components/AuthLayout';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     MontserratThin,
     MontserratThinItalic,
     MontserratMedium,
@@ -41,13 +41,12 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
+    if (!fontsLoaded) SplashScreen.preventAutoHideAsync();
+    else SplashScreen.hideAsync();
+  }, [fontsLoaded]);
+  
+  if (!fontsLoaded) {
+    return <Text>Loading...</Text>;
   }
 
   return (
@@ -58,7 +57,7 @@ export default function RootLayout() {
             headerShown: false,
           }}>
             <Stack.Screen name='(tabs)' options={{
-              headerShown: false 
+              headerShown: false
             }} />
             <Stack.Screen name='+not-found' />
           </Stack>

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'expo-router';
+import { Pressable } from 'react-native';
 import { Column, Row } from '../CoreUI/Flex';
 import { Typography } from '../CoreUI/Typography';
 import { Input } from '../CoreUI/Input';
@@ -35,6 +35,7 @@ interface UserCredformProps {
   handleChange: (field: string, value: string) => void;
   onSubmit: () => void;
   btnTitle: string;
+  handleClick: () => void;
 }
 
 export const UserCredForm: FC<UserCredformProps> = ({
@@ -42,9 +43,11 @@ export const UserCredForm: FC<UserCredformProps> = ({
   formFields,
   handleChange,
   onSubmit,
-  btnTitle
+  btnTitle,
+  handleClick
 }) => {
   const { theme } = useSelector((state: RootState) => state.theme);
+
   return (
     <>
       <Column flex={1} gap={40} justifyContent={FlexJustifyContent.Center}>
@@ -80,7 +83,7 @@ export const UserCredForm: FC<UserCredformProps> = ({
               >
                 {formTitle === FormTitles.Login ? FormFieldsData.Login.member : FormFieldsData.Register.member}
               </Typography>
-              <Link href={formTitle === FormTitles.Login ? '/auth/register' : '/auth/login'}>
+              <Pressable onPress={handleClick}>
                 <Typography
                   variant={TypographyVariant.Caption}
                   size={Size.Large}
@@ -89,7 +92,7 @@ export const UserCredForm: FC<UserCredformProps> = ({
                 >
                   {formTitle === FormTitles.Login ? FormFieldsData.Login.action.title : FormFieldsData.Register.action.title}
                 </Typography>
-              </Link>
+              </Pressable>
             </Row>
             {formTitle === FormTitles.Login && (
               <Typography

@@ -1,30 +1,36 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { UserCredForm } from '@/components/AuthLayout';
+import { useRouter } from 'expo-router';
 import { Column } from '@/components/CoreUI/Flex';
-import { RootState } from '@/redux/rootReducer';
-import { AppDispatch } from '@/redux/store';
-import { FormFieldsData } from '@/utils/constants';
 import {
-  ButtonTitle, FlexJustifyContent, FormTitles, InputField 
+  ButtonTitle,
+  FlexJustifyContent,
+  FormTitles,
+  InputField,
 } from '@/utils/enum';
+import { login } from '@/redux/authSlice/authService';
+import { AppDispatch } from '@/redux/store';
+import { RootState } from '@/redux/rootReducer';
 import { ITheme } from '@/utils/types';
-import { register } from '@/redux/authSlice/authService';
+import { UserCredForm } from '@/components/AuthLayout';
+import { FormFieldsData } from '@/utils/constants';
+import { ROUTES } from '@/utils/types/routesType';
 
-interface IRegisterState {
+interface ILoginState {
   email: string;
   password: string;
 }
 
-export const Register = () => {
+const Login: FC = () => {
   const { theme } = useSelector((state: RootState) => state.theme);
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
-  const styles = getRegisterStyles(theme);
+  const styles = getLoginStyles(theme);
 
-  const [loginState, setLoginState] = useState<IRegisterState>({
+  const [loginState, setLoginState] = useState<ILoginState>({
     email: '',
     password: ''
   });
@@ -44,7 +50,7 @@ export const Register = () => {
       password
     };
 
-    dispatch(register(credentials));
+    dispatch(login(credentials));
   };
 
   const formFields = [
@@ -61,31 +67,30 @@ export const Register = () => {
       name: FormFieldsData.Login.password.name,
       type: InputField.Password,
       value: password,
-    },
-    {
-      title: FormFieldsData.Login.password.title,
-      placeholder: FormFieldsData.Login.password.placeholder,
-      name: FormFieldsData.Login.password.name,
-      type: InputField.Password,
-      value: password,
     }
   ];
+
+  const navigateToRegister = () => {
+    router.replace(ROUTES.AUTH.REGISTER);
+  };
+
   return (
     <Column flex={1} gap={20} justifyContent={FlexJustifyContent.Between} style={styles.loginContainer}>
-      <UserCredForm
+      <UserCredForm 
         formFields={formFields}
-        formTitle={FormTitles.Regsiter}
+        formTitle={FormTitles.Login}
         handleChange={handleChange}
         onSubmit={handleSubmit}
-        btnTitle={ButtonTitle.Register}
+        btnTitle={ButtonTitle.Login}
+        handleClick={navigateToRegister}
       />
     </Column>
   );
 };
 
-export default Register;
+export default Login;
 
-export const getRegisterStyles = (theme: ITheme) => StyleSheet.create({
+export const getLoginStyles = (theme: ITheme) => StyleSheet.create({
   loginContainer: {
     padding: 20,
     marginBottom: 40

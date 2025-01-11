@@ -1,33 +1,36 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'expo-router';
+import { UserCredForm } from '@/components/AuthLayout';
 import { Column } from '@/components/CoreUI/Flex';
+import { RootState } from '@/redux/rootReducer';
+import { AppDispatch } from '@/redux/store';
+import { FormFieldsData } from '@/utils/constants';
 import {
   ButtonTitle,
   FlexJustifyContent,
   FormTitles,
-  InputField,
+  InputField
 } from '@/utils/enum';
-import { login } from '@/redux/authSlice/authService';
-import { AppDispatch } from '@/redux/store';
-import { RootState } from '@/redux/rootReducer';
 import { ITheme } from '@/utils/types';
-import { UserCredForm } from '@/components/AuthLayout';
-import { FormFieldsData } from '@/utils/constants';
+import { register } from '@/redux/authSlice/authService';
+import { ROUTES } from '@/utils/types/routesType';
 
-interface ILoginState {
+interface IRegisterState {
   email: string;
   password: string;
 }
 
-const Login: FC = () => {
+export const Register = () => {
   const { theme } = useSelector((state: RootState) => state.theme);
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
-  const styles = getLoginStyles(theme);
+  const styles = getRegisterStyles(theme);
 
-  const [loginState, setLoginState] = useState<ILoginState>({
+  const [loginState, setLoginState] = useState<IRegisterState>({
     email: '',
     password: ''
   });
@@ -47,7 +50,7 @@ const Login: FC = () => {
       password
     };
 
-    dispatch(login(credentials));
+    dispatch(register(credentials));
   };
 
   const formFields = [
@@ -67,22 +70,27 @@ const Login: FC = () => {
     }
   ];
 
+  const navigateToLogin = () => {
+    router.replace(ROUTES.AUTH.LOGIN);
+  };
+
   return (
     <Column flex={1} gap={20} justifyContent={FlexJustifyContent.Between} style={styles.loginContainer}>
-      <UserCredForm 
+      <UserCredForm
         formFields={formFields}
-        formTitle={FormTitles.Login}
+        formTitle={FormTitles.Regsiter}
         handleChange={handleChange}
         onSubmit={handleSubmit}
-        btnTitle={ButtonTitle.Login}
+        btnTitle={ButtonTitle.Register}
+        handleClick={navigateToLogin}
       />
     </Column>
   );
 };
 
-export default Login;
+export default Register;
 
-export const getLoginStyles = (theme: ITheme) => StyleSheet.create({
+export const getRegisterStyles = (theme: ITheme) => StyleSheet.create({
   loginContainer: {
     padding: 20,
     marginBottom: 40

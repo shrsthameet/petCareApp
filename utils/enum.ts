@@ -128,3 +128,8 @@ export enum FormTitles {
   Login = 'Login',
   Regsiter = 'Register'
 }
+
+export enum AuthRoutes {
+  Register = '/(auth)/register',
+  Login = '/(auth)/login',
+}
