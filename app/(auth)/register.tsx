@@ -17,6 +17,7 @@ import {
 import { ITheme } from '@/utils/types';
 import { register } from '@/redux/authSlice/authService';
 import { ROUTES } from '@/utils/types/routesType';
+import { setAuth } from '@/redux/authSlice';
 
 interface IRegisterState {
   email: string;
@@ -50,7 +51,9 @@ export const Register = () => {
       password
     };
 
-    dispatch(register(credentials));
+    // dispatch(register(credentials));
+    dispatch(setAuth());
+    router.push('/(petProfileSetup)');
   };
 
   const formFields = [

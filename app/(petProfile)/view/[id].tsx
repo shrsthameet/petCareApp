@@ -138,40 +138,40 @@ export default function PetId() {
             <Column style={[customStyles.infoCard, {
               backgroundColor: 'rgb(232, 242, 255)'
             }]}>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onBackground} fontFamilyStyle={Fonts.Montserrat_Medium}>
+              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onText} fontFamilyStyle={Fonts.Montserrat_Medium}>
                 Age
               </Typography>
-              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onBackground}>
+              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onText}>
                 12 year
               </Typography>
             </Column>
             <Column style={[customStyles.infoCard, {
               backgroundColor: 'rgb(239, 249, 232)'
             }]}>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onBackground} fontFamilyStyle={Fonts.Montserrat_Medium}>
+              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onText} fontFamilyStyle={Fonts.Montserrat_Medium}>
                 Breed
               </Typography>
-              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onBackground}>
+              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onText}>
                 Labrador
               </Typography>
             </Column>
             <Column style={[customStyles.infoCard, {
               backgroundColor: 'rgb(255, 238, 219)'
             }]}>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onBackground} fontFamilyStyle={Fonts.Montserrat_Medium}>
+              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onText} fontFamilyStyle={Fonts.Montserrat_Medium}>
                 Nutered
               </Typography>
-              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onBackground}>
+              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onText}>
                 Yes
               </Typography>
             </Column>
             <Column style={[customStyles.infoCard, {
               backgroundColor: 'rgb(229, 251, 255)'
             }]}>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onBackground} fontFamilyStyle={Fonts.Montserrat_Medium}>
+              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onText} fontFamilyStyle={Fonts.Montserrat_Medium}>
                 Weight
               </Typography>
-              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onBackground}>
+              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onText}>
                 8 Kg
               </Typography>
             </Column>

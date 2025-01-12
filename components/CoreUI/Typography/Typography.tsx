@@ -58,7 +58,7 @@ export const Typography: React.FC<TypographyProps> = ({
 
   const typography = theme.typography[variant]?.[size];
   const fontSize = typography?.fontSize;
-  const fontColor = color ? color : theme.colors.onBackground;
+  const fontColor = color ? color : theme.colors.onText;
 
   const baseStyle: TextStyle = {
     fontSize,

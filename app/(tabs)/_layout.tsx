@@ -15,7 +15,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         // tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        tabBarActiveTintColor: theme.colors.text,
+        tabBarActiveTintColor: theme.colors.onText,
         headerShown: false,
         tabBarButton: HapticTab,
         // tabBarBackground: () => (
@@ -30,7 +30,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: () => (
-            <Icon name='home' library={IconLibraryName.MaterialIcons} size={28} color={theme.colors.text} />
+            <Icon name='home' library={IconLibraryName.MaterialIcons} size={28} color={theme.colors.onText} />
           ),
         }}
       />
@@ -39,7 +39,7 @@ export default function TabLayout() {
         options={{
           title: 'Explore',
           tabBarIcon: () => (
-            <Icon name='edit' library={IconLibraryName.MaterialIcons} size={28} color={theme.colors.text} />
+            <Icon name='edit' library={IconLibraryName.MaterialIcons} size={28} color={theme.colors.onText} />
           ),
         }}
       />
@@ -48,7 +48,7 @@ export default function TabLayout() {
         options={{
           title: 'UI Library',
           tabBarIcon: () => (
-            <Icon name='library' library={IconLibraryName.Ionicons} size={28} color={theme.colors.text} />
+            <Icon name='library' library={IconLibraryName.Ionicons} size={28} color={theme.colors.onText} />
           ),
         }}
       />

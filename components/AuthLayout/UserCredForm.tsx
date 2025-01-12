@@ -55,7 +55,7 @@ export const UserCredForm: FC<UserCredformProps> = ({
         secureTextEntry={item.type === 'password'}
         placeholder={item.placeholder}
         onChangeText={(value) => handleChange(item.name, value)}
-        shape={Shape.Arch}
+        shape={Shape.Pill}
       />
     </Column>
   );
@@ -105,7 +105,7 @@ export const UserCredForm: FC<UserCredformProps> = ({
                 variant={TypographyVariant.Caption}
                 size={Size.Large}
                 fontFamilyStyle={Fonts.Montserrat_Medium}
-                color={theme.colors.onBackground}
+                color={theme.colors.onText}
               >
                 {FormData[formType].member}
               </Typography>
@@ -139,7 +139,7 @@ export const UserCredForm: FC<UserCredformProps> = ({
           title={btnTitle}
           onPress={onSubmit}
           variant={ButtonVariant.Contained}
-          shape={Shape.Arch}
+          shape={Shape.Pill}
           iconName='arrowright'
           iconLibrary={IconLibraryName.AntDesign}
           showIcon

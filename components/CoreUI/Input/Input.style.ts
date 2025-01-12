@@ -25,7 +25,7 @@ export const getInputStyles = (
       borderRadius: shape ? theme.borderRadius[shape] : theme.borderRadius[Shape.Flat],
       paddingVertical: getSize(theme, size),
       fontSize: 16,
-      color: theme.colors.onBackground,
+      color: theme.colors.onText,
       paddingLeft: leftIcon ? 45 : 15, // Default padding for text
       backgroundColor: theme.colors.onPrimary
     },

@@ -20,6 +20,8 @@ export interface ITheme {
     onError: string;
     errorContainer: string;
     onErrorContainer: string;
+    text: string;
+    onText: string;
     background: string;
     onBackground: string;
     surface: string;
@@ -44,7 +46,6 @@ export interface ITheme {
       level4: string;
       level5: string;
     };
-    text: string;
     card: string;
     border: string;
     notification: string;

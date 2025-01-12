@@ -1,17 +1,16 @@
 import React from 'react';
 import { Stack } from 'expo-router';
-// import { useSelector } from 'react-redux';
-// import { RootState } from '@/redux/rootReducer';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/rootReducer';
 
 const AuthLayout = () => {
-  // const { theme } = useSelector((state: RootState) => state.theme);
+  const { theme } = useSelector((state: RootState) => state.theme);
   return (
     <Stack
       screenOptions={{
         headerTransparent: true,
         contentStyle: {
-          backgroundColor: '#f3fcff'
-          // backgroundColor: theme.colors.secondaryContainer
+          backgroundColor: theme.colors.background
         },
         title: ''
       }}
