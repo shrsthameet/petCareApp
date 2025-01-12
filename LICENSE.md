@@ -32,7 +32,7 @@ This software is provided "as is," without warranty of any kind, express or impl
 - Non-infringement.
 
 
-### Important Information
+## Important Information
 The author or copyright holder shall not be liable for any damages, including but not limited to:
 - Loss of data, profits, or other losses resulting from the use or inability to use this software.
 - Bugs, crashes, or issues caused by incomplete features.
