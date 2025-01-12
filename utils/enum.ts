@@ -118,15 +118,23 @@ export enum Shape {
   Circle = 'circle'
 }
 
-export enum InputField {
+export enum InputType {
   Email = 'email',
   Password = 'password',
   Text = 'text'
 }
 
-export enum FormTitles {
+export enum InputFields {
+  FirstName = 'firstName',
+  LastName = 'lastName',
+  Email = 'email',
+  Password = 'password',
+  ConfirmPassword = 'confirmPassword',
+}
+
+export enum Form {
   Login = 'Login',
-  Regsiter = 'Register'
+  Register = 'Register'
 }
 
 export enum AuthRoutes {

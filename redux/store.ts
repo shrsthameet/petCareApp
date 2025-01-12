@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
+import devToolsEnhancer from 'redux-devtools-expo-dev-plugin';
 import { rootReducer } from './rootReducer';
 import persistConfig from './persistConfig';
 
@@ -9,9 +10,11 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 // Uncomment it when implementing redux persist
 const store = configureStore({
   reducer: persistedReducer,
+  devTools: false,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: false 
-  })
+    serializableCheck: false
+  }),
+  enhancers: (getDefaultEnhancers) => getDefaultEnhancers().concat(devToolsEnhancer()),
 });
 
 const persistor = persistStore(store);

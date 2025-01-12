@@ -3,25 +3,33 @@ import {
   ScrollView, 
   // TouchableOpacity 
 } from 'react-native';
-// import { useDispatch } from 'react-redux';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { GreetingHeader } from '@/screens/home/greetingHeader';
 import { ServicesComponent } from '@/screens/home/servicesComponent';
 import { ReminderComponent } from '@/screens/home/reminderComponent';
-import { Column } from '@/components/CoreUI/Flex';
+import { Column, Row } from '@/components/CoreUI/Flex';
 import { MyPetsComponent } from '@/screens/home/myPetsComponent';
+import { Button } from '@/components/CoreUI/Button';
+import { logout } from '@/redux/authSlice/authService';
+import { AppDispatch } from '@/redux/store';
 // import { Typography } from '@/components/CoreUI/Typography';
 // import { toggleTheme } from '@/redux/themeSlice';
 
 export default function HomeScreen() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Column gap={30} style={{
         marginBottom: 85,
       }}>
-      
+        <Row>
+          <Button title='Logout' onPress={handleLogout} />
+        </Row>
         <GreetingHeader />
 
         <ServicesComponent />

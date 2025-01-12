@@ -12,6 +12,8 @@ interface RowProps {
   flexWrap?: FlexWrapType;
   style?: StyleProp<ViewStyle>;
   gap?: number;
+  flex?: number;
+  bgColor?: string;
 }
 
 export const Row: React.FC<RowProps> = ({
@@ -20,6 +22,8 @@ export const Row: React.FC<RowProps> = ({
   alignItems = FlexAlignItems.Stretch,
   flexWrap = FlexWrap.Nowrap,
   gap = 5,
+  flex,
+  bgColor,
   style,
 }) => {
   return (
@@ -31,6 +35,8 @@ export const Row: React.FC<RowProps> = ({
           alignItems,
           flexWrap,
           gap,
+          flex,
+          backgroundColor: bgColor
         },
         style,
       ]}

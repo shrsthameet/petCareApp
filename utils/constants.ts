@@ -1,8 +1,8 @@
 import {
   ButtonTitle,
   Fonts,
-  FormTitles,
-  InputField
+  Form,
+  InputFields
 } from './enum';
 import { ROUTES } from './types/routesType';
 
@@ -15,8 +15,11 @@ export const FontWeights = {
   700: Fonts.Montserrat_Bold,
 };
 
-export const FormFieldsData = {
-  [FormTitles.Login]: {
+export const FormData = {
+  [Form.Login]: {
+    formTitle: 'Hello,',
+    subTitle: 'Welcome Back!',
+    desc: 'Reconnect with your pets and start taking care of them.',
     member: 'Not a member?',
     action: {
       title: ButtonTitle.Register,
@@ -26,32 +29,50 @@ export const FormFieldsData = {
       title: 'Forgot password?',
       link: ''
     },
-    [InputField.Email]: {
+    [InputFields.Email]: {
       title: 'Email',
       name: 'email',
       placeholder: 'Enter your email address',
     },
-    [InputField.Password]: {
+    [InputFields.Password]: {
       title: 'Password',
       name: 'password',
       placeholder: 'Enter your password',
     },
   },
-  [FormTitles.Regsiter]: {
+  [Form.Register]: {
+    formTitle: '',
+    subTitle: 'Create New Account',
+    desc: 'Join the community and start taking care of your pets.',
     member: 'Already a member?',
     action: {
       title: ButtonTitle.Login,
       link: ROUTES.AUTH.LOGIN
     },
-    [InputField.Email]: {
+    [InputFields.FirstName]: {
+      title: 'First name',
+      name: 'firstName',
+      placeholder: 'First name',
+    },
+    [InputFields.LastName]: {
+      title: 'Last name',
+      name: 'lastName',
+      placeholder: 'Last name',
+    },
+    [InputFields.Email]: {
       title: 'Email',
       name: 'email',
       placeholder: 'Enter your email address',
     },
-    [InputField.Password]: {
+    [InputFields.Password]: {
       title: 'Password',
       name: 'password',
       placeholder: 'Enter your password',
+    },
+    [InputFields.ConfirmPassword]: {
+      title: 'Confirm password',
+      name: 'confirmPassword',
+      placeholder: 'Confirm your password',
     },
   }
 };

@@ -7,12 +7,12 @@ import { UserCredForm } from '@/components/AuthLayout';
 import { Column } from '@/components/CoreUI/Flex';
 import { RootState } from '@/redux/rootReducer';
 import { AppDispatch } from '@/redux/store';
-import { FormFieldsData } from '@/utils/constants';
+import { FormData } from '@/utils/constants';
 import {
   ButtonTitle,
   FlexJustifyContent,
-  FormTitles,
-  InputField
+  Form,
+  InputType
 } from '@/utils/enum';
 import { ITheme } from '@/utils/types';
 import { register } from '@/redux/authSlice/authService';
@@ -55,17 +55,38 @@ export const Register = () => {
 
   const formFields = [
     {
-      title: FormFieldsData.Login.email.title,
-      placeholder: FormFieldsData.Login.email.placeholder,
-      name: FormFieldsData.Login.email.name,
-      type: InputField.Email,
+      title: FormData.Register.firstName.title,
+      placeholder: FormData.Register.firstName.placeholder,
+      name: FormData.Register.firstName.name,
+      type: InputType.Text,
       value: email
     },
     {
-      title: FormFieldsData.Login.password.title,
-      placeholder: FormFieldsData.Login.password.placeholder,
-      name: FormFieldsData.Login.password.name,
-      type: InputField.Password,
+      title: FormData.Register.lastName.title,
+      placeholder: FormData.Register.lastName.placeholder,
+      name: FormData.Register.lastName.name,
+      type: InputType.Text,
+      value: email
+    },
+    {
+      title: FormData.Register.email.title,
+      placeholder: FormData.Register.email.placeholder,
+      name: FormData.Register.email.name,
+      type: InputType.Email,
+      value: email
+    },
+    {
+      title: FormData.Register.password.title,
+      placeholder: FormData.Register.password.placeholder,
+      name: FormData.Register.password.name,
+      type: InputType.Password,
+      value: password,
+    },
+    {
+      title: FormData.Register.confirmPassword.title,
+      placeholder: FormData.Register.confirmPassword.placeholder,
+      name: FormData.Register.confirmPassword.name,
+      type: InputType.Password,
       value: password,
     }
   ];
@@ -78,11 +99,11 @@ export const Register = () => {
     <Column flex={1} gap={20} justifyContent={FlexJustifyContent.Between} style={styles.loginContainer}>
       <UserCredForm
         formFields={formFields}
-        formTitle={FormTitles.Regsiter}
         handleChange={handleChange}
         onSubmit={handleSubmit}
         btnTitle={ButtonTitle.Register}
         handleClick={navigateToLogin}
+        formType={Form.Register}
       />
     </Column>
   );

@@ -7,15 +7,15 @@ import { Column } from '@/components/CoreUI/Flex';
 import {
   ButtonTitle,
   FlexJustifyContent,
-  FormTitles,
-  InputField,
+  Form,
+  InputType,
 } from '@/utils/enum';
 import { login } from '@/redux/authSlice/authService';
 import { AppDispatch } from '@/redux/store';
 import { RootState } from '@/redux/rootReducer';
 import { ITheme } from '@/utils/types';
 import { UserCredForm } from '@/components/AuthLayout';
-import { FormFieldsData } from '@/utils/constants';
+import { FormData } from '@/utils/constants';
 import { ROUTES } from '@/utils/types/routesType';
 
 interface ILoginState {
@@ -55,17 +55,17 @@ const Login: FC = () => {
 
   const formFields = [
     {
-      title: FormFieldsData.Login.email.title,
-      placeholder: FormFieldsData.Login.email.placeholder,
-      name: FormFieldsData.Login.email.name,
-      type: InputField.Email,
+      title: FormData.Login.email.title,
+      placeholder: FormData.Login.email.placeholder,
+      name: FormData.Login.email.name,
+      type: InputType.Email,
       value: email
     },
     {
-      title: FormFieldsData.Login.password.title,
-      placeholder: FormFieldsData.Login.password.placeholder,
-      name: FormFieldsData.Login.password.name,
-      type: InputField.Password,
+      title: FormData.Login.password.title,
+      placeholder: FormData.Login.password.placeholder,
+      name: FormData.Login.password.name,
+      type: InputType.Password,
       value: password,
     }
   ];
@@ -78,11 +78,11 @@ const Login: FC = () => {
     <Column flex={1} gap={20} justifyContent={FlexJustifyContent.Between} style={styles.loginContainer}>
       <UserCredForm 
         formFields={formFields}
-        formTitle={FormTitles.Login}
         handleChange={handleChange}
         onSubmit={handleSubmit}
         btnTitle={ButtonTitle.Login}
         handleClick={navigateToRegister}
+        formType={Form.Login}
       />
     </Column>
   );

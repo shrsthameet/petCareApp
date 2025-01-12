@@ -15,50 +15,68 @@ import {
   ButtonVariant,
   IconLibraryName,
   Position,
-  FormTitles
+  Form
 } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
-import { FormTitlesType, InputFieldType } from '@/utils/types';
-import { FormFieldsData } from '@/utils/constants';
+import { FormType, InputType } from '@/utils/types';
+import { FormData } from '@/utils/constants';
 
 interface FormField {
   name: string;
   title: string;
-  type: InputFieldType; // Add more types if needed
+  type: InputType; // Add more types if needed
   placeholder: string;
   value: string;
 }
 
 interface UserCredformProps {
-  formTitle?: FormTitlesType;
   formFields: FormField[];
   handleChange: (field: string, value: string) => void;
   onSubmit: () => void;
   btnTitle: string;
   handleClick: () => void;
+  formType: FormType;
 }
 
 export const UserCredForm: FC<UserCredformProps> = ({
-  formTitle,
   formFields,
   handleChange,
   onSubmit,
   btnTitle,
-  handleClick
+  handleClick,
+  formType
 }) => {
   const { theme } = useSelector((state: RootState) => state.theme);
+
+  const renderInput = (item: FormField, colFlex: number) => (
+    <Column flex={colFlex} key={item.name}>
+      <Input
+        value={item.value}
+        secureTextEntry={item.type === 'password'}
+        placeholder={item.placeholder}
+        onChangeText={(value) => handleChange(item.name, value)}
+        shape={Shape.Arch}
+      />
+    </Column>
+  );
 
   return (
     <>
       <Column flex={1} gap={40} justifyContent={FlexJustifyContent.Center}>
-        <Column alignItems={FlexAlignItems.Center}>
-          <Typography variant={TypographyVariant.Headline} size={Size.Large} fontFamilyStyle={Fonts.Montserrat_SemiBold}>
-            {formTitle}
+        <Column gap={10}>
+          <Typography variant={TypographyVariant.Headline} size={Size.Small} fontFamilyStyle={Fonts.Montserrat_Bold}>
+            {FormData[formType].formTitle}
+          </Typography>
+          <Typography variant={TypographyVariant.Headline} size={Size.Large} fontFamilyStyle={Fonts.Montserrat_Bold}>
+            {FormData[formType].subTitle}
+          </Typography>
+          <Typography variant={TypographyVariant.Caption} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_Medium}>
+            {FormData[formType].desc}
           </Typography>
         </Column>
-    
-        <Column gap={25}>
-          {formFields.map((item, index) => (
+
+        <Column gap={10}>
+          {/* {formFields.map((item, index) => (
             <Column key={index}>
               <Typography variant={TypographyVariant.Body} size={Size.Small} fontFamilyStyle={Fonts.Montserrat_Medium}>
                 {item.title}
@@ -71,7 +89,15 @@ export const UserCredForm: FC<UserCredformProps> = ({
                 shape={Shape.Arch}
               />
             </Column>
-          ))}
+          ))} */}
+          <Row justifyContent={FlexJustifyContent.Between}>
+            {formFields
+              .filter((item) => item.name === 'firstName' || item.name === 'lastName')
+              .map((item) => renderInput(item, 1))}
+          </Row>
+          {formFields
+            .filter((item) => item.name !== 'firstName' && item.name !== 'lastName')
+            .map((item) => renderInput(item, 0))}
 
           <Column gap={15} alignItems={FlexAlignItems.Center}>
             <Row>
@@ -81,7 +107,7 @@ export const UserCredForm: FC<UserCredformProps> = ({
                 fontFamilyStyle={Fonts.Montserrat_Medium}
                 color={theme.colors.onBackground}
               >
-                {formTitle === FormTitles.Login ? FormFieldsData.Login.member : FormFieldsData.Register.member}
+                {FormData[formType].member}
               </Typography>
               <Pressable onPress={handleClick}>
                 <Typography
@@ -90,18 +116,18 @@ export const UserCredForm: FC<UserCredformProps> = ({
                   fontFamilyStyle={Fonts.Montserrat_Medium}
                   color={theme.colors.primary}
                 >
-                  {formTitle === FormTitles.Login ? FormFieldsData.Login.action.title : FormFieldsData.Register.action.title}
+                  {FormData[formType].action.title}
                 </Typography>
               </Pressable>
             </Row>
-            {formTitle === FormTitles.Login && (
+            {formType === Form.Login && (
               <Typography
                 variant={TypographyVariant.Caption}
                 size={Size.Large}
                 fontFamilyStyle={Fonts.Montserrat_Medium}
                 color={theme.colors.primary}
               >
-                {FormFieldsData.Login.resetPassword.title}
+                {FormData.Login.resetPassword.title}
               </Typography>
             )}
           </Column>

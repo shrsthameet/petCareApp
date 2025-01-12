@@ -76,10 +76,11 @@ export type ButtonVariantType = 'text' | 'outlined' | 'contained';
 export type ShapeType = 'flat' | 'curve' | 'arch' | 'pill' | 'circle';
 
 // Form fields type
-export type InputFieldType = 'email' | 'password' | 'text';
+export type InputType = 'email' | 'password' | 'text';
+export type InputFieldsType = 'email' | 'password' | 'firstName' | 'lastName' | 'confirmPassword';
 
 // Auth Types
-export type FormTitlesType = 'Login' | 'Register';
+export type FormType = 'Login' | 'Register';
 export type AuthRouteType = '/(auth)/register' | '/(auth)/login';
 
 // Define available icon libraries
