@@ -31,9 +31,11 @@ export enum OSType {
 }
 
 export enum Size {
+  XSmall = 'xsmall',
   Small = 'small',
   Medium = 'medium',
-  Large = 'large'
+  Large = 'large',
+  XLarge = 'xlarge',
 }
 
 export enum ButtonVariant {
@@ -121,7 +123,8 @@ export enum Shape {
 export enum InputType {
   Email = 'email',
   Password = 'password',
-  Text = 'text'
+  Text = 'text',
+  Checkbox = 'checkbox'
 }
 
 export enum InputFields {
@@ -130,6 +133,7 @@ export enum InputFields {
   Email = 'email',
   Password = 'password',
   ConfirmPassword = 'confirmPassword',
+  TermsAndCondition = 'termsAndCondition'
 }
 
 export enum Form {

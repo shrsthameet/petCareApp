@@ -40,13 +40,17 @@ export const getShapeStyle = (theme: ITheme, shape: ShapeType) => {
 
 export function getSize(theme: ITheme, size?: SizeType) {
   switch (size) {
-  case Size.Small:
+  case Size.XSmall:
     return theme.spacing.xs;
+  case Size.Small:
+    return theme.spacing.sm;
   case Size.Medium:
-    return theme.spacing.sm;
-  case Size.Large:
     return theme.spacing.md;
+  case Size.Large:
+    return theme.spacing.lg;
+  case Size.XLarge:
+    return theme.spacing.xl;
   default:
-    return theme.spacing.sm;
+    return theme.spacing.md;
   }
 }

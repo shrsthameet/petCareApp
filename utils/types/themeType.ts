@@ -96,6 +96,7 @@ export interface ITheme {
     md: number;
     lg: number;
     xl: number;
+    xxl: number;
   };
   sizes: {
     small: number;

@@ -22,6 +22,7 @@ import { setAuth } from '@/redux/authSlice';
 interface IRegisterState {
   email: string;
   password: string;
+  termsAndCondition: boolean;
 }
 
 export const Register = () => {
@@ -31,15 +32,16 @@ export const Register = () => {
 
   const styles = getRegisterStyles(theme);
 
-  const [loginState, setLoginState] = useState<IRegisterState>({
+  const [registerState, setRegisterState] = useState<IRegisterState>({
     email: '',
-    password: ''
+    password: '',
+    termsAndCondition: false
   });
 
-  const { email, password } = loginState;
+  const { email, password, termsAndCondition } = registerState;
 
   const handleChange = (field: string, value: string) => {
-    setLoginState((prevState) => ({
+    setRegisterState((prevState) => ({
       ...prevState,
       [field]: value
     }));
@@ -91,6 +93,14 @@ export const Register = () => {
       name: FormData.Register.confirmPassword.name,
       type: InputType.Password,
       value: password,
+    },
+    {
+      title: FormData.Register.termsAndCondition.title,
+      placeholder: FormData.Register.termsAndCondition.placeholder,
+      name: FormData.Register.termsAndCondition.name,
+      type: InputType.Checkbox,
+      checked: termsAndCondition,
+      desc: FormData.Register.termsAndCondition.desc
     }
   ];
 

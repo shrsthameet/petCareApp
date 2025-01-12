@@ -57,9 +57,10 @@ export const lightTheme: ITheme = {
     xxs: 4,
     xs: 8,
     sm: 12,
-    md: 16,
-    lg: 24,
-    xl: 32,
+    md: 14,
+    lg: 18,
+    xl: 22,
+    xxl: 32
   },
   sizes: {
     small: 10,

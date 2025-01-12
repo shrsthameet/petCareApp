@@ -88,6 +88,11 @@ export const Button = (
 
     // Define size-based styles
     const sizeStyles = {
+      xsmall: {
+        paddingVertical: theme.spacing.xs,
+        paddingHorizontal: theme.spacing.xs,
+        fontSize: theme.typography.caption?.large.fontSize,
+      },
       small: {
         paddingVertical: theme.spacing.sm,
         paddingHorizontal: theme.spacing.sm,
@@ -102,6 +107,11 @@ export const Button = (
         paddingVertical: theme.spacing.md,
         paddingHorizontal: theme.spacing.xl,
         fontSize: theme.typography.body?.large.fontSize,
+      },
+      xlarge: {
+        paddingVertical: theme.spacing.xl,
+        paddingHorizontal: theme.spacing.xl,
+        fontSize: theme.typography.caption?.large.fontSize,
       },
     }[size];
 

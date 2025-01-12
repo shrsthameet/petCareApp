@@ -59,7 +59,7 @@ export type TypographyFontType =
 'MontserratExtraBoldItalic';
 
 // Define size
-export type SizeType = 'small' | 'medium' | 'large';
+export type SizeType = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 export type PositionType = 'top' | 'right' | 'bottom' | 'left' | 'center';
 export type ColorVariantType = 'default' | 'primary' | 'success' | 'secondary' | 'error' | 'info' | 'warning' | 'link';
 
@@ -76,8 +76,8 @@ export type ButtonVariantType = 'text' | 'outlined' | 'contained';
 export type ShapeType = 'flat' | 'curve' | 'arch' | 'pill' | 'circle';
 
 // Form fields type
-export type InputType = 'email' | 'password' | 'text';
-export type InputFieldsType = 'email' | 'password' | 'firstName' | 'lastName' | 'confirmPassword';
+export type TInput = 'email' | 'password' | 'text' | 'checkbox';
+export type InputFieldsType = 'email' | 'password' | 'firstName' | 'lastName' | 'confirmPassword' | 'termsAndCondition';
 
 // Auth Types
 export type FormType = 'Login' | 'Register';

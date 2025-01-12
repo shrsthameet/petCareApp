@@ -33,11 +33,13 @@ export const FormData = {
       title: 'Email',
       name: 'email',
       placeholder: 'Enter your email address',
+      desc: ''
     },
     [InputFields.Password]: {
       title: 'Password',
       name: 'password',
       placeholder: 'Enter your password',
+      desc: ''
     },
   },
   [Form.Register]: {
@@ -53,26 +55,37 @@ export const FormData = {
       title: 'First name',
       name: 'firstName',
       placeholder: 'First name',
+      desc: ''
     },
     [InputFields.LastName]: {
       title: 'Last name',
       name: 'lastName',
       placeholder: 'Last name',
+      desc: ''
     },
     [InputFields.Email]: {
       title: 'Email',
       name: 'email',
       placeholder: 'Enter your email address',
+      desc: ''
     },
     [InputFields.Password]: {
       title: 'Password',
       name: 'password',
       placeholder: 'Enter your password',
+      desc: ''
     },
     [InputFields.ConfirmPassword]: {
       title: 'Confirm password',
       name: 'confirmPassword',
       placeholder: 'Confirm your password',
+      desc: ''
+    },
+    [InputFields.TermsAndCondition]: {
+      title: 'Confirm password',
+      name: 'termsAndCondition',
+      placeholder: '',
+      desc: 'I agree to the Terms of Service and Privacy Policy'
     },
   }
 };

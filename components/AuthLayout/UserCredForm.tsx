@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Pressable } from 'react-native';
 import { Column, Row } from '../CoreUI/Flex';
 import { Typography } from '../CoreUI/Typography';
 import { Input } from '../CoreUI/Input';
 import { Button } from '../CoreUI/Button';
+import { Checkbox } from '../CoreUI/Checkbox';
 import {
   FlexJustifyContent,
   FlexAlignItems,
@@ -15,18 +16,21 @@ import {
   ButtonVariant,
   IconLibraryName,
   Position,
-  Form
+  Form,
+  InputType
 } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
-import { FormType, InputType } from '@/utils/types';
+import { FormType, TInput } from '@/utils/types';
 import { FormData } from '@/utils/constants';
 
 interface FormField {
   name: string;
   title: string;
-  type: InputType; // Add more types if needed
+  type: TInput; // Add more types if needed
   placeholder: string;
-  value: string;
+  value?: string;
+  checked?: boolean;
+  desc?: string;
 }
 
 interface UserCredformProps {
@@ -46,17 +50,27 @@ export const UserCredForm: FC<UserCredformProps> = ({
   handleClick,
   formType
 }) => {
+  const [isChecked, setIsChecked] = useState(false);
   const { theme } = useSelector((state: RootState) => state.theme);
 
   const renderInput = (item: FormField, colFlex: number) => (
     <Column flex={colFlex} key={item.name}>
-      <Input
-        value={item.value}
-        secureTextEntry={item.type === 'password'}
-        placeholder={item.placeholder}
-        onChangeText={(value) => handleChange(item.name, value)}
-        shape={Shape.Pill}
-      />
+      {item.type === InputType.Checkbox ? (
+        <Checkbox
+          checked={isChecked}
+          onChange={(checked) => setIsChecked(checked)}
+          label={item.desc}
+          size={Size.Large}
+        />
+      ) : (
+        <Input
+          value={item.value ? item.value : ''}
+          secureTextEntry={item.type === 'password'}
+          placeholder={item.placeholder}
+          onChangeText={(value) => handleChange(item.name, value)}
+          shape={Shape.Pill}
+        />
+      )}
     </Column>
   );
 
@@ -75,29 +89,17 @@ export const UserCredForm: FC<UserCredformProps> = ({
           </Typography>
         </Column>
 
-        <Column gap={10}>
-          {/* {formFields.map((item, index) => (
-            <Column key={index}>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} fontFamilyStyle={Fonts.Montserrat_Medium}>
-                {item.title}
-              </Typography>
-              <Input
-                value={item.value}
-                secureTextEntry={item.type === 'password'}
-                placeholder={item.placeholder}
-                onChangeText={(value) => handleChange(item.name, value)}
-                shape={Shape.Arch}
-              />
-            </Column>
-          ))} */}
-          <Row justifyContent={FlexJustifyContent.Between}>
+        <Column gap={30}>
+          <Column gap={10}>
+            <Row justifyContent={FlexJustifyContent.Between}>
+              {formFields
+                .filter((item) => item.name === 'firstName' || item.name === 'lastName')
+                .map((item) => renderInput(item, 1))}
+            </Row>
             {formFields
-              .filter((item) => item.name === 'firstName' || item.name === 'lastName')
-              .map((item) => renderInput(item, 1))}
-          </Row>
-          {formFields
-            .filter((item) => item.name !== 'firstName' && item.name !== 'lastName')
-            .map((item) => renderInput(item, 0))}
+              .filter((item) => item.name !== 'firstName' && item.name !== 'lastName')
+              .map((item) => renderInput(item, 0))}
+          </Column>
 
           <Column gap={15} alignItems={FlexAlignItems.Center}>
             <Row>
