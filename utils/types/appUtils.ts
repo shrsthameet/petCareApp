@@ -54,3 +54,16 @@ export function getSize(theme: ITheme, size?: SizeType) {
     return theme.spacing.md;
   }
 }
+
+export function getFontSize(theme: ITheme, size?: SizeType) {
+  switch (size) {
+  case (Size.XSmall || Size.Small):
+    return theme.typography.caption?.small.fontSize;
+  case Size.Medium:
+    return theme.typography.body?.medium.fontSize;
+  case Size.Large:
+    return theme.typography.body?.large.fontSize;
+  default:
+    return theme.typography.body?.medium.fontSize;
+  }
+}

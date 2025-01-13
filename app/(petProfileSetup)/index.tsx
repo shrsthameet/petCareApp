@@ -37,6 +37,7 @@ const PetInfo = () => {
             Time to add your Pal(s)
           </Typography>
         </Column>
+
         <Column gap={15} alignItems={FlexAlignItems.Center}>
           <Column style={{
             width: '70%'

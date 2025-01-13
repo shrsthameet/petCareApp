@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { ITheme, ShapeType, SizeType } from '@/utils/types';
-import { Shape } from '@/utils/enum';
+import { FlexJustifyContent, Shape } from '@/utils/enum';
 import { getSize } from '@/utils/types/appUtils';
 
 export const getInputStyles = (
@@ -16,7 +16,7 @@ export const getInputStyles = (
     },
     inputWrapper: {
       position: 'relative',
-      justifyContent: 'center',
+      justifyContent: FlexJustifyContent.Center,
     },
     input: {
       outline: isFocused ? theme.colors.primary : theme.colors.surfaceVariant, // Change border color on focus
