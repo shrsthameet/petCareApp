@@ -1,4 +1,4 @@
-import { AuthRoutes } from '../enum';
+import { AuthRoutes, PetProfileSetupRoutes } from '../enum';
 
 export const API_VERSION = {
   V1: '/api/v1'
@@ -41,8 +41,8 @@ export const API_ROUTES = {
 };
 
 export const ROUTES = {
-  AUTH: {
-    REGISTER: AuthRoutes.Register,
-    LOGIN: AuthRoutes.Login,
-  }
+  AUTH: AuthRoutes,
+  PET_PROFILE_SETUP: PetProfileSetupRoutes,
 };
+
+

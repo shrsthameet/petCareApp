@@ -28,8 +28,6 @@ interface ISelectProps {
   selectedValue?: string;
   onSelect: (value: string, event: GestureResponderEvent) => void;
   placeholder?: string;
-  menuWidth?: number;
-  menuHeight?: number;
   size?: SizeType;
   shape?: ShapeType;
   style?: object;

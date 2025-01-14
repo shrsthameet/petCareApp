@@ -70,7 +70,7 @@ export type FlexAlignItemsType = 'flex-start' | 'center' | 'flex-end' | 'stretch
 export type FlexWrapType = 'wrap' | 'nowrap' | 'wrap-reverse';
 
 // Define button type
-export type ButtonTitleType = 'Submit' | 'Edit' | 'Delete' | 'Save' | 'Update' | 'Register';
+export type ButtonTitleType = 'Submit' | 'Edit' | 'Delete' | 'Save' | 'Update' | 'Register' | 'Next' | 'Previous';
 export type ButtonVariantType = 'text' | 'outlined' | 'contained';
 
 export type ShapeType = 'flat' | 'curve' | 'arch' | 'pill' | 'circle';
@@ -81,7 +81,12 @@ export type InputFieldsType = 'email' | 'password' | 'firstName' | 'lastName' | 
 
 // Auth Types
 export type FormType = 'Login' | 'Register';
-export type AuthRouteType = '/(auth)/register' | '/(auth)/login';
+
+// Route types
+export type AuthRoutesType = '/(auth)/register' | '/(auth)/login';
+export type TabsRoute = '/(tabs)/(home)' | '/(tabs)/explore';
+export type PetProfileSetUpRouteType = '/(petProfileSetup)' | '/(petProfileSetup)/petTypeAndBreed';
+export type RoutesType = AuthRoutesType | TabsRoute | PetProfileSetUpRouteType;
 
 // Define available icon libraries
 export const IconLibraries = {

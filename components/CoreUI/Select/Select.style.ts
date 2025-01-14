@@ -16,7 +16,7 @@ export const getSelectStyles = (theme: ITheme, size?: SizeType, shape?: ShapeTyp
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: shape ? theme.borderRadius[shape] : theme.borderRadius[Shape.Flat],
-    paddingHorizontal: 10,
+    paddingHorizontal: getSize(theme, size),
     paddingVertical: getSize(theme, size),
     backgroundColor: '#fff',
   },

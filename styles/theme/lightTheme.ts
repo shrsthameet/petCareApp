@@ -48,7 +48,8 @@ export const lightTheme: ITheme = {
     card: '#f0f0f0',
     border: '#cccccc',
     notification: '#ff6347',
-    white: '#fff'
+    white: '#fff',
+    transparent: 'transparent'
   },
   typography: {
     ...baseTypography

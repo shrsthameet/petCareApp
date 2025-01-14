@@ -62,7 +62,9 @@ export enum ButtonTitle {
   Save = 'Save',
   Update = 'Update',
   Login = 'Login',
-  Register = 'Register'
+  Register = 'Register',
+  Next = 'Next',
+  Previous = 'Previous'
 }
 
 export enum IconLibraryName {
@@ -141,7 +143,14 @@ export enum Form {
   Register = 'Register'
 }
 
+// Auth Routes Enum
 export enum AuthRoutes {
-  Register = '/(auth)/register',
-  Login = '/(auth)/login',
+  REGISTER = '/(auth)/register',
+  LOGIN = '/(auth)/login',
+}
+
+// Pet Profile Setup Routes Enum
+export enum PetProfileSetupRoutes {
+  DEFAULT = '/(petProfileSetup)',
+  PET_TYPE_AND_BREED = '/(petProfileSetup)/petTypeAndBreed',
 }

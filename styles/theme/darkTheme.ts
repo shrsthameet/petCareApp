@@ -48,7 +48,8 @@ export const darkTheme: ITheme = {
     card: '#f0f0f0',
     border: '#ffffff',
     notification: '#ff6347',
-    white: '#fff'
+    white: '#fff',
+    transparent: 'transparent'
   },
   typography: {
     ...baseTypography

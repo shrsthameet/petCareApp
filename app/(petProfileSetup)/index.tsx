@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
 import { Typography } from '@/components/CoreUI/Typography';
 import {
   ButtonVariant,
@@ -13,8 +14,15 @@ import {
 import { Column } from '@/components/CoreUI/Flex';
 import SadDog from '@/assets/images/petProfileSetup/sadDog.png';
 import { Button } from '@/components/CoreUI/Button';
+import { RoutesType } from '@/utils/types';
+import { ROUTES } from '@/utils/types/routesType';
 
 const PetInfo = () => {
+  const router = useRouter();
+
+  const handleClick = (linkTo: RoutesType) => {
+    router.push(linkTo);
+  };
   return (
     <Column gap={20} flex={1} justifyContent={FlexJustifyContent.Center}>
       <Column alignItems={FlexAlignItems.Center}>
@@ -42,12 +50,12 @@ const PetInfo = () => {
           <Column style={{
             width: '70%'
           }}>
-            <Button title='Add pet' shape={Shape.Pill} />
+            <Button title='Add pet' shape={Shape.Pill} onPress={() => handleClick(ROUTES.PET_PROFILE_SETUP.PET_TYPE_AND_BREED)} />
           </Column>
           <Column style={{
             width: '70%'
           }}>
-            <Button title='Skip, add later' shape={Shape.Pill} variant={ButtonVariant.Outlined} />
+            <Button title='Skip, add later' shape={Shape.Pill} variant={ButtonVariant.Outlined} onPress={() => handleClick('/(tabs)/(home)')} />
           </Column>
         </Column>
       </Column>
