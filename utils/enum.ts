@@ -153,4 +153,5 @@ export enum AuthRoutes {
 export enum PetProfileSetupRoutes {
   DEFAULT = '/(petProfileSetup)',
   PET_TYPE_AND_BREED = '/(petProfileSetup)/petTypeAndBreed',
+  PET_BIO = '/(petProfileSetup)/petBio',
 }

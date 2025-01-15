@@ -1,10 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { ITheme } from '@/utils/types';
+import { OSType } from '@/utils/enum';
 
 export const getPetProfileSetupStyles = (theme: ITheme) => StyleSheet.create({
   container: {
     paddingHorizontal: theme.spacing.md,
-    paddingVertical: theme.spacing.xl
+    paddingVertical: Platform.OS === OSType.ANDROID ? theme.spacing.xxl * 2.5 : theme.spacing.xxl * 2,
   },
   image: {
     width: 110,

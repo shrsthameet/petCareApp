@@ -5,10 +5,24 @@ import { Column, Row } from '@/components/CoreUI/Flex';
 import { Select } from '@/components/CoreUI/Select';
 import { Typography } from '@/components/CoreUI/Typography';
 import { RootState } from '@/redux/rootReducer';
-import { Size, TypographyVariant } from '@/utils/enum';
+import { FlexJustifyContent, Size, TypographyVariant } from '@/utils/enum';
 import Lab from '@/assets/images/lab.jpg';
 import Ginger from '@/assets/images/ginger.jpg';
 import { PetBreedsAvatar } from '@/components/petBreedsAvatar';
+import { ProgressBar } from '@/components/CoreUI/ProgressBar';
+
+const petBreedList = [
+  {
+    imgSrc: Lab,
+    label: 'Labrador',
+    value: 'labrador'
+  },
+  {
+    imgSrc: Ginger,
+    label: 'Ginger',
+    value: 'ginger'
+  },
+];
 
 interface IInitialState {
   selectedPetType: string;
@@ -33,12 +47,34 @@ export const PetTypeBreed = () => {
     }));
   };
 
+  const handlePetBreed = (value: string) => {
+    console.log('e', value);
+    setInitialState((prevState) => ({
+      ...prevState,
+      selectedPetBreed: value
+    }));
+  };
+
   const styles = getPetProfileSetupStyles(theme);
   return (
     <Column flex={1} style={styles.container}>
       <Column flex={1} gap={20}>
 
         <Column gap={10}>
+          <ProgressBar progress={30} height={4} />
+          <Row justifyContent={FlexJustifyContent.Between}>
+            <Typography variant={TypographyVariant.Body} size={Size.Small}>
+              Step
+            </Typography>
+            <Typography variant={TypographyVariant.Body} size={Size.Small}>
+              1 / 2
+            </Typography>
+          </Row>
+        </Column>
+
+        <Column gap={10} style={{
+          marginTop: 25 
+        }}>
           <Typography variant={TypographyVariant.Body} size={Size.Medium} style={{
             paddingHorizontal: 5
           }}>
@@ -66,19 +102,16 @@ export const PetTypeBreed = () => {
           </Typography>
 
           <Row gap={15}>
-            <PetBreedsAvatar 
-              petImgURL={Lab}
-              handlePress={() => console.log('Labrador')}
-              showText={true}
-              avatarTitle={'Labrador'}
-            />
-
-            <PetBreedsAvatar 
-              petImgURL={Ginger}
-              handlePress={() => console.log('Ginger')}
-              showText={true}
-              avatarTitle={'Ginger'}
-            />
+            {petBreedList.map((item, index) => (
+              <PetBreedsAvatar
+                key={index}
+                petImgURL={item.imgSrc}
+                handlePress={() => handlePetBreed(item.value)}
+                showText={true}
+                avatarTitle={item.label}
+                selected={selectedPetBreed === item.value}
+              />
+            ))}
           </Row>
         </Column>
       </Column>

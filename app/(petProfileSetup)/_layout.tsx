@@ -13,7 +13,7 @@ const PetProfileSetupLayout = () => {
         },
         headerTransparent: true,
         title: '',
-        headerShown: false
+        headerShown: false,
       }}
     >
       <Stack.Screen name='index' />

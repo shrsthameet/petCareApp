@@ -1,7 +1,6 @@
-import { Stack, useRouter } from 'expo-router';
+import { Stack } from 'expo-router';
 import { useSelector } from 'react-redux';
 import { FC } from 'react';
-import { Pressable } from 'react-native';
 import { Row } from '@/components/CoreUI/Flex';
 import { Icon } from '@/components/CoreUI/Icons';
 import {
@@ -14,16 +13,9 @@ import {
 } from '@/utils/enum';
 import { Typography } from '@/components/CoreUI/Typography';
 import { RootState } from '@/redux/rootReducer';
-import { ROUTES } from '@/utils/types/routesType';
 
-const PetTypeAndBreedLayout: FC = () => {
+const PetBioLayout: FC = () => {
   const { theme } = useSelector((state: RootState) => state.theme);
-
-  const router = useRouter();
-
-  const handleRoute = () => {
-    router.push(ROUTES.PET_PROFILE_SETUP.PET_BIO);
-  };
 
   return (
     <Stack
@@ -33,14 +25,19 @@ const PetTypeAndBreedLayout: FC = () => {
         },
         headerTransparent: true,
         title: '',
-        headerBackVisible: false,
+        headerLeft: () => (
+          <Row alignItems={FlexAlignItems.Center}>
+            <Icon name='chevron-back' library={IconLibraryName.Ionicons} size={20} />
+            <Typography variant={TypographyVariant.Body} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_Medium}>
+              {ButtonTitle.Previous}
+            </Typography>
+          </Row>
+        ),
         headerRight: () => (
           <Row alignItems={FlexAlignItems.Center}>
-            <Pressable onPress={handleRoute}>
-              <Typography variant={TypographyVariant.Body} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_Medium}>
-                {ButtonTitle.Next}
-              </Typography>
-            </Pressable>
+            <Typography variant={TypographyVariant.Body} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_Medium}>
+              {ButtonTitle.Next}
+            </Typography>
             <Icon name='chevron-forward' library={IconLibraryName.Ionicons} size={20} />
           </Row>
         ),
@@ -51,4 +48,4 @@ const PetTypeAndBreedLayout: FC = () => {
   );
 };
 
-export default PetTypeAndBreedLayout;
+export default PetBioLayout;

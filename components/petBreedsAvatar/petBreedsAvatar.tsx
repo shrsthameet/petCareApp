@@ -1,17 +1,21 @@
 import React, { FC } from 'react';
-import { GestureResponderEvent, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
+import { useSelector } from 'react-redux';
 import { Avatar } from '../CoreUI/Avatar';
 import { Column } from '../CoreUI/Flex';
 import { Typography } from '../CoreUI/Typography';
 import { FlexAlignItems, Size, TypographyVariant } from '@/utils/enum';
 import { SizeType } from '@/utils/types';
+import { RootState } from '@/redux/rootReducer';
 
 interface IPetBreedsAvatar {
   petImgURL?: string;
   avatarSize?: SizeType;
-  handlePress: (event: GestureResponderEvent) => void;
+  // handlePress: (event: GestureResponderEvent) => void;
+  handlePress: () => void;
   showText?: boolean;
   avatarTitle?: string;
+  selected?: boolean;
 }
 
 export const PetBreedsAvatar: FC<IPetBreedsAvatar> = ({
@@ -20,16 +24,22 @@ export const PetBreedsAvatar: FC<IPetBreedsAvatar> = ({
   handlePress,
   showText = false,
   avatarTitle,
+  selected
 }) => {
+  const { theme } = useSelector((state: RootState) => state.theme);
+
   return (
-    <Pressable onPress={(e) => handlePress(e)}>
+    <Pressable onPress={() => handlePress()}>
       <Column alignItems={FlexAlignItems.Center}>
         <Avatar
           imageUrl={petImgURL}
           size={avatarSize}
+          showBorder={selected ? true : false}
+          borderWidth={selected ? 2 : 0}
+          borderColor={selected ? theme.colors.primary : theme.colors.transparent}
         />
         {showText ? (
-          <Typography variant={TypographyVariant.Caption} size={Size.Medium}>
+          <Typography variant={TypographyVariant.Caption} size={Size.Medium} color={selected ? theme.colors.primary : theme.colors.onText}>
             {avatarTitle}
           </Typography>
         ) : null}

@@ -57,7 +57,7 @@ export const Avatar: React.FC<AvatarProps> = ({
         style={[
           styles.avatar,
           {
-            borderColor: showBorder ? borderColor : 'transparent',
+            borderColor: showBorder ? borderColor : theme.colors.transparent,
             borderWidth: showBorder ? borderWidth : 0,
             backgroundColor: isImageAvailable ? theme.colors.transparent : backgroundColor,
           },

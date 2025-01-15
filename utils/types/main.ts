@@ -85,7 +85,7 @@ export type FormType = 'Login' | 'Register';
 // Route types
 export type AuthRoutesType = '/(auth)/register' | '/(auth)/login';
 export type TabsRoute = '/(tabs)/(home)' | '/(tabs)/explore';
-export type PetProfileSetUpRouteType = '/(petProfileSetup)' | '/(petProfileSetup)/petTypeAndBreed';
+export type PetProfileSetUpRouteType = '/(petProfileSetup)' | '/(petProfileSetup)/petTypeAndBreed' | '/(petProfileSetup)/petBio';
 export type RoutesType = AuthRoutesType | TabsRoute | PetProfileSetUpRouteType;
 
 // Define available icon libraries
