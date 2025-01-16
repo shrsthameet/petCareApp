@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import {
   View,
   Pressable,
@@ -16,7 +16,7 @@ interface RadioButtonProps {
   selectedValue: string;
   onValueChange: (value: string) => void;
   size?: SizeType;
-  direction?: FlexDirectionType; // New prop for layout direction
+  direction?: FlexDirectionType;
   disabled?: boolean;
 }
 
@@ -29,28 +29,35 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   disabled = false,
 }) => {
   const { theme } = useSelector((state: RootState) => state.theme);
-  const [scaleAnim] = useState(new Animated.Value(1)); // For scaling animation
-
   const styles = getRadioButtonStyles(theme, size);
 
-  useEffect(() => {
-    // Trigger the animation when selectedValue changes
-    if (selectedValue) {
-      Animated.spring(scaleAnim, {
-        toValue: 1.2, // Scale up
-        friction: 4,
-        tension: 80,
+  // Animation values for each option
+  const animatedValues = useRef(
+    options.map(() => new Animated.Value(1)) // Initial scale of 1 for each option
+  ).current;
+
+  // Function to handle the spring animation
+  const handlePress = (value: string, index: number) => {
+    // Trigger animation: scale up and bounce back immediately
+    animatedValues[index].setValue(1); // Reset to initial value
+    Animated.spring(animatedValues[index], {
+      toValue: 1.2, // Slight scale-up
+      useNativeDriver: true,
+      friction: 4, // Controls bounciness
+      tension: 150, // Controls speed
+    }).start(() => {
+      // Bounce back to normal size
+      Animated.spring(animatedValues[index], {
+        toValue: 1, // Scale back to normal
         useNativeDriver: true,
-      }).start(() => {
-        Animated.spring(scaleAnim, {
-          toValue: 1, // Scale back to normal
-          friction: 4,
-          tension: 80,
-          useNativeDriver: true,
-        }).start();
-      });
-    }
-  }, [selectedValue]);
+        friction: 4, // Smoother return
+        tension: 150, // Controls speed
+      }).start();
+    });
+
+    // Call the provided onValueChange handler
+    onValueChange(value);
+  };
 
   return (
     <View
@@ -59,14 +66,14 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
         direction === FlexDirection.Row && styles.rowDirection,
       ]}
     >
-      {options.map((option) => (
+      {options.map((option, index) => (
         <Pressable
           key={option.value}
           style={[
             styles.radioButtonContainer,
             direction === FlexDirection.Row && styles.radioButtonRow,
           ]}
-          onPress={() => onValueChange(option.value)}
+          onPress={() => handlePress(option.value, index)}
           disabled={disabled}
         >
           <Animated.View
@@ -76,9 +83,9 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
               disabled && styles.radioCircleDisabled,
               {
                 transform: [{
-                  scale: selectedValue === option.value ? scaleAnim : 1 
-                }] 
-              }, // Apply scale animation
+                  scale: animatedValues[index] 
+                }], // Add scale animation
+              },
             ]}
           >
             {selectedValue === option.value && (
@@ -101,3 +108,5 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
     </View>
   );
 };
+
+

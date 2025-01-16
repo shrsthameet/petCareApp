@@ -14,6 +14,7 @@ import { getPetProfileSetupStyles } from '@/screens/petProfileSetUp/petProfileSe
 import { ProgressBar } from '@/components/CoreUI/ProgressBar';
 import { ImageUpload } from '@/components/CoreUI/ImageUpload';
 import { RadioButton } from '@/components/CoreUI/RadioButton';
+import { CustomDateTimePicker } from '@/components/CoreUI/CustomDateTimePicker';
 
 interface IInitialState {
   name: string;
@@ -68,7 +69,7 @@ const PetBio: FC = () => {
       [field]: value
     }));
   };
-
+  
   return (
     <SafeAreaView style={globalStyles.container}>
       <Column gap={40} style={styles.container}>
@@ -115,12 +116,7 @@ const PetBio: FC = () => {
             }}>
               Date of birth
             </Typography>
-            <Input
-              value={name}
-              placeholder={'Enter date of birth'}
-              onChangeText={(value) => handleChange('name', value)}
-              shape={Shape.Pill}
-            />
+            <CustomDateTimePicker onDateChange={(date) => console.log('date', date)} mode='date' />
           </Column>
 
           <Column>
@@ -134,7 +130,6 @@ const PetBio: FC = () => {
               selectedValue={adoption}
               onValueChange={(value) => handleChange('adoption', value)}
               direction={FlexDirection.Row}
-              // disabled={true}
             />
           </Column>
 
@@ -145,12 +140,7 @@ const PetBio: FC = () => {
               }}>
               Date of adoption
               </Typography>
-              <Input
-                value={name}
-                placeholder={'Enter date of adoption'}
-                onChangeText={(value) => handleChange('name', value)}
-                shape={Shape.Pill}
-              />
+              <CustomDateTimePicker onDateChange={(date) => console.log('date', date)} mode='date' />
             </Column>
           ) : null}
         </Column>

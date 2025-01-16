@@ -70,7 +70,7 @@ export type FlexAlignItemsType = 'flex-start' | 'center' | 'flex-end' | 'stretch
 export type FlexWrapType = 'wrap' | 'nowrap' | 'wrap-reverse';
 
 // Define button type
-export type ButtonTitleType = 'Submit' | 'Edit' | 'Delete' | 'Save' | 'Update' | 'Register' | 'Next' | 'Previous';
+export type ButtonTitleType = 'Submit' | 'Edit' | 'Delete' | 'Save' | 'Update' | 'Register' | 'Next' | 'Previous' | 'Confirm';
 export type ButtonVariantType = 'text' | 'outlined' | 'contained';
 
 export type ShapeType = 'flat' | 'curve' | 'arch' | 'pill' | 'circle';
@@ -87,6 +87,13 @@ export type AuthRoutesType = '/(auth)/register' | '/(auth)/login';
 export type TabsRoute = '/(tabs)/(home)' | '/(tabs)/explore';
 export type PetProfileSetUpRouteType = '/(petProfileSetup)' | '/(petProfileSetup)/petTypeAndBreed' | '/(petProfileSetup)/petBio';
 export type RoutesType = AuthRoutesType | TabsRoute | PetProfileSetUpRouteType;
+
+// Date & time picker type
+export type DateTimePickerModeType = 'date' | 'time' | 'datetime';
+export type DateTimePickerDisplayType = 'default' | 'spinner' | 'calendar' | 'clock';
+
+// Modal animation type
+export type ModalAnimationType = 'none' | 'slide' | 'fade';
 
 // Define available icon libraries
 export const IconLibraries = {

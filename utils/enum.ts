@@ -64,7 +64,8 @@ export enum ButtonTitle {
   Login = 'Login',
   Register = 'Register',
   Next = 'Next',
-  Previous = 'Previous'
+  Previous = 'Previous',
+  Confirm = 'Confirm'
 }
 
 export enum IconLibraryName {
@@ -154,4 +155,25 @@ export enum PetProfileSetupRoutes {
   DEFAULT = '/(petProfileSetup)',
   PET_TYPE_AND_BREED = '/(petProfileSetup)/petTypeAndBreed',
   PET_BIO = '/(petProfileSetup)/petBio',
+}
+
+// Date & time picker enum
+export enum DateTimePickerMode {
+  Date = 'date',
+  Time = 'time',
+  DateTime = 'datetime'
+}
+
+export enum DateTimePickerDisplay {
+  Default = 'default',
+  Spinner = 'spinner',
+  Calendar = 'calendar',
+  Clock = 'clock'
+}
+
+// Modal animation enum
+export enum ModalAnimation {
+  None = 'none',
+  Slide = 'slide',
+  Fade = 'fade'
 }
