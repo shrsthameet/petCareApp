@@ -12,9 +12,9 @@ import { FlexDirection, Size, TypographyVariant } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
 
 interface RadioButtonProps {
-  options: { label: string; value: string }[];
-  selectedValue: string;
-  onValueChange: (value: string) => void;
+  options: { label: string; value: string | boolean }[];
+  selectedValue: string | boolean;
+  onValueChange: (value: string | boolean) => void;
   size?: SizeType;
   direction?: FlexDirectionType;
   disabled?: boolean;
@@ -37,7 +37,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   ).current;
 
   // Function to handle the spring animation
-  const handlePress = (value: string, index: number) => {
+  const handlePress = (value: string | boolean, index: number) => {
     // Trigger animation: scale up and bounce back immediately
     animatedValues[index].setValue(1); // Reset to initial value
     Animated.spring(animatedValues[index], {
@@ -68,7 +68,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
     >
       {options.map((option, index) => (
         <Pressable
-          key={option.value}
+          key={index}
           style={[
             styles.radioButtonContainer,
             direction === FlexDirection.Row && styles.radioButtonRow,
@@ -108,5 +108,3 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
     </View>
   );
 };
-
-

@@ -1,7 +1,6 @@
-import { Stack, useRouter } from 'expo-router';
+import { Stack } from 'expo-router';
 import { useSelector } from 'react-redux';
 import { FC } from 'react';
-import { Pressable } from 'react-native';
 import { Row } from '@/components/CoreUI/Flex';
 import { Icon } from '@/components/CoreUI/Icons';
 import {
@@ -14,16 +13,9 @@ import {
 } from '@/utils/enum';
 import { Typography } from '@/components/CoreUI/Typography';
 import { RootState } from '@/redux/rootReducer';
-import { ROUTES } from '@/utils/types/routesType';
 
-const PetBioLayout: FC = () => {
+const PetProfileCompleteLayout: FC = () => {
   const { theme } = useSelector((state: RootState) => state.theme);
-
-  const router = useRouter();
-
-  const handleRoute = () => {
-    router.push(ROUTES.PET_PROFILE_SETUP.PET_INFO);
-  };
 
   return (
     <Stack
@@ -41,16 +33,6 @@ const PetBioLayout: FC = () => {
             </Typography>
           </Row>
         ),
-        headerRight: () => (
-          <Pressable onPress={handleRoute}>
-            <Row alignItems={FlexAlignItems.Center}>
-              <Typography variant={TypographyVariant.Body} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_Medium}>
-                {ButtonTitle.Next}
-              </Typography>
-              <Icon name='chevron-forward' library={IconLibraryName.Ionicons} size={20} />
-            </Row>
-          </Pressable>
-        ),
       }}
     >
       <Stack.Screen name='index' />
@@ -58,4 +40,4 @@ const PetBioLayout: FC = () => {
   );
 };
 
-export default PetBioLayout;
+export default PetProfileCompleteLayout;

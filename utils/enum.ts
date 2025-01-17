@@ -65,7 +65,8 @@ export enum ButtonTitle {
   Register = 'Register',
   Next = 'Next',
   Previous = 'Previous',
-  Confirm = 'Confirm'
+  Confirm = 'Confirm',
+  Back = 'Back'
 }
 
 export enum IconLibraryName {
@@ -150,11 +151,18 @@ export enum AuthRoutes {
   LOGIN = '/(auth)/login',
 }
 
+// Auth Routes Enum
+export enum TabsRoutes {
+  Home = '/(tabs)/(home)',
+}
+
 // Pet Profile Setup Routes Enum
 export enum PetProfileSetupRoutes {
   DEFAULT = '/(petProfileSetup)',
   PET_TYPE_AND_BREED = '/(petProfileSetup)/petTypeAndBreed',
   PET_BIO = '/(petProfileSetup)/petBio',
+  PET_INFO = '/(petProfileSetup)/petInfo',
+  PET_PROFILE_COMPLETE = '/(petProfileSetup)/petProfileComplete',
 }
 
 // Date & time picker enum
@@ -176,4 +184,27 @@ export enum ModalAnimation {
   None = 'none',
   Slide = 'slide',
   Fade = 'fade'
+}
+
+// Keyboard enum
+export enum Keyboard {
+  Default = 'default',
+  NumberPad = 'number-pad',
+  DecimalPad = 'decimal-pad',
+  Numeric = 'numeric',
+  EmailAddress = 'email-address',
+  PhonePad = 'phone-pad',
+  URL = 'url',
+}
+
+// Keyboard enum
+export enum InputMode {
+  None = 'none',
+  Search = 'search',
+  Text = 'text',
+  Decimal = 'decimal',
+  Numeric = 'numeric',
+  Email = 'email',
+  Tel = 'tel',
+  URL = 'url',
 }

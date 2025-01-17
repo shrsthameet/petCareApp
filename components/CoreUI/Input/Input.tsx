@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import {
   TextInput, TextInputProps, StyleProp, ViewStyle, TextStyle, View,
-  Pressable
+  Pressable,
+  KeyboardType,
+  InputModeOptions
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Icon } from '../Icons/Icons';
@@ -9,7 +11,9 @@ import { Column } from '../Flex';
 import { getInputStyles } from './Input.style';
 import { ShapeType, IconLibraries, SizeType } from '@/utils/types';
 import { RootState } from '@/redux/rootReducer';
-import { IconLibraryName, Shape, Size } from '@/utils/enum';
+import {
+  IconLibraryName, InputMode, Keyboard, Shape, Size 
+} from '@/utils/enum';
 
 interface InputProps extends TextInputProps {
   containerStyle?: StyleProp<ViewStyle>;
@@ -30,6 +34,8 @@ interface InputProps extends TextInputProps {
   maxLength?: number; // Maximum number of characters
   editable?: boolean; // Editable prop
   secureTextEntry?: boolean; // For password input
+  keyboardType?: KeyboardType; // Keyboard type
+  inputMode?: InputModeOptions; // Keyboard type
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -51,6 +57,8 @@ export const Input: React.FC<InputProps> = ({
   maxLength, // Max length for input
   editable = true, // Editable input
   secureTextEntry = false, // By default it's false
+  keyboardType = Keyboard.Default,
+  inputMode = InputMode.Text,
   ...rest
 }) => {
   const { theme } = useSelector((state: RootState) => state.theme);
@@ -85,6 +93,8 @@ export const Input: React.FC<InputProps> = ({
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}
+          keyboardType={keyboardType}
+          inputMode={inputMode}
           multiline={multiline}
           numberOfLines={numberOfLines} // Multiline prop for number of lines
           maxLength={maxLength} // Max length for input

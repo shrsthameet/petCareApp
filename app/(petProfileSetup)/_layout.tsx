@@ -18,6 +18,9 @@ const PetProfileSetupLayout = () => {
     >
       <Stack.Screen name='index' />
       <Stack.Screen name='petTypeAndBreed' />
+      <Stack.Screen name='petBio' />
+      <Stack.Screen name='petInfo' />
+      <Stack.Screen name='petProfileComplete' />
     </Stack>
   );
 };

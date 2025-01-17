@@ -61,13 +61,13 @@ export const PetTypeBreed = () => {
       <Column flex={1} gap={20}>
 
         <Column gap={10}>
-          <ProgressBar progress={30} height={4} />
+          <ProgressBar progress={33.33} height={4} />
           <Row justifyContent={FlexJustifyContent.Between}>
             <Typography variant={TypographyVariant.Body} size={Size.Small}>
               Step
             </Typography>
             <Typography variant={TypographyVariant.Body} size={Size.Small}>
-              1 / 2
+              1 / 3
             </Typography>
           </Row>
         </Column>

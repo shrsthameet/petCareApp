@@ -15,9 +15,11 @@ import { ProgressBar } from '@/components/CoreUI/ProgressBar';
 import { ImageUpload } from '@/components/CoreUI/ImageUpload';
 import { RadioButton } from '@/components/CoreUI/RadioButton';
 import { CustomDateTimePicker } from '@/components/CoreUI/CustomDateTimePicker';
+import { Select } from '@/components/CoreUI/Select';
 
 interface IInitialState {
   name: string;
+  gender: string;
   dateOfBirth: string;
   dateOfAdoption: string;
   image: string;
@@ -54,6 +56,7 @@ const PetBio: FC = () => {
 
   const [initialState, setInitialState] = useState<IInitialState>({
     name: '',
+    gender: '',
     dateOfBirth: '',
     dateOfAdoption: '',
     image: '',
@@ -61,8 +64,9 @@ const PetBio: FC = () => {
     step: 2
   });
 
-  const { name, dateOfBirth, dateOfAdoption, image, adoption } = initialState;
+  const { name, gender, dateOfBirth, dateOfAdoption, image, adoption } = initialState;
 
+  // Handle change
   const handleChange = (field: string, value: string) => {
     setInitialState((prevState) => ({
       ...prevState,
@@ -75,13 +79,13 @@ const PetBio: FC = () => {
       <Column gap={40} style={styles.container}>
 
         <Column gap={10}>
-          <ProgressBar progress={30} height={4} />
+          <ProgressBar progress={66.66} height={4} />
           <Row justifyContent={FlexJustifyContent.Between}>
             <Typography variant={TypographyVariant.Body} size={Size.Small}>
               Step
             </Typography>
             <Typography variant={TypographyVariant.Body} size={Size.Small}>
-              2 / 2
+              2 / 3
             </Typography>
           </Row>
         </Column>
@@ -117,6 +121,25 @@ const PetBio: FC = () => {
               Date of birth
             </Typography>
             <CustomDateTimePicker onDateChange={(date) => console.log('date', date)} mode='date' />
+          </Column>
+
+          <Column gap={10}>
+            <Typography variant={TypographyVariant.Body} size={Size.Small} style={{
+              paddingHorizontal: 5
+            }}>
+              Gender
+            </Typography>
+            <Select
+              options={[{
+                label: 'Male', value: 'male'
+              }, {
+                label: 'Female', value: 'female'
+              }
+              ]}
+              selectedValue={gender}
+              placeholder='Select gender'
+              onSelect={(value) => handleChange('gender', value)}
+            />
           </Column>
 
           <Column>

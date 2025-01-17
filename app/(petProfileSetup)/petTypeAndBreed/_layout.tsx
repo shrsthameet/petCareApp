@@ -35,14 +35,14 @@ const PetTypeAndBreedLayout: FC = () => {
         title: '',
         headerBackVisible: false,
         headerRight: () => (
-          <Row alignItems={FlexAlignItems.Center}>
-            <Pressable onPress={handleRoute}>
+          <Pressable onPress={handleRoute}>
+            <Row alignItems={FlexAlignItems.Center}>
               <Typography variant={TypographyVariant.Body} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_Medium}>
                 {ButtonTitle.Next}
               </Typography>
-            </Pressable>
-            <Icon name='chevron-forward' library={IconLibraryName.Ionicons} size={20} />
-          </Row>
+              <Icon name='chevron-forward' library={IconLibraryName.Ionicons} size={20} />
+            </Row>
+          </Pressable>
         ),
       }}
     >

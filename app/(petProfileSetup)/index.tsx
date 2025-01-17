@@ -21,7 +21,7 @@ const PetInfo = () => {
   const router = useRouter();
 
   const handleClick = (linkTo: RoutesType) => {
-    router.push(linkTo);
+    router.replace(linkTo);
   };
   return (
     <Column gap={20} flex={1} justifyContent={FlexJustifyContent.Center}>

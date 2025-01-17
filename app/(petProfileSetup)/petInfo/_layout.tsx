@@ -16,13 +16,13 @@ import { Typography } from '@/components/CoreUI/Typography';
 import { RootState } from '@/redux/rootReducer';
 import { ROUTES } from '@/utils/types/routesType';
 
-const PetBioLayout: FC = () => {
+const PetInfoLayout: FC = () => {
   const { theme } = useSelector((state: RootState) => state.theme);
 
   const router = useRouter();
 
   const handleRoute = () => {
-    router.push(ROUTES.PET_PROFILE_SETUP.PET_INFO);
+    router.push(ROUTES.PET_PROFILE_SETUP.PET_PROFILE_COMPLETE);
   };
 
   return (
@@ -58,4 +58,4 @@ const PetBioLayout: FC = () => {
   );
 };
 
-export default PetBioLayout;
+export default PetInfoLayout;

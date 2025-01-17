@@ -11,4 +11,8 @@ export const getPetProfileSetupStyles = (theme: ITheme) => StyleSheet.create({
     width: 110,
     height: 250,
   },
+  profileCompleteImg: {
+    width: 210,
+    height: 350
+  }
 });
