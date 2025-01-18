@@ -16,17 +16,14 @@ import {
   Size,
   TypographyVariant
 } from '@/utils/enum';
-import { ShapeType, SizeType } from '@/utils/types';
-
-interface Option {
-  label: string;
-  value: string;
-}
+import {
+  IOptionList, FormValueType, ShapeType, SizeType 
+} from '@/utils/types';
 
 interface ISelectProps {
-  options: Option[];
+  options: IOptionList[];
   selectedValue?: string;
-  onSelect: (value: string, event: GestureResponderEvent) => void;
+  onSelect: (value: FormValueType, event: GestureResponderEvent) => void;
   placeholder?: string;
   size?: SizeType;
   shape?: ShapeType;
@@ -84,7 +81,7 @@ export const Select: React.FC<ISelectProps> = ({
     }
   };
 
-  const handleOptionPress = (value: string, event: GestureResponderEvent) => {
+  const handleOptionPress = (value: FormValueType, event: GestureResponderEvent) => {
     onSelect(value, event);
     toggleDropdown();
   };

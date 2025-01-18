@@ -27,9 +27,9 @@ export default function HomeScreen() {
       <Column gap={30} style={{
         marginBottom: 85,
       }}>
-        <Row>
+        {/* <Row>
           <Button title='Logout' onPress={handleLogout} />
-        </Row>
+        </Row> */}
         <GreetingHeader />
 
         <ServicesComponent />

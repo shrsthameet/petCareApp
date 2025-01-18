@@ -61,7 +61,7 @@ export const Button = (
 
     // Determine background and text color based on variants and color
     const getBackgroundColor = () => {
-      if (disabled) return theme.colors.surfaceDisabled;
+      if (disabled) return theme.colors.transparent;
       switch (variant) {
       case ButtonVariant.Contained:
         return theme.colors[color.toLowerCase() as keyof typeof theme.colors] || theme.colors.primary;
@@ -160,7 +160,13 @@ export const Button = (
             style={iconSpacing}
           />
         )}
-        <Typography variant={TypographyVariant.Body} size={Size.Small} style={textStyles} fontFamilyStyle={Fonts.Montserrat_Medium}>{title}</Typography>
+        <Typography
+          variant={TypographyVariant.Body}
+          size={Size.Small}
+          style={textStyles}
+          fontFamilyStyle={Fonts.Montserrat_Medium}>
+          {title}
+        </Typography>
         {showIcon && iconPosition === Position.Right && iconName && (
           <Icon
             library={iconLibrary ? iconLibrary : 'AntDesign'}

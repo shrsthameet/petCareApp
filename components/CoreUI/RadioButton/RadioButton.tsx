@@ -7,14 +7,16 @@ import {
 import { useSelector } from 'react-redux';
 import { Typography } from '../Typography';
 import { getRadioButtonStyles } from './RadioButton.style';
-import { FlexDirectionType, SizeType } from '@/utils/types';
+import {
+  FlexDirectionType, IOptionList, FormValueType, SizeType 
+} from '@/utils/types';
 import { FlexDirection, Size, TypographyVariant } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
 
 interface RadioButtonProps {
-  options: { label: string; value: string | boolean }[];
+  options: IOptionList[];
   selectedValue: string | boolean;
-  onValueChange: (value: string | boolean) => void;
+  onValueChange: (value: FormValueType) => void;
   size?: SizeType;
   direction?: FlexDirectionType;
   disabled?: boolean;
@@ -37,7 +39,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   ).current;
 
   // Function to handle the spring animation
-  const handlePress = (value: string | boolean, index: number) => {
+  const handlePress = (value: FormValueType, index: number) => {
     // Trigger animation: scale up and bounce back immediately
     animatedValues[index].setValue(1); // Reset to initial value
     Animated.spring(animatedValues[index], {

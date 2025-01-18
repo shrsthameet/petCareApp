@@ -28,7 +28,7 @@ export default function DashboardLayout() {
               paddingRight: 5
             }}>
             <Icon name='notifications-outline' library={IconLibraryName.Ionicons} size={28} color={Colors.pitchBlack} />
-            <Icon name='person-circle-outline' library={IconLibraryName.Ionicons} size={35} color={Colors.pitchBlack} />
+            {/* <Icon name='person-circle-outline' library={IconLibraryName.Ionicons} size={35} color={Colors.pitchBlack} /> */}
           </Row>
         ),
       }}

@@ -23,7 +23,7 @@ export const MyPetsComponent = () => {
   return (
     <Column gap={10} style={styles.petsContainer}>
       <Row justifyContent={FlexJustifyContent.Between} alignItems={FlexAlignItems.Center}>
-        <Typography variant={TypographyVariant.Title} size={Size.Medium} color={theme.colors.text} fontFamilyStyle={Fonts.Montserrat_SemiBold}>
+        <Typography variant={TypographyVariant.Title} size={Size.Medium} color={theme.colors.onText} fontFamilyStyle={Fonts.Montserrat_SemiBold}>
           My Pets
         </Typography>
         <Link href='/'>

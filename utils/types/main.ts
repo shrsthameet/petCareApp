@@ -105,6 +105,14 @@ export type ModalAnimationType = 'none' | 'slide' | 'fade';
 export type KeyboardType = 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad' | 'url';
 export type InputModeType = 'search' | 'text' | 'email' | 'decimal' | 'numeric' | 'url' | 'none' | 'tel';
 
+// Option list type
+export type FormValueType = string | string[] | boolean | Date | number | null;
+export interface IOptionList {
+  label: string;
+  value: FormValueType;
+  imgSrc?: string;
+}
+
 // Define available icon libraries
 export const IconLibraries = {
   Ionicons: Ionicons,

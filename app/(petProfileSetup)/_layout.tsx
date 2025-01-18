@@ -2,6 +2,7 @@ import { Stack } from 'expo-router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootReducer';
 
+
 const PetProfileSetupLayout = () => {
   const { theme } = useSelector((state: RootState) => state.theme);
 
@@ -13,14 +14,22 @@ const PetProfileSetupLayout = () => {
         },
         headerTransparent: true,
         title: '',
-        headerShown: false,
+        headerLeft: () => null
       }}
     >
-      <Stack.Screen name='index' />
+      <Stack.Screen name='index' 
+        options={{
+          headerShown: false
+        }}
+      />
       <Stack.Screen name='petTypeAndBreed' />
       <Stack.Screen name='petBio' />
       <Stack.Screen name='petInfo' />
-      <Stack.Screen name='petProfileComplete' />
+      <Stack.Screen name='petProfileComplete'
+        options={{
+          headerShown: false
+        }}
+      />
     </Stack>
   );
 };

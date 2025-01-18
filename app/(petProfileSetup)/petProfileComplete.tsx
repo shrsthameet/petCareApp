@@ -23,7 +23,7 @@ const PetProfileComplete = () => {
   const router = useRouter();
 
   const handleRouter = () => {
-    router.replace(ROUTES.TABS_ROUTES.Home);
+    router.replace(ROUTES.TABS_ROUTES.HOME);
   };
   return (
     <SafeAreaView style={globalStyles.container}>

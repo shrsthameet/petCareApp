@@ -153,7 +153,7 @@ export enum AuthRoutes {
 
 // Auth Routes Enum
 export enum TabsRoutes {
-  Home = '/(tabs)/(home)',
+  HOME = '/(tabs)/(home)',
 }
 
 // Pet Profile Setup Routes Enum

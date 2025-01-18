@@ -21,7 +21,7 @@ const PetInfo = () => {
   const router = useRouter();
 
   const handleClick = (linkTo: RoutesType) => {
-    router.replace(linkTo);
+    router.push(linkTo);
   };
   return (
     <Column gap={20} flex={1} justifyContent={FlexJustifyContent.Center}>
@@ -55,7 +55,7 @@ const PetInfo = () => {
           <Column style={{
             width: '70%'
           }}>
-            <Button title='Skip, add later' shape={Shape.Pill} variant={ButtonVariant.Outlined} onPress={() => handleClick('/(tabs)/(home)')} />
+            <Button title='Skip, add later' shape={Shape.Pill} variant={ButtonVariant.Outlined} onPress={() => handleClick(ROUTES.TABS_ROUTES.HOME)} />
           </Column>
         </Column>
       </Column>
