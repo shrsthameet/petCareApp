@@ -1,9 +1,10 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { PersistConfig } from 'redux-persist';
+import mmkvStorage from '@/utils/mmkvStorage';
 
 // Config for redux-persist
-const persistConfig = {
+const persistConfig: PersistConfig<any> = {
   key: 'root',
-  storage: AsyncStorage,
+  storage: mmkvStorage,
   // whitelist: ['auth'], // Only persist specific reducers if needed
   whitelist: [], // Only persist specific reducers if needed
 };

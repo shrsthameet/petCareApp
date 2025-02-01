@@ -208,3 +208,12 @@ export enum InputMode {
   Tel = 'tel',
   URL = 'url',
 }
+
+// export enum APIMethod
+export enum APIMethod {
+  GET = 'GET',
+  POST = 'POST',
+  UPDATE = 'UPDATE',
+  PATCH = 'PATCH',
+  DELETE = 'DELETE'
+}

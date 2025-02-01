@@ -11,7 +11,7 @@ interface AuthLayoutProps {
 }
 
 export function AuthLayout({ children }: AuthLayoutProps) {
-  const { isAuthenticated, isLoading } = useSelector((state: RootState) => state.auth.loginState);
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const router = useRouter();
   const segments = useSegments();  // Get the current path segments
 
@@ -31,17 +31,17 @@ export function AuthLayout({ children }: AuthLayoutProps) {
         router.replace('/(tabs)');
       }
     }
-  }, [isAuthenticated, isLoading, segments, router]);
+  }, [isAuthenticated, segments, router]);
 
-  if (isLoading) {
-    return (
-      <View style={{
-        flex: 1, justifyContent: 'center', alignItems: 'center' 
-      }}>
-        <ActivityIndicator size='large' />
-      </View>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <View style={{
+  //       flex: 1, justifyContent: 'center', alignItems: 'center' 
+  //     }}>
+  //       <ActivityIndicator size='large' />
+  //     </View>
+  //   );
+  // }
 
   return <React.Fragment>{children}</React.Fragment>;  // Render all stack screens (login, dashboard, etc.)
 }

@@ -40,6 +40,7 @@ interface UserCredformProps {
   btnTitle: string;
   handleClick: () => void;
   formType: FormType;
+  isLoading?: boolean;
 }
 
 export const UserCredForm: FC<UserCredformProps> = ({
@@ -48,7 +49,8 @@ export const UserCredForm: FC<UserCredformProps> = ({
   onSubmit,
   btnTitle,
   handleClick,
-  formType
+  formType,
+  isLoading
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const { theme } = useSelector((state: RootState) => state.theme);
@@ -146,6 +148,7 @@ export const UserCredForm: FC<UserCredformProps> = ({
           iconLibrary={IconLibraryName.AntDesign}
           showIcon
           iconPosition={Position.Right}
+          isLoading={isLoading}
         />
       </Column>
     </>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'expo-router';
@@ -14,31 +14,39 @@ import {
   Form,
   InputType
 } from '@/utils/enum';
-import { ITheme } from '@/utils/types';
-import { register } from '@/redux/authSlice/authService';
+import { ErrorResponse, ITheme } from '@/utils/types';
 import { ROUTES } from '@/utils/types/routesType';
-import { setAuth } from '@/redux/authSlice';
+import { setCredentials } from '@/redux/authSlice';
+import { useRegisterMutation } from '@/redux/authSlice/authApi';
+import { isFetchBaseQueryError } from '@/utils/types/appUtils';
 
 interface IRegisterState {
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
+  confirmPassword: string;
   termsAndCondition: boolean;
 }
 
 export const Register = () => {
   const { theme } = useSelector((state: RootState) => state.theme);
   const router = useRouter();
+  const [register, { isLoading, error, isSuccess, data }] = useRegisterMutation();
   const dispatch = useDispatch<AppDispatch>();
 
   const styles = getRegisterStyles(theme);
 
   const [registerState, setRegisterState] = useState<IRegisterState>({
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
+    confirmPassword: '',
     termsAndCondition: false
   });
 
-  const { email, password, termsAndCondition } = registerState;
+  const { firstName, lastName, email, password, confirmPassword, termsAndCondition } = registerState;
 
   const handleChange = (field: string, value: string) => {
     setRegisterState((prevState) => ({
@@ -47,15 +55,14 @@ export const Register = () => {
     }));
   };
   
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const credentials = {
+      firstName,
+      lastName,
       email,
       password
     };
-
-    // dispatch(register(credentials));
-    dispatch(setAuth());
-    router.push('/(petProfileSetup)');
+    await register(credentials);
   };
 
   const formFields = [
@@ -64,14 +71,14 @@ export const Register = () => {
       placeholder: FormData.Register.firstName.placeholder,
       name: FormData.Register.firstName.name,
       type: InputType.Text,
-      value: email
+      value: firstName
     },
     {
       title: FormData.Register.lastName.title,
       placeholder: FormData.Register.lastName.placeholder,
       name: FormData.Register.lastName.name,
       type: InputType.Text,
-      value: email
+      value: lastName
     },
     {
       title: FormData.Register.email.title,
@@ -92,7 +99,7 @@ export const Register = () => {
       placeholder: FormData.Register.confirmPassword.placeholder,
       name: FormData.Register.confirmPassword.name,
       type: InputType.Password,
-      value: password,
+      value: confirmPassword,
     },
     {
       title: FormData.Register.termsAndCondition.title,
@@ -108,6 +115,22 @@ export const Register = () => {
     router.replace(ROUTES.AUTH.LOGIN);
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      console.log('register response data', data);
+      dispatch(setCredentials(data.data));
+      router.push('/(petProfileSetup)');
+    }
+    if (error) {
+      if (isFetchBaseQueryError(error)) {
+        const data = error.data as ErrorResponse;
+        Alert.alert('Error', data.error || data.message || 'Something went wrong');
+      } else {
+        Alert.alert('Error', 'An unexpected error occurred');
+      }
+    }
+  }, [isSuccess, data, error, dispatch]);
+
   return (
     <Column flex={1} gap={20} justifyContent={FlexJustifyContent.Between} style={styles.loginContainer}>
       <UserCredForm
@@ -117,6 +140,7 @@ export const Register = () => {
         btnTitle={ButtonTitle.Register}
         handleClick={navigateToLogin}
         formType={Form.Register}
+        isLoading={isLoading}
       />
     </Column>
   );

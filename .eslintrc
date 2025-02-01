@@ -9,6 +9,7 @@
   "plugins": ["@typescript-eslint", "@typescript-eslint/eslint-plugin"],
   "rules": {
     "@typescript-eslint/ban-types": 0,
+    "@typescript-eslint/no-explicit-any": "off",
     "import/order": 2,
     "no-trailing-spaces": [
       0,

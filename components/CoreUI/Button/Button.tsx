@@ -1,10 +1,12 @@
-import React, { ForwardedRef } from 'react';
+import React, { ForwardedRef, useEffect, useRef } from 'react';
 import {
   TouchableOpacity,
   ViewStyle,
   TextStyle,
   GestureResponderEvent,
   View,
+  Animated,
+  Easing,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Icon } from '../Icons';
@@ -32,8 +34,8 @@ interface ButtonProps {
   iconName?: string; // Icon name
   iconLibrary?: keyof typeof IconLibraries | 'AntDesign'; // Icon library
   iconSize?: number; // Icon size
-  // iconColor?: string; // Icon color
   iconPosition?: PositionType; // Position of the icon (default is left)
+  isLoading?: boolean; // Loading state
 }
 
 export const Button = (
@@ -51,17 +53,35 @@ export const Button = (
       showIcon = false,
       iconName = 'plus',
       iconLibrary,
-      // iconColor = ColorVariant.Primary,
       iconPosition,
-      iconSize = 16
+      iconSize = 16,
+      isLoading = false, // Default to false
     }: ButtonProps,
     ref: ForwardedRef<View>
   ) => {
     const { theme } = useSelector((state: RootState) => state.theme);
 
-    // Determine background and text color based on variants and color
+    // Animated value for the loading icon rotation
+    const rotation = useRef(new Animated.Value(0)).current;
+
+    // Start animation for the loading icon
+    useEffect(() => {
+      if (isLoading) {
+        Animated.loop(
+          Animated.timing(rotation, {
+            toValue: 1,
+            duration: 1000,
+            easing: Easing.linear,
+            useNativeDriver: true,
+          })
+        ).start();
+      } else {
+        rotation.setValue(0); // Reset rotation when not loading
+      }
+    }, [isLoading, rotation]);
+
     const getBackgroundColor = () => {
-      if (disabled) return theme.colors.transparent;
+      if (disabled || isLoading) return theme.colors.onSurfaceDisabled;
       switch (variant) {
       case ButtonVariant.Contained:
         return theme.colors[color.toLowerCase() as keyof typeof theme.colors] || theme.colors.primary;
@@ -124,16 +144,14 @@ export const Button = (
       justifyContent: FlexJustifyContent.Center,
       borderWidth: variant === ButtonVariant.Outlined ? 1 : 0,
       borderColor: theme.colors[color as keyof typeof theme.colors] as string || theme.colors.primary as string,
-      paddingHorizontal: sizeStyles.paddingHorizontal, // Ensure consistent horizontal padding
-      paddingVertical: sizeStyles.paddingVertical, // Ensure consistent vertical padding
+      paddingHorizontal: sizeStyles.paddingHorizontal,
+      paddingVertical: sizeStyles.paddingVertical,
       ...style,
     };
 
     const textStyles: TextStyle = {
       color: getTextColor() as string,
       fontSize: sizeStyles.fontSize,
-      // fontSize: theme.typography.body?.fontSize || 16,
-      // fontWeight: theme.typography.body?.fontWeight || '600',
       ...textStyle,
     };
 
@@ -143,38 +161,76 @@ export const Button = (
       marginLeft: iconPosition === Position.Right ? theme.spacing.xs : 0,
     };
 
+    // Rotate the loading icon using the animated value
+    const rotationStyle = {
+      transform: [
+        {
+          rotate: rotation.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['0deg', '360deg'],
+          }),
+        },
+      ],
+    };
+
     return (
       <TouchableOpacity
         ref={ref}
         style={buttonStyles}
         onPress={onPress}
-        disabled={disabled}
+        disabled={disabled || isLoading} // Disable when loading
         activeOpacity={0.7}
       >
-        {showIcon && iconPosition === Position.Left && iconName && (
-          <Icon
-            library={iconLibrary ? iconLibrary : 'AntDesign'}
-            name={iconName}
-            size={iconSize}
-            color={textStyles.color as string}
-            style={iconSpacing}
-          />
-        )}
-        <Typography
-          variant={TypographyVariant.Body}
-          size={Size.Small}
-          style={textStyles}
-          fontFamilyStyle={Fonts.Montserrat_Medium}>
-          {title}
-        </Typography>
-        {showIcon && iconPosition === Position.Right && iconName && (
-          <Icon
-            library={iconLibrary ? iconLibrary : 'AntDesign'}
-            name={iconName}
-            size={iconSize}
-            color={textStyles.color as string}
-            style={iconSpacing}
-          />
+        {isLoading ? (
+          <>
+            <Animated.View style={[iconSpacing, rotationStyle]}>
+              <Icon
+                library={iconLibrary ? iconLibrary : 'AntDesign'}
+                name={'loading1'}
+                size={iconSize}
+                color={textStyles.color as string}
+              />
+            </Animated.View>
+            <Typography
+              variant={TypographyVariant.Body}
+              size={Size.Small}
+              style={[textStyles, {
+                marginLeft: 5 
+              }]}
+              fontFamilyStyle={Fonts.Montserrat_Medium}
+            >
+              Loading..
+            </Typography>
+          </>
+        ) : (
+          <>
+            {showIcon && iconPosition === Position.Left && iconName && (
+              <Icon
+                library={iconLibrary ? iconLibrary : 'AntDesign'}
+                name={iconName}
+                size={iconSize}
+                color={textStyles.color as string}
+                style={iconSpacing}
+              />
+            )}
+            <Typography
+              variant={TypographyVariant.Body}
+              size={Size.Small}
+              style={textStyles}
+              fontFamilyStyle={Fonts.Montserrat_Medium}
+            >
+              {title}
+            </Typography>
+            {showIcon && iconPosition === Position.Right && iconName && (
+              <Icon
+                library={iconLibrary ? iconLibrary : 'AntDesign'}
+                name={iconName}
+                size={iconSize}
+                color={textStyles.color as string}
+                style={iconSpacing}
+              />
+            )}
+          </>
         )}
       </TouchableOpacity>
     );

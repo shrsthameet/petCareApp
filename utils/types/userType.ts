@@ -8,7 +8,8 @@ type RoleType = 'admin' | 'user' | 'guest';
 type User = {
   _id: string;
   email: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
   roles: RoleType[];
   token: string;
   // created_at?: string;

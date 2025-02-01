@@ -39,6 +39,12 @@ export interface ApiResponseType<T>  {
   data: T
 }
 
+export interface ErrorResponse {
+  error?: string;
+  message?: string
+}
+
+
 // Define theme
 export type ThemeVariant = 'light' | 'dark';
 
@@ -104,6 +110,9 @@ export type ModalAnimationType = 'none' | 'slide' | 'fade';
 // Keyboard and Input mode type for both iOS and android
 export type KeyboardType = 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad' | 'url';
 export type InputModeType = 'search' | 'text' | 'email' | 'decimal' | 'numeric' | 'url' | 'none' | 'tel';
+
+// API post type
+export type APIMethodType = 'GET' | 'POST' | 'UPDATE' | 'PATCH' | 'DELETE';
 
 // Option list type
 export type FormValueType = string | string[] | boolean | Date | number | null;

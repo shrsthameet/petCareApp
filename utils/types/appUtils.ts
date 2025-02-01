@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { Shape, Size } from '../enum';
 import { ShapeType, SizeType } from './main';
 import { ITheme } from './themeType';
@@ -67,3 +68,7 @@ export function getFontSize(theme: ITheme, size?: SizeType) {
     return theme.typography.body?.medium.fontSize;
   }
 }
+
+export const isFetchBaseQueryError = (error: any): error is FetchBaseQueryError => {
+  return error && typeof error === 'object' && 'data' in error;
+};
