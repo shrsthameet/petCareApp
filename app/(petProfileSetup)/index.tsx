@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import { useSelector } from 'react-redux';
 import { Typography } from '@/components/CoreUI/Typography';
 import {
   ButtonVariant,
@@ -17,13 +16,9 @@ import SadDog from '@/assets/images/petProfileSetup/sadDog.png';
 import { Button } from '@/components/CoreUI/Button';
 import { RoutesType } from '@/utils/types';
 import { ROUTES } from '@/utils/types/routesType';
-import { RootState } from '@/redux/rootReducer';
 
 const PetInfo = () => {
   const router = useRouter();
-  const { user } = useSelector((state: RootState) => state.auth);
-
-  console.log('petInfo user', user);
 
   const handleClick = (linkTo: RoutesType) => {
     router.push(linkTo);

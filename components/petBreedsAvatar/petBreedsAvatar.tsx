@@ -7,6 +7,7 @@ import { Typography } from '../CoreUI/Typography';
 import { FlexAlignItems, Size, TypographyVariant } from '@/utils/enum';
 import { SizeType } from '@/utils/types';
 import { RootState } from '@/redux/rootReducer';
+import { IMAGE_BASE_URL } from '@/utils/types/routesType';
 
 interface IPetBreedsAvatar {
   petImgURL?: string;
@@ -32,7 +33,7 @@ export const PetBreedsAvatar: FC<IPetBreedsAvatar> = ({
     <Pressable onPress={() => handlePress()}>
       <Column alignItems={FlexAlignItems.Center}>
         <Avatar
-          imageUrl={petImgURL}
+          imageUrl={`${IMAGE_BASE_URL}${petImgURL}`}
           size={avatarSize}
           showBorder={selected ? true : false}
           borderWidth={selected ? 2 : 0}

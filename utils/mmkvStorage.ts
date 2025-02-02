@@ -1,10 +1,11 @@
 import { MMKV } from 'react-native-mmkv';
+import { Storage } from 'redux-persist';
 
 // Create MMKV instance
 const storage = new MMKV();
 
 // Define storage methods
-const mmkvStorage: ReduxPersistStorage = {
+const mmkvStorage: Storage = {
   getItem: (key: string): Promise<string | undefined> => {
     const value = storage.getString(key);
     return Promise.resolve(value);

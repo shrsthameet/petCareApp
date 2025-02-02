@@ -52,24 +52,24 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      {/* <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}> */}
-      <ToastProvider>
-        <AuthLayout>
-          <Stack screenOptions={{
-            headerShown: false,
-          }}>
-            <Stack.Screen name='(tabs)' options={{
-              headerShown: false
-            }} />
-            <Stack.Screen name='(petProfileSetup)' options={{
+      <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
+        <ToastProvider>
+          <AuthLayout>
+            <Stack screenOptions={{
               headerShown: false,
-            }} />
-            <Stack.Screen name='+not-found' />
-          </Stack>
-          <StatusBar style='auto' />
-        </AuthLayout>
-      </ToastProvider>
-      {/* </PersistGate> */}
+            }}>
+              <Stack.Screen name='(tabs)' options={{
+                headerShown: false
+              }} />
+              <Stack.Screen name='(petProfileSetup)' options={{
+                headerShown: false,
+              }} />
+              <Stack.Screen name='+not-found' />
+            </Stack>
+            <StatusBar style='auto' />
+          </AuthLayout>
+        </ToastProvider>
+      </PersistGate>
     </Provider>
   );
 }

@@ -117,9 +117,8 @@ export const Register = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      console.log('register response data', data);
       dispatch(setCredentials(data.data));
-      router.push('/(petProfileSetup)');
+      router.push(ROUTES.PET_PROFILE_SETUP.DEFAULT);
     }
     if (error) {
       if (isFetchBaseQueryError(error)) {

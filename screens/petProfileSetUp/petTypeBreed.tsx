@@ -56,7 +56,11 @@ export const PetTypeBreed: FC<IPetTypeBreedProps> = ({
           <Typography variant={TypographyVariant.Body} size={Size.Medium} style={{
             paddingHorizontal: 5
           }}>
-            My {selectedPetType ? selectedPetType : 'pet'} is
+            My {selectedPetType === 'all' 
+              ? 'pet' 
+              : petTypeList.length 
+                ? petTypeList.find((item: IOptionList) => item.value === selectedPetType)?.label || 'Unknown'
+                : 'Unknown'} is
           </Typography>
 
           <Row gap={15}>

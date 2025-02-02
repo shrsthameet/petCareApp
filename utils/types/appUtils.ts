@@ -1,8 +1,12 @@
 import axios, { AxiosError } from 'axios';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { MMKV } from 'react-native-mmkv';
+import { Alert } from 'react-native';
 import { Shape, Size } from '../enum';
 import { ShapeType, SizeType } from './main';
 import { ITheme } from './themeType';
+
+const storage = new MMKV();
 
 export function returnErroMsg(error: any, rejectWithValue: any) {
   if (axios.isAxiosError(error)) {
@@ -72,3 +76,18 @@ export function getFontSize(theme: ITheme, size?: SizeType) {
 export const isFetchBaseQueryError = (error: any): error is FetchBaseQueryError => {
   return error && typeof error === 'object' && 'data' in error;
 };
+
+export function getToken() {
+  const rawData = storage.getString('persist:root'); // First get the string from MMKV
+
+  if (rawData) {
+    try {
+      const parsedData = JSON.parse(rawData); // First parse
+      const finalData = JSON.parse(parsedData.auth); // Second parse for the 'auth' field
+      return finalData.user.token;
+    } catch (error) {
+      console.log('error from getToken function: ', error);
+      Alert.alert('Error', 'Error while parsing token.');
+    }
+  }
+}

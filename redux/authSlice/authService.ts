@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ApiResponseType, User, UserLoginCredentials } from '@/utils/types';
 import { returnErroMsg } from '@/utils/types/appUtils';
 import { BASE_URL, API_ROUTES } from '@/utils/types/routesType';
@@ -41,9 +40,9 @@ export const logout = createAsyncThunk<ApiResponseType<null>>('auth/logout', asy
   try {
     const response = await axios.get<ApiResponseType<null>>(`${BASE_URL}${API_ROUTES.AUTH.LOGOUT}`);
     const result = await response.data;
-    if (result.success) {
-      await AsyncStorage.clear();
-    }
+    // if (result.success) {
+    //   await AsyncStorage.clear();
+    // }
     return result;
   } catch (error) {
     return returnErroMsg(error, rejectWithValue);

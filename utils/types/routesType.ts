@@ -5,6 +5,7 @@ export const API_VERSION = {
 };
 
 export const BASE_URL = `${process.env.EXPO_PUBLIC_API_URL}${API_VERSION.V1}`;
+export const IMAGE_BASE_URL = `${process.env.EXPO_PUBLIC_API_URL}`;
 
 export const API_ROUTES = {
   PET: {
@@ -30,7 +31,8 @@ export const API_ROUTES = {
   },
 
   USER: {
-    AllUSERS: '/users'
+    AllUSERS: '/users',
+    USER_PET_PROFILES: '/users/:userId'
   },
 
   AUTH: {

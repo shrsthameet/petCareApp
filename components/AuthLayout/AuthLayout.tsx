@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { View, ActivityIndicator } from 'react-native';
+// import { View, ActivityIndicator } from 'react-native';
 import { useRouter, useSegments } from 'expo-router';
 import { RootState } from '@/redux/rootReducer';
 import { ROUTES } from '@/utils/types/routesType';
@@ -12,6 +12,7 @@ interface AuthLayoutProps {
 
 export function AuthLayout({ children }: AuthLayoutProps) {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+
   const router = useRouter();
   const segments = useSegments();  // Get the current path segments
 
@@ -28,7 +29,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
     } else {
       // Redirect authenticated users to the main app (tabs)
       if ([ROUTES.AUTH.LOGIN, ROUTES.AUTH.REGISTER].includes(currentPath as AuthRoutes)) {
-        router.replace('/(tabs)');
+        router.replace(ROUTES.TABS_ROUTES.HOME);
       }
     }
   }, [isAuthenticated, segments, router]);

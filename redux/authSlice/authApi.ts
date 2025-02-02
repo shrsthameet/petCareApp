@@ -30,7 +30,6 @@ export const authApi = createApi({
     }),
     register: builder.mutation({
       query: (userData) => {
-        console.log('userData', userData);
         return (
           {
             url: API_ROUTES.AUTH.REGISTER,

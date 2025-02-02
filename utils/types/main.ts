@@ -34,6 +34,7 @@ export type  FunctionWithNoParamButReturn<R> = () => R
 export type  FunctionWithParamAndReturn<P, R> = (p: P) => R
 
 export interface ApiResponseType<T>  {
+  count?: number,
   message: string,
   success: boolean,
   data: T
