@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import { useNavigation, useRouter } from 'expo-router';
-import { Alert, Text } from 'react-native';
+import { Alert } from 'react-native';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+
 import { PetTypeBreed } from '@/screens/petProfileSetUp';
 import { globalStyles } from '@/styles/global';
 import { RootState } from '@/redux/rootReducer';
-import { ErrorResponse, FormValueType } from '@/utils/types';
+import { ErrorResponse } from '@/utils/types';
 import {
   ButtonTitle, ButtonVariant, IconLibraryName, Position 
 } from '@/utils/enum';
@@ -15,35 +19,46 @@ import { ROUTES } from '@/utils/types/routesType';
 import { useGetAllPetBreedsQuery, useGetAllPetTypesQuery } from '@/redux/petSlice/petsApi';
 import { PetType } from '@/utils/types/petType';
 import { PetBreed } from '@/utils/types/petBreedsType';
-import { useCreateUserPetProfilesMutation } from '@/redux/uersPetProfileSlice/userPetProfileApi';
+import { useCreateUserPetProfilesMutation, useGetUserPetProfilesQuery } from '@/redux/uersPetProfileSlice/userPetProfileApi';
 import { isFetchBaseQueryError } from '@/utils/types/appUtils';
+import { ErrMsg } from '@/utils/constants';
+import { LoadingScreen } from '@/components/CoreUI/LoadingScreen';
+import { PetTypeAndBreedSchema } from '@/utils/validations';
 
 interface IInitialState {
   allPetTypes: any,
   allPetBreeds: any,
-  selectedPetType: string;
-  selectedPetBreed: string;
   step: number;
 }
 
 const PetTypeAndBreed = () => {
   const { theme } = useSelector((state: RootState) => state.theme);
   const { user } = useSelector((state: RootState) => state.auth);
-  // const dispatch = useDispatch<AppDispatch>();
 
   const [initialState, setInitialState] = useState<IInitialState>({
     allPetTypes: [],
     allPetBreeds: [],
-    selectedPetType: 'all',
-    selectedPetBreed: '',
     step: 1
   });
 
   const {
+    control,
+    handleSubmit,
+    formState: { isDirty, errors },
+    reset,
+    watch
+  } = useForm<z.infer<typeof PetTypeAndBreedSchema>>({
+    resolver: zodResolver(PetTypeAndBreedSchema), defaultValues: {
+      selectedPetType: 'all',
+      selectedPetBreed: '',
+    }
+  });
+
+  const watchPetType = watch('selectedPetType');
+
+  const {
     allPetTypes,
     allPetBreeds,
-    selectedPetType,
-    selectedPetBreed,
     step
   } = initialState;
 
@@ -62,39 +77,50 @@ const PetTypeAndBreed = () => {
   } = useGetAllPetBreedsQuery({
   });
 
+  const {
+    isLoading: isUserPetProfilesLoading,
+    data: userPetProfilesData,
+    // isError: isUserPetProfilesError,
+    // error: userPetProfilesError
+  } = useGetUserPetProfilesQuery(user._id);
+
   const [createUserPetProfiles] = useCreateUserPetProfilesMutation();
 
   const router = useRouter();
   const navigation = useNavigation();
 
-  // Single change handler
-  const handleChange = (name: string, value: FormValueType) => {
-    console.log(name, value);
-    setInitialState((prevState) => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async () => {
-    const petProfileData = {
-      userId: user._id,
-      petType: selectedPetType,
-      petBreed: selectedPetBreed,
-      step
-    };
-    try {
-      const result = await createUserPetProfiles(petProfileData).unwrap();
-      if (result.success) {
-        router.push(ROUTES.PET_PROFILE_SETUP.PET_BIO); // Uncomment if router is properly defined
+  const onSubmit = async (data: any) => {
+    if (isDirty) {
+      const petProfileData = {
+        userId: user._id,
+        petType: data.selectedPetType,
+        petBreed: data.selectedPetBreed,
+        step
+      };
+      try {
+        const formData = new FormData();
+  
+        // Append object properties to FormData
+        Object.keys(petProfileData).forEach((key) => {
+          const value = petProfileData[key as keyof typeof petProfileData];
+          // Check if the value is a File (this is likely for the image field)
+          formData.append(key, String(value));
+        });
+  
+        const result = await createUserPetProfiles(formData).unwrap();
+        if (result.success) {
+          router.push(ROUTES.PET_PROFILE_SETUP.PET_BIO); // Uncomment if router is properly defined
+        }
+      } catch (error) {
+        if (isFetchBaseQueryError(error)) {
+          const data = error.data as ErrorResponse;
+          Alert.alert('Error', data.error || data.message || ErrMsg.STH_WENT_WRONG );
+        } else {
+          Alert.alert('Error', ErrMsg.INTERNAL_ERR_MSG);
+        }
       }
-    } catch (error) {
-      if (isFetchBaseQueryError(error)) {
-        const data = error.data as ErrorResponse;
-        Alert.alert('Error', data.error || data.message || 'Something went wrong');
-      } else {
-        Alert.alert('Error', 'An unexpected error occurred');
-      }
+    } else {
+      router.push(ROUTES.PET_PROFILE_SETUP.PET_BIO);
     }
   };
 
@@ -119,7 +145,7 @@ const PetTypeAndBreed = () => {
         <Button
           title={ButtonTitle.Next}
           variant={ButtonVariant.Text}
-          onPress={handleSubmit}
+          onPress={handleSubmit(onSubmit)}
           showIcon={true}
           iconPosition={Position.Right}
           iconName='chevron-forward'
@@ -131,15 +157,14 @@ const PetTypeAndBreed = () => {
         />
       ),
     });
-  }, [navigation, selectedPetType, selectedPetBreed]);
+  }, [navigation, isDirty]);
 
   useEffect(() => {
     if (isAllPetTypesError && isAllPetBreedsError) {
-      Alert.alert('Error', 'Something went wrong. Please try again later!');
+      Alert.alert('Error', ErrMsg.STH_WENT_WRONG);
     }
     if (isAllPetTypesError || isAllPetBreedsError) {
-      console.log('inside isAllPetTypesError || isAllPetBreedsError', isAllPetTypesError);
-      Alert.alert('Error', 'some error');
+      Alert.alert('Error', ErrMsg.INTERNAL_ERR_MSG);
     }
   }, [isAllPetTypesError, isAllPetBreedsError]);
 
@@ -147,7 +172,7 @@ const PetTypeAndBreed = () => {
     if (allPetTypesData && allPetTypesData.length) {
       const petLists = [
         {
-          label: 'All', value: 'all' 
+          label: 'All', value: 'all'
         }, // Add 'All' option first
         ...allPetTypesData.map((item: PetType) => ({
           label: item.name,
@@ -175,7 +200,7 @@ const PetTypeAndBreed = () => {
 
   useEffect(() => {
     let currentPetBreedList: any;
-    if (selectedPetType === 'all') {
+    if (watchPetType === 'all') {
       currentPetBreedList = allPetBreedsData ? allPetBreedsData?.map((item: PetBreed) => ({
         petTypeId: item.petType._id,
         label: item.name,
@@ -184,7 +209,7 @@ const PetTypeAndBreed = () => {
       })) : [];
     } else {
       currentPetBreedList = allPetBreedsData ? allPetBreedsData?.filter((item: any) => 
-        item.petType._id === selectedPetType).map((item) => ({
+        item.petType._id === watchPetType).map((item) => ({
         label: item.name,
         value: item._id,
         petTypeId: item.petType._id,
@@ -195,18 +220,30 @@ const PetTypeAndBreed = () => {
       ...prevState,
       allPetBreeds: currentPetBreedList
     }));
-  }, [selectedPetType]);
+  }, [watchPetType]);
+
+  useEffect(() => {
+    if (!isUserPetProfilesLoading && userPetProfilesData) {
+      if (userPetProfilesData.length) {
+        reset({
+          selectedPetType: userPetProfilesData[0].petType,
+          selectedPetBreed: userPetProfilesData[0].petBreed,
+        });
+      }
+    }
+
+  }, [isUserPetProfilesLoading, userPetProfilesData]);
 
   return (
     <SafeAreaView style={globalStyles.container}>
-      {isAllPetBreedsLoading && isAllPetTypesLoading ? <Text>Loading</Text> : (
+      {isAllPetBreedsLoading && isAllPetTypesLoading ? <LoadingScreen /> : (
         <PetTypeBreed
           theme={theme}
           petTypeList={allPetTypes}
           petBreedList={allPetBreeds}
-          selectedPetBreed={selectedPetBreed}
-          selectedPetType={selectedPetType}
-          handleChange={handleChange}
+          watchPetType={watchPetType}
+          control={control}
+          errors={errors}
         />
       )}
     </SafeAreaView>

@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Image, ImageSourcePropType } from 'react-native';
 import { useSelector } from 'react-redux';
+import { Image } from 'expo-image';
 import { Typography } from '../CoreUI/Typography';
 import { Icon } from '../CoreUI/Icons/Icons';
 import { Column, Row } from '../CoreUI/Flex';
@@ -13,29 +13,30 @@ import {
 import { RootState } from '@/redux/rootReducer';
 
 interface IPetCard {
-  imgSrc?: ImageSourcePropType | undefined;
+  imgSrc?: string | undefined;
   petName?: string;
   petAge?: string;
+  gender?: string;
 }
 
 export const PetCard: FC<IPetCard> = ({
   imgSrc,
   petName,
   petAge,
+  gender
 }) => {
   const { theme } = useSelector((state: RootState) => state.theme);
 
   const styles = getPetCardStyles(theme);
   return (
     <Column style={styles.boxShadow}>
-
       <Column>
         <Image
           source={imgSrc}
           style={{
             borderTopLeftRadius: 15,
             borderTopRightRadius: 15,
-            width: 'auto', 
+            width: 'auto',
             height: 120,
             resizeMode: 'cover'
           }} 
@@ -50,7 +51,7 @@ export const PetCard: FC<IPetCard> = ({
           <Typography variant={TypographyVariant.Title} size={Size.Large}>
             {petName}
           </Typography>
-          <Icon library={IconLibraryName.Ionicons} name='male' size={28} />
+          <Icon library={IconLibraryName.Ionicons} name={gender === 'male' ? 'male-outline' : 'female-outline'} size={28} />
         </Row>
 
         <Row gap={8}>

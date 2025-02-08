@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
+import { Controller } from 'react-hook-form';
 import { getPetProfileSetupStyles } from './petProfileSetup.style';
 import { PetProfileProgressComponent } from './petProfileProgressComponent';
 import { Column } from '@/components/CoreUI/Flex';
 import { Typography } from '@/components/CoreUI/Typography';
-import { IOptionList, ITheme, FormValueType } from '@/utils/types';
+import { IOptionList, ITheme } from '@/utils/types';
 import { CustomDateTimePicker } from '@/components/CoreUI/CustomDateTimePicker';
 import { ImageUpload } from '@/components/CoreUI/ImageUpload';
 import { Input } from '@/components/CoreUI/Input';
@@ -13,31 +14,29 @@ import {
   TypographyVariant, Size, Shape, FlexDirection,
   DateTimePickerMode
 } from '@/utils/enum';
+import { IPetBioInitialState } from '@/app/(petProfileSetup)/petBio';
+import { FormError } from '@/components/formError/formError';
 
 interface IPetBioComponentProps {
   theme: ITheme;
-  image: string;
-  name: string;
-  gender: string;
-  dateOfBirth: string;
-  dateOfAdoption: string;
-  adoption: string;
+  imageURI: string;
+  watchAdoptionField: string;
   genderList: IOptionList[];
   adoptionlist: IOptionList[];
-  handleChange: (name: string, value: FormValueType) => void;
+  setInitialState: any;
+  control: any;
+  errors: any;
 }
 
 export const PetBioComponent: FC<IPetBioComponentProps> = ({
   theme,
-  image,
-  name,
-  gender,
-  dateOfBirth,
-  dateOfAdoption,
-  adoption,
+  imageURI,
+  watchAdoptionField,
   genderList,
   adoptionlist,
-  handleChange,
+  setInitialState,
+  control,
+  errors,
 }) => {
   const styles = getPetProfileSetupStyles(theme);
   return (
@@ -51,10 +50,22 @@ export const PetBioComponent: FC<IPetBioComponentProps> = ({
 
       <Column gap={20}>
         <Column>
-          <ImageUpload
-            image={image}
-            setImage={(value) => handleChange('image', value)}
-            title='Upload image'
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <ImageUpload
+                image={imageURI}
+                setImage={(value) => {
+                  setInitialState((prevState: IPetBioInitialState) => ({
+                    ...prevState,
+                    imageURI: value.uri
+                  }));
+                  onChange(value);
+                }}
+                title='Upload image'
+              />
+            )}
+            name='image'
           />
         </Column>
 
@@ -65,23 +76,42 @@ export const PetBioComponent: FC<IPetBioComponentProps> = ({
               My pet name is
           </Typography>
 
-          <Input
-            value={name}
-            placeholder={'Enter your pet name'}
-            onChangeText={(value) => handleChange('name', value)}
-            shape={Shape.Pill}
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => {
+              return (
+                <Input
+                  value={value}
+                  placeholder={'Enter your pet name'}
+                  onChangeText={(value) => onChange(value)}
+                  shape={Shape.Pill}
+                />
+              );
+            }}
+            name='name'
           />
+          {errors.name && <FormError errMsg={errors.name.message} />}
         </Column>
 
         <Column gap={8}>
           <Typography variant={TypographyVariant.Body} size={Size.Small} style={{
             paddingHorizontal: 5
           }}>
-              Date of birth
+            Date of birth
           </Typography>
-          <CustomDateTimePicker
-            onDateChange={(date) => handleChange('dateOfBirth', date)}
-            mode={DateTimePickerMode.Date}
+
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <CustomDateTimePicker
+                onDateChange={(date) => onChange(date.toISOString())}
+                mode={DateTimePickerMode.Date}
+              />
+            )}
+            name='dateOfBirth'
           />
         </Column>
 
@@ -89,45 +119,68 @@ export const PetBioComponent: FC<IPetBioComponentProps> = ({
           <Typography variant={TypographyVariant.Body} size={Size.Small} style={{
             paddingHorizontal: 5
           }}>
-              Gender
+            Gender
           </Typography>
-          <Select
-            options={genderList}
-            selectedValue={gender}
-            placeholder='Select gender'
-            onSelect={(value) => handleChange('gender', value)}
+
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Select
+                options={genderList}
+                selectedValue={value}
+                placeholder='Select gender'
+                onSelect={(value) => onChange( value)}
+              />
+            )}
+            name='gender'
           />
+          {errors.gender && <FormError errMsg={errors.gender.message} />}
         </Column>
 
         <Column>
           <Typography variant={TypographyVariant.Body} size={Size.Small} style={{
             paddingHorizontal: 5
           }}>
-              My pet is
+            My pet is
           </Typography>
-          <RadioButton
-            options={adoptionlist}
-            selectedValue={adoption}
-            onValueChange={(value) => handleChange('adoption', value)}
-            direction={FlexDirection.Row}
+
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <RadioButton
+                options={adoptionlist}
+                selectedValue={value}
+                onValueChange={(value) => onChange(value)}
+                direction={FlexDirection.Row}
+              />
+            )}
+            name='adoption'
           />
         </Column>
 
-        {adoption === 'adopted' ? (
+        {watchAdoptionField === 'adopted' ? (
           <Column gap={8}>
             <Typography variant={TypographyVariant.Body} size={Size.Small} style={{
               paddingHorizontal: 5
             }}>
               Date of adoption
             </Typography>
-            <CustomDateTimePicker
-              onDateChange={(date) => handleChange('dateOfBirth', date)}
-              mode={DateTimePickerMode.Date}
+            <Controller
+              control={control}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <CustomDateTimePicker
+                  onDateChange={(date) => onChange(date.toISOString())}
+                  mode={DateTimePickerMode.Date}
+                />
+              )}
+              name='dateOfAdoption'
             />
           </Column>
         ) : null}
       </Column>
-
     </Column>
   );
 };

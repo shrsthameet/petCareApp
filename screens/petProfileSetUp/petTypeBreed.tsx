@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Controller } from 'react-hook-form';
 import { getPetProfileSetupStyles } from './petProfileSetup.style';
 import { PetProfileProgressComponent } from './petProfileProgressComponent';
 import { Column, Row } from '@/components/CoreUI/Flex';
@@ -6,24 +7,25 @@ import { Select } from '@/components/CoreUI/Select';
 import { Typography } from '@/components/CoreUI/Typography';
 import { Size, TypographyVariant } from '@/utils/enum';
 import { PetBreedsAvatar } from '@/components/petBreedsAvatar';
-import { IOptionList, ITheme, FormValueType } from '@/utils/types';
+import { IOptionList, ITheme } from '@/utils/types';
+import { FormError } from '@/components/formError/formError';
 
 interface IPetTypeBreedProps {
   theme: ITheme;
   petTypeList: IOptionList[];
   petBreedList: IOptionList[];
-  handleChange: (name: string, value: FormValueType) => void;
-  selectedPetType: string;
-  selectedPetBreed: string;
+  watchPetType: string;
+  control: any;
+  errors: any;
 }
 
 export const PetTypeBreed: FC<IPetTypeBreedProps> = ({
   theme,
   petTypeList,
   petBreedList,
-  handleChange,
-  selectedPetType,
-  selectedPetBreed
+  watchPetType,
+  control,
+  errors
 }) => {
   const styles = getPetProfileSetupStyles(theme);
   return (
@@ -44,36 +46,68 @@ export const PetTypeBreed: FC<IPetTypeBreedProps> = ({
           }}>
             I have a
           </Typography>
-          <Select
-            options={petTypeList}
-            selectedValue={selectedPetType}
-            placeholder='Select your pet type'
-            onSelect={(value) => handleChange('selectedPetType', value)}
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => {
+              return (
+                <Select
+                  options={petTypeList}
+                  selectedValue={value}
+                  placeholder='Select your pet type'
+                  onSelect={(value) => onChange(value)}
+                />
+              );
+            }}
+            name='selectedPetType'
           />
+          {errors.selectedPetType && <FormError errMsg={errors.selectedPetType.message} />}
         </Column>
 
         <Column gap={15}>
           <Typography variant={TypographyVariant.Body} size={Size.Medium} style={{
             paddingHorizontal: 5
           }}>
-            My {selectedPetType === 'all' 
+            My {watchPetType === 'all' 
               ? 'pet' 
               : petTypeList.length 
-                ? petTypeList.find((item: IOptionList) => item.value === selectedPetType)?.label || 'Unknown'
+                ? petTypeList.find((item: IOptionList) => item.value === watchPetType)?.label || 'Unknown'
                 : 'Unknown'} is
           </Typography>
 
           <Row gap={15}>
-            {petBreedList.map((item, index) => (
-              <PetBreedsAvatar
-                key={index}
-                petImgURL={item.imgSrc}
-                handlePress={() => handleChange('selectedPetBreed', item.value)}
-                showText={true}
-                avatarTitle={item.label}
-                selected={selectedPetBreed === item.value}
-              />
-            ))}
+            <Column>
+              <Row>
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => {
+                    return (
+                      <>
+                        {petBreedList.map((item, index) => (
+                          <PetBreedsAvatar
+                            key={index}
+                            petImgURL={item.imgSrc}
+                            handlePress={() => onChange(item.value)}
+                            showText={true}
+                            avatarTitle={item.label}
+                            selected={value === item.value}
+                          />
+                        ))}
+                      </>
+                    );
+                  }}
+                  name='selectedPetBreed'
+                />
+              </Row>
+              {errors.selectedPetBreed && (
+                <FormError errMsg={errors.selectedPetBreed.message} />
+              )}
+            </Column>
           </Row>
         </Column>
       </Column>

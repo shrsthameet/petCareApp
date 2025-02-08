@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Controller } from 'react-hook-form';
 import { getPetProfileSetupStyles } from './petProfileSetup.style';
 import { PetProfileProgressComponent } from './petProfileProgressComponent';
 import { Column } from '@/components/CoreUI/Flex';
@@ -9,22 +10,21 @@ import {
   TypographyVariant, Size, FlexAlignItems, InputMode, Shape, FlexDirection,
   Keyboard
 } from '@/utils/enum';
-import { FormValueType, IOptionList, ITheme } from '@/utils/types';
+import { IOptionList, ITheme } from '@/utils/types';
+import { FormError } from '@/components/formError/formError';
 
 interface IPetInfoComponentProps {
   theme: ITheme;
-  chipNumber: string;
-  isNutered: boolean;
   nuteredOptionList: IOptionList[];
-  handleChange: (name: string, value: FormValueType) => void;
+  control: any;
+  errors: any;
 }
 
 export const PetInfoComponent: FC<IPetInfoComponentProps> = ({ 
   theme,
-  chipNumber,
-  isNutered,
   nuteredOptionList,
-  handleChange
+  control,
+  errors,
 }) => {
   const styles = getPetProfileSetupStyles(theme);
 
@@ -52,16 +52,22 @@ export const PetInfoComponent: FC<IPetInfoComponentProps> = ({
             <Typography variant={TypographyVariant.Body} size={Size.Small} style={{
               paddingHorizontal: 5
             }}>
-                  Chip number
+              Chip number
             </Typography>
-              
-            <Input
-              inputMode={InputMode.Numeric}
-              keyboardType={Keyboard.Numeric}
-              value={chipNumber}
-              placeholder={'Enter your pet chip number'}
-              onChangeText={(value) => handleChange('chipNumber', value)}
-              shape={Shape.Pill}
+
+            <Controller
+              control={control}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <Input
+                  inputMode={InputMode.Numeric}
+                  keyboardType={Keyboard.Numeric}
+                  value={value}
+                  placeholder={'Enter your pet chip number'}
+                  onChangeText={(value) => onChange(value)}
+                  shape={Shape.Pill}
+                />
+              )}
+              name='chipNumber'
             />
           </Column>
     
@@ -71,13 +77,20 @@ export const PetInfoComponent: FC<IPetInfoComponentProps> = ({
             }}>
               My pet is
             </Typography>
-              
-            <RadioButton
-              options={nuteredOptionList}
-              selectedValue={isNutered}
-              onValueChange={(value) => handleChange('isNutered', value)}
-              direction={FlexDirection.Row}
+
+            <Controller
+              control={control}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <RadioButton
+                  options={nuteredOptionList}
+                  selectedValue={value}
+                  onValueChange={(value) => onChange(value)}
+                  direction={FlexDirection.Row}
+                />
+              )}
+              name='isSterilised'
             />
+            {errors.isSterilised && <FormError errMsg={errors.isSterilised.message} />}
           </Column>
         </Column>
     

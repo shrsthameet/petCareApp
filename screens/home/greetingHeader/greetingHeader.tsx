@@ -1,12 +1,15 @@
 import { FC } from 'react';
 
+import { useSelector } from 'react-redux';
 import { greetingHeaderStyles } from './greetingHeaderStyle';
 import { Typography } from '@/components/CoreUI/Typography';
 import { Fonts, Size, TypographyVariant } from '@/utils/enum';
 import { Column } from '@/components/CoreUI/Flex';
 import { globalStyles } from '@/styles/global';
+import { RootState } from '@/redux/rootReducer';
 
 export const GreetingHeader: FC = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
   return (
     <Column
       style={[greetingHeaderStyles.greetingContainer, globalStyles.horizontalPadding]}
@@ -15,11 +18,11 @@ export const GreetingHeader: FC = () => {
         <Typography variant={TypographyVariant.Title} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_Medium}>
           Good morning,
           {/* <Typography variant={TypographyVariant.Title} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_Bold}>
-            Yuvisha
+            {user.firstName}
           </Typography> */}
         </Typography>
         <Typography variant={TypographyVariant.Display} size={Size.Small} fontFamilyStyle={Fonts.Montserrat_Bold}>
-            Yuvisha
+          {user.firstName}
         </Typography>
       </Column>
 

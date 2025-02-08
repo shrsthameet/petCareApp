@@ -9,6 +9,7 @@ import {
   FontAwesome,
   Entypo
 } from '@expo/vector-icons';
+import { ImagePickerAsset } from 'expo-image-picker';
 /** A high-level generic object. */
 
 export type GenericObject<T = unknown> = { [key: string]: T }
@@ -116,12 +117,15 @@ export type InputModeType = 'search' | 'text' | 'email' | 'decimal' | 'numeric' 
 export type APIMethodType = 'GET' | 'POST' | 'UPDATE' | 'PATCH' | 'DELETE';
 
 // Option list type
-export type FormValueType = string | string[] | boolean | Date | number | null;
+export type FormValueType = string | string[] | boolean | Date | number | null | ImagePickerAsset;
 export interface IOptionList {
   label: string;
   value: FormValueType;
   imgSrc?: string;
 }
+
+// Gender type
+export type GenderType = 'Male' | 'Female' | 'Other';
 
 // Define available icon libraries
 export const IconLibraries = {

@@ -68,7 +68,7 @@ export const CustomDateTimePicker: React.FC<DatePickerProps> = ({
     }
     if (mode === DateTimePickerMode.Time) {
       return date.toLocaleTimeString([], {
-        hour: '2-digit', minute: '2-digit' 
+        hour: '2-digit', minute: '2-digit'
       }); // Only show the time
     }
     return date.toLocaleString(); // Show both date and time for `datetime`

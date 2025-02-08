@@ -217,3 +217,22 @@ export enum APIMethod {
   PATCH = 'PATCH',
   DELETE = 'DELETE'
 }
+
+// export Gender enum
+export enum Gender {
+  Male = 'Male',
+  Female = 'Female',
+  Other = 'Other'
+}
+
+// export Adoption enum
+export enum AdoptionStatus {
+  Adopted = 'Adopted',
+  NotAdopted = 'Not Adopted',
+}
+
+// export Sterilised enum
+export enum SterilisationStatus {
+  Sterilised = 'Sterilised',
+  NotSterilised = 'Not Sterilised',
+}

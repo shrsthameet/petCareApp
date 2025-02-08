@@ -16,7 +16,7 @@ import { RootState } from '@/redux/rootReducer';
 interface ImageUploadProps {
   image: string | null; // Image URI managed by the parent component
   // setImage: React.Dispatch<React.SetStateAction<string | null>>; // State setter function
-  setImage: (imageUrl: string) => void;
+  setImage: (imageUrl: ImagePicker.ImagePickerAsset) => void;
   title?: string; // Custom title for the button
   containerStyle?: StyleProp<ViewStyle>; // Optional styles for the container
   imageStyle?: StyleProp<ImageStyle>; // Change to ImageStyle
@@ -36,15 +36,15 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   const pickImage = async () => {
     // Launch the image library
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ['images'],
       allowsEditing: true,
       aspect: [1, 1], // Aspect ratio for a square image
-      quality: 1,
+      quality: 0.6,
     });
 
     if (!result.canceled) {
-      const uri = result.assets[0].uri;
-      setImage(uri); // Update the parent's image state
+      // const uri = result.assets[0].uri;
+      setImage(result.assets[0]); // Update the parent's image state
     }
   };
 

@@ -22,11 +22,16 @@ export const authApi = createApi({
   baseQuery,
   endpoints: (builder) => ({
     login: builder.mutation({
-      query: (credentials) => ({
-        url: API_ROUTES.AUTH.LOGIN,
-        method: APIMethod.POST,
-        body: credentials,
-      }),
+      query: (credentials) => {
+        console.log('credentials', credentials);
+        return (
+          {
+            url: API_ROUTES.AUTH.LOGIN,
+            method: APIMethod.POST,
+            body: credentials,
+          }
+        );
+      },
     }),
     register: builder.mutation({
       query: (userData) => {
@@ -39,13 +44,21 @@ export const authApi = createApi({
         );
       },
     }),
+    // logout: builder.query({
+    //   query: () =>({
+    //     url: API_ROUTES.AUTH.REGISTER,
+    //     method: APIMethod.GET,
+    //   }),
+    //   transformResponse: (response: { success: boolean }) => response.success,
+    //   transformErrorResponse: (
+    //     response,
+    //   ) => response,
+    // }),
     logout: builder.mutation({
-      queryFn: async () => {
-        // await AsyncStorage.removeItem('token');
-        return {
-          data: null
-        };
-      },
+      query: () => ({
+        url: API_ROUTES.AUTH.LOGOUT,
+        method: APIMethod.POST,
+      })
     }),
   }),
 });

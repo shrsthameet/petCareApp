@@ -2,8 +2,11 @@ import axios, { AxiosError } from 'axios';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { MMKV } from 'react-native-mmkv';
 import { Alert } from 'react-native';
-import { Shape, Size } from '../enum';
-import { ShapeType, SizeType } from './main';
+import { differenceInYears, differenceInMonths, parseISO } from 'date-fns';
+import {
+  AdoptionStatus, Gender, Shape, Size 
+} from '../enum';
+import { IOptionList, ShapeType, SizeType } from './main';
 import { ITheme } from './themeType';
 
 const storage = new MMKV();
@@ -91,3 +94,40 @@ export function getToken() {
     }
   }
 }
+
+export const formatAge = (date: string) => {
+  const birthDate = parseISO(date);
+  const now = new Date();
+
+  const years = differenceInYears(now, birthDate);
+  const months = differenceInMonths(now, birthDate) % 12;
+
+  return `${years} years ${months} months`;
+};
+
+export const adoptionlist: IOptionList[] = [
+  {
+    label: AdoptionStatus.Adopted, value: 'adopted' 
+  },
+  {
+    label: AdoptionStatus.NotAdopted, value: 'notAdopted' 
+  },
+];
+
+export const genderList: IOptionList[] = [
+  {
+    label: Gender.Male, value: 'male'
+  }, 
+  {
+    label: Gender.Female, value: 'female'
+  }
+];
+
+export const nuteredOptionList: IOptionList[] = [
+  {
+    label: 'sterilised', value: true
+  },
+  {
+    label: 'not sterilised', value: false
+  },
+];

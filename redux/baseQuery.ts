@@ -1,19 +1,27 @@
-
-
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '@/utils/types/routesType';
 import { getToken } from '@/utils/types/appUtils';
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
-  prepareHeaders: (headers) => {
+  prepareHeaders: (headers, api) => {
     const token = getToken();
 
-    // for time being we are requesting api with emailId
-    // headers.set('Authorization', ${user.token_type} ${user.access_token});
-    // headers.set('Content-Type', 'text/plain');
-    headers.set('Accept', 'application/json');
-    headers.set('Authorization', `Bearer ${token}`);
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
+
     return headers;
   },
 });
+
+// // Check if the body is FormData (for multipart form data)
+// const isFormData = api.arg && typeof api.arg !== 'string' && api.arg.body instanceof FormData;
+
+// // If the body is FormData, we don't set Content-Type manually
+// if (isFormData) {
+//   // Don't set Content-Type for FormData (React Native/Browser will handle it)
+// } else {
+//   // Set Content-Type for JSON requests
+//   headers.set('Content-Type', 'application/json');
+// }

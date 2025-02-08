@@ -21,7 +21,6 @@ import MontserratExtraBold from '@/assets/fonts/Montserrat-ExtraBold.ttf';
 import MontserratExtraBoldItalic from '@/assets/fonts/Montserrat-ExtraBoldItalic.ttf';
 import { store, persistor } from '@/redux/store';
 import { AuthLayout } from '@/components/AuthLayout';
-import { ToastProvider } from '@/components/CoreUI/Toast';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -53,22 +52,20 @@ export default function RootLayout() {
   return (
     <Provider store={store}>
       <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
-        <ToastProvider>
-          <AuthLayout>
-            <Stack screenOptions={{
-              headerShown: false,
-            }}>
-              <Stack.Screen name='(tabs)' options={{
-                headerShown: false
-              }} />
-              <Stack.Screen name='(petProfileSetup)' options={{
+        <AuthLayout>
+          <Stack screenOptions={{
+            headerShown: false,
+          }}>
+            <Stack.Screen name='(tabs)' options={{
+              headerShown: false
+            }} />
+            {/* <Stack.Screen name='(petProfileSetup)' options={{
                 headerShown: false,
-              }} />
-              <Stack.Screen name='+not-found' />
-            </Stack>
-            <StatusBar style='auto' />
-          </AuthLayout>
-        </ToastProvider>
+              }} /> */}
+            <Stack.Screen name='+not-found' />
+          </Stack>
+          <StatusBar style='auto' />
+        </AuthLayout>
       </PersistGate>
     </Provider>
   );

@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'expo-router';
@@ -10,13 +10,15 @@ import {
   Form,
   InputType,
 } from '@/utils/enum';
-import { login } from '@/redux/authSlice/authService';
 import { AppDispatch } from '@/redux/store';
 import { RootState } from '@/redux/rootReducer';
-import { ITheme } from '@/utils/types';
+import { ErrorResponse, ITheme } from '@/utils/types';
 import { UserCredForm } from '@/components/AuthLayout';
 import { FormData } from '@/utils/constants';
 import { ROUTES } from '@/utils/types/routesType';
+import { useLoginMutation } from '@/redux/authSlice/authApi';
+import { setCredentials } from '@/redux/authSlice';
+import { isFetchBaseQueryError } from '@/utils/types/appUtils';
 
 interface ILoginState {
   email: string;
@@ -27,6 +29,7 @@ const Login: FC = () => {
   const { theme } = useSelector((state: RootState) => state.theme);
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
+  const [login, { isLoading }] = useLoginMutation();
 
   const styles = getLoginStyles(theme);
 
@@ -44,13 +47,26 @@ const Login: FC = () => {
     }));
   };
   
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const credentials = {
       email,
       password
     };
 
-    dispatch(login(credentials));
+    try {
+      const result = await login(credentials).unwrap();
+      if (result.success) {
+        dispatch(setCredentials(result.data));
+        // router.push(ROUTES.PET_PROFILE_SETUP.DEFAULT);
+      }
+    } catch (error) {
+      if (isFetchBaseQueryError(error)) {
+        const data = error.data as ErrorResponse;
+        Alert.alert('Error', data.error || data.message || 'Something went wrong');
+      } else {
+        Alert.alert('Error', 'An unexpected error occurred');
+      }
+    }
   };
 
   const formFields = [
@@ -83,6 +99,7 @@ const Login: FC = () => {
         btnTitle={ButtonTitle.Login}
         handleClick={navigateToRegister}
         formType={Form.Login}
+        isLoading={isLoading}
       />
     </Column>
   );

@@ -2,20 +2,22 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQuery } from '../baseQuery';
 import { API_ROUTES } from '@/utils/types/routesType';
 import { APIMethod } from '@/utils/enum';
+import { UserPetProfile } from '@/utils/types';
 
-// Authentication API Slice
+// userPetProfile API Slice
 export const userPetProfileApi = createApi({
   reducerPath: 'userPetProfileApi',
   baseQuery,
+  tagTypes: ['userPetProfiles'],
   endpoints: (builder) => ({
     getUserPetProfiles: builder.query({
-      query: (userId) => {
-        return (
-          {
-            url: `/users/${userId}/pets`
-          }
-        );
-      }
+      query: (userId) => ({
+        url: `/users/${userId}/pets`
+      }),
+      transformResponse: (response: { data: UserPetProfile[] }) => response.data,
+      transformErrorResponse: (
+        response,
+      ) => response,
     }),
     createUserPetProfiles: builder.mutation({
       query: (petProfileData) => {
@@ -27,6 +29,7 @@ export const userPetProfileApi = createApi({
           }
         );
       },
+      invalidatesTags: ['userPetProfiles']
     }),
   }),
 });

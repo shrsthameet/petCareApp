@@ -1,11 +1,11 @@
-type UserLoginCredentials = {
+export interface UserLoginCredentials {
   email: string;
   password: string;
 }
 
-type RoleType = 'admin' | 'user' | 'guest';
+export type RoleType = 'admin' | 'user' | 'guest';
 
-type User = {
+export interface User{
   _id: string;
   email: string;
   firstName: string;
@@ -17,8 +17,23 @@ type User = {
   // email_verified_at?: Nullable<string>;
 }
 
-export type {
-  UserLoginCredentials,
-  User,
-  RoleType
-};
+export interface UserPetProfile {
+  _id: string;
+  userId: string;
+  petBreed: string;
+  petType: string;
+  name: string;
+  gender: string;
+  image: any;
+  dateOfBirth: string;
+  dateOfAdoption: string;
+  isProfileComplete: boolean;
+  active: boolean;
+  isDeleted: boolean;
+  step: number;
+  totalStep: number;
+  chipNumber: string;
+  isSterilised: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
