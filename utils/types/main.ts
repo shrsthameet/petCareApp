@@ -7,7 +7,10 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
   FontAwesome,
-  Entypo
+  Entypo,
+  EvilIcons,
+  Octicons,
+  SimpleLineIcons
 } from '@expo/vector-icons';
 import { ImagePickerAsset } from 'expo-image-picker';
 /** A high-level generic object. */
@@ -78,7 +81,7 @@ export type FlexAlignItemsType = 'flex-start' | 'center' | 'flex-end' | 'stretch
 export type FlexWrapType = 'wrap' | 'nowrap' | 'wrap-reverse';
 
 // Define button type
-export type ButtonTitleType = 'Submit' | 'Edit' | 'Delete' | 'Save' | 'Update' | 'Register' | 'Next' | 'Previous' | 'Confirm' | 'Back';
+export type ButtonTitleType = 'Submit' | 'Edit' | 'Delete' | 'Save' | 'Update' | 'Register' | 'Next' | 'Previous' | 'Confirm' | 'Back' | 'Logout';
 export type ButtonVariantType = 'text' | 'outlined' | 'contained';
 
 export type ShapeType = 'flat' | 'curve' | 'arch' | 'pill' | 'circle';
@@ -137,5 +140,8 @@ export const IconLibraries = {
   FontAwesome6: FontAwesome6,
   Fontisto: Fontisto,
   AntDesign: AntDesign,
-  Entypo: Entypo
+  Entypo: Entypo,
+  EvilIcons: EvilIcons,
+  Octicons: Octicons,
+  SimpleLineIcons: SimpleLineIcons
 };

@@ -1,10 +1,16 @@
-import { Stack } from 'expo-router';
+import { Stack, useNavigation } from 'expo-router';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { Pressable } from 'react-native';
+import { DrawerActions } from '@react-navigation/native';
 import { Row } from '@/components/CoreUI/Flex';
 import { FlexAlignItems, FlexJustifyContent, IconLibraryName } from '@/utils/enum';
 import { Icon } from '@/components/CoreUI/Icons';
 
 export default function DashboardLayout() {
+  const navigation = useNavigation();
+  const toggleDrawer = () => {
+    navigation.dispatch(DrawerActions.openDrawer());
+  };
   return (
     <Stack
       screenOptions={{
@@ -15,7 +21,9 @@ export default function DashboardLayout() {
         title: '',
         headerLeft: () => (
           <Row>
-            <Icon name='bars-staggered' library={IconLibraryName.FontAwesome6} size={28} color={Colors.pitchBlack} />
+            <Pressable onPress={toggleDrawer}>
+              <Icon name='bars-staggered' library={IconLibraryName.FontAwesome6} size={24} color={Colors.pitchBlack} />
+            </Pressable>
           </Row>
         ),
         headerRight: () => (

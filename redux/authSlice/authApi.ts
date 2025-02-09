@@ -23,7 +23,6 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => {
-        console.log('credentials', credentials);
         return (
           {
             url: API_ROUTES.AUTH.LOGIN,
@@ -44,16 +43,6 @@ export const authApi = createApi({
         );
       },
     }),
-    // logout: builder.query({
-    //   query: () =>({
-    //     url: API_ROUTES.AUTH.REGISTER,
-    //     method: APIMethod.GET,
-    //   }),
-    //   transformResponse: (response: { success: boolean }) => response.success,
-    //   transformErrorResponse: (
-    //     response,
-    //   ) => response,
-    // }),
     logout: builder.mutation({
       query: () => ({
         url: API_ROUTES.AUTH.LOGOUT,

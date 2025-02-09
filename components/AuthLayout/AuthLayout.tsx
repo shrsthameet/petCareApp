@@ -61,7 +61,8 @@ export function AuthLayout({ children }: AuthLayoutProps) {
     //   }
     // }
     if (!isUserPetProfilesLoading && isAuthenticated && (userPetProfilesData && userPetProfilesData.length && userPetProfilesData[0].isProfileComplete)) {
-      router.replace(ROUTES.TABS_ROUTES.HOME);
+      // router.replace(ROUTES.TABS_ROUTES.HOME);
+      return;
     }
   }, [isAuthenticated, segments, router, isUserPetProfilesLoading, userPetProfilesData]);
 

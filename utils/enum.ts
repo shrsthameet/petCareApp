@@ -66,7 +66,8 @@ export enum ButtonTitle {
   Next = 'Next',
   Previous = 'Previous',
   Confirm = 'Confirm',
-  Back = 'Back'
+  Back = 'Back',
+  Logout = 'Logout'
 }
 
 export enum IconLibraryName {
@@ -78,7 +79,10 @@ export enum IconLibraryName {
   FontAwesome6 = 'FontAwesome6',
   Fontisto = 'Fontisto',
   AntDesign = 'AntDesign',
-  Entypo = 'Entypo'
+  Entypo = 'Entypo',
+  EvilIcons = 'EvilIcons',
+  Octicons = 'Octicons',
+  SimpleLineIcons = 'SimpleLineIcons'
 }
 
 export enum TypographyVariant {

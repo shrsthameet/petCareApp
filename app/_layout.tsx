@@ -56,12 +56,12 @@ export default function RootLayout() {
           <Stack screenOptions={{
             headerShown: false,
           }}>
-            <Stack.Screen name='(tabs)' options={{
+            <Stack.Screen name='(drawer)' options={{
               headerShown: false
             }} />
-            {/* <Stack.Screen name='(petProfileSetup)' options={{
-                headerShown: false,
-              }} /> */}
+            <Stack.Screen name='(petProfileSetup)' options={{
+              headerShown: false,
+            }} />
             <Stack.Screen name='+not-found' />
           </Stack>
           <StatusBar style='auto' />
