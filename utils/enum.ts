@@ -82,7 +82,8 @@ export enum IconLibraryName {
   Entypo = 'Entypo',
   EvilIcons = 'EvilIcons',
   Octicons = 'Octicons',
-  SimpleLineIcons = 'SimpleLineIcons'
+  SimpleLineIcons = 'SimpleLineIcons',
+  Feather = 'Feather',
 }
 
 export enum TypographyVariant {

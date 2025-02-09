@@ -10,7 +10,8 @@ import {
   Entypo,
   EvilIcons,
   Octicons,
-  SimpleLineIcons
+  SimpleLineIcons,
+  Feather
 } from '@expo/vector-icons';
 import { ImagePickerAsset } from 'expo-image-picker';
 /** A high-level generic object. */
@@ -143,5 +144,6 @@ export const IconLibraries = {
   Entypo: Entypo,
   EvilIcons: EvilIcons,
   Octicons: Octicons,
-  SimpleLineIcons: SimpleLineIcons
+  SimpleLineIcons: SimpleLineIcons,
+  Feather: Feather
 };

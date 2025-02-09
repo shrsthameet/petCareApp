@@ -1,21 +1,19 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer';
 import { useSelector } from 'react-redux';
-import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
+import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Image } from 'expo-image';
 import { Alert, StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Icon } from '@/components/CoreUI/Icons';
 import {
   ButtonTitle,
   ButtonVariant,
-  FlexAlignItems, FlexJustifyContent, Fonts, IconLibraryName, Position, Size, TypographyVariant 
+  FlexAlignItems, Fonts, IconLibraryName, Position, Size, TypographyVariant 
 } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
 import { Column, Row } from '@/components/CoreUI/Flex';
 import { Typography } from '@/components/CoreUI/Typography';
-import LabImage from '@/assets/images/lab.jpg';
 import { ErrorResponse, ITheme } from '@/utils/types';
 import { AppDispatch } from '@/redux/store';
 import { useLogoutMutation } from '@/redux/authSlice/authApi';
@@ -23,9 +21,11 @@ import mmkvStorage from '@/utils/mmkvStorage';
 import { clearCredentials } from '@/redux/authSlice';
 import { isFetchBaseQueryError } from '@/utils/types/appUtils';
 import { Button } from '@/components/CoreUI/Button';
+import { Avatar } from '@/components/CoreUI/Avatar';
 
 function CustomDrawerContent(props: any) {
   const { theme } = useSelector((state: RootState) => state.theme);
+  const { user } = useSelector((state: RootState) => state.auth);
   const { top, bottom } = useSafeAreaInsets();
 
   const dispatch = useDispatch<AppDispatch>();
@@ -57,25 +57,25 @@ function CustomDrawerContent(props: any) {
         scrollEnabled={false}
       >
         <Row gap={10} alignItems={FlexAlignItems.Center} style={styles.userInfoContainer}>
-          <Image
-            source={LabImage}
-            style={styles.userAvatar}
+          <Avatar
+            backgroundColor={theme.colors.primary}
+            placeholder={`${user.firstName} ${user.lastName}`}
           />
           <Column>
             <Typography
               variant={TypographyVariant.Body}
               size={Size.Small}
-              color={theme.colors.primary}
+              color={theme.colors.onText}
               fontFamilyStyle={Fonts.Montserrat_SemiBold}
             >
-              Jane Doe
+              {user.firstName} {user.lastName}
             </Typography>
             <Typography
-              variant={TypographyVariant.Body}
-              size={Size.Small}
-              color={theme.colors.primary}
+              variant={TypographyVariant.Caption}
+              size={Size.Medium}
+              color={theme.colors.onText}
             >
-              jane@gmail.com
+              {user.email}
             </Typography>
           </Column>
         </Row>

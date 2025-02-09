@@ -2,11 +2,14 @@ import { Stack, useNavigation } from 'expo-router';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Pressable } from 'react-native';
 import { DrawerActions } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 import { Row } from '@/components/CoreUI/Flex';
 import { FlexAlignItems, FlexJustifyContent, IconLibraryName } from '@/utils/enum';
 import { Icon } from '@/components/CoreUI/Icons';
+import { RootState } from '@/redux/rootReducer';
 
 export default function DashboardLayout() {
+  const { theme } = useSelector((state: RootState) => state.theme);
   const navigation = useNavigation();
   const toggleDrawer = () => {
     navigation.dispatch(DrawerActions.openDrawer());
@@ -22,7 +25,7 @@ export default function DashboardLayout() {
         headerLeft: () => (
           <Row>
             <Pressable onPress={toggleDrawer}>
-              <Icon name='bars-staggered' library={IconLibraryName.FontAwesome6} size={24} color={Colors.pitchBlack} />
+              <Icon name='bars-staggered' library={IconLibraryName.FontAwesome6} size={22} color={Colors.pitchBlack} />
             </Pressable>
           </Row>
         ),
@@ -35,8 +38,7 @@ export default function DashboardLayout() {
               paddingLeft: 5,
               paddingRight: 5
             }}>
-            <Icon name='notifications-outline' library={IconLibraryName.Ionicons} size={28} color={Colors.pitchBlack} />
-            {/* <Icon name='person-circle-outline' library={IconLibraryName.Ionicons} size={35} color={Colors.pitchBlack} /> */}
+            <Icon name='bell-o' library={IconLibraryName.FontAwesome} size={22} color={theme.colors.onText} />
           </Row>
         ),
       }}
