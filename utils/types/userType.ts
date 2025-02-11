@@ -16,24 +16,3 @@ export interface User{
   // updated_at?: string;
   // email_verified_at?: Nullable<string>;
 }
-
-export interface UserPetProfile {
-  _id: string;
-  userId: string;
-  petBreed: string;
-  petType: string;
-  name: string;
-  gender: string;
-  image: any;
-  dateOfBirth: string;
-  dateOfAdoption: string;
-  isProfileComplete: boolean;
-  active: boolean;
-  isDeleted: boolean;
-  step: number;
-  totalStep: number;
-  chipNumber: string;
-  isSterilised: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-}

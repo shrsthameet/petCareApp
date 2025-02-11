@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQuery } from '../baseQuery';
 import { API_ROUTES } from '@/utils/types/routesType';
 import { APIMethod } from '@/utils/enum';
-import { UserPetProfile } from '@/utils/types';
+import { UserPetProfile } from '@/utils/types/petProfile';
 
 // userPetProfile API Slice
 export const userPetProfileApi = createApi({

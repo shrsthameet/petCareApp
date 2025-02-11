@@ -2,7 +2,9 @@ import axios, { AxiosError } from 'axios';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { MMKV } from 'react-native-mmkv';
 import { Alert } from 'react-native';
-import { differenceInYears, differenceInMonths, parseISO } from 'date-fns';
+import {
+  differenceInYears, differenceInMonths, parseISO, format 
+} from 'date-fns';
 import {
   AdoptionStatus, Gender, Shape, Size 
 } from '../enum';
@@ -95,14 +97,20 @@ export function getToken() {
   }
 }
 
-export const formatAge = (date: string) => {
+export const formatAge = (date: string, trimMonth: boolean = false) => {
   const birthDate = parseISO(date);
   const now = new Date();
 
   const years = differenceInYears(now, birthDate);
   const months = differenceInMonths(now, birthDate) % 12;
 
-  return `${years} years ${months} months`;
+  return trimMonth ? `${years} years` : `${years} years ${months} months`;
+};
+
+
+export const formatDateOfBirth = (dateString: string) => {
+  const date = parseISO(dateString);
+  return format(date, 'dd, MMM, yyyy');
 };
 
 export const adoptionlist: IOptionList[] = [

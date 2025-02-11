@@ -43,22 +43,31 @@ export const PetCard: FC<IPetCard> = ({
         />
       </Column>
 
-      <Column gap={15} style={{
+      <Column gap={10} style={{
         paddingVertical: 15,
         paddingHorizontal: 15
       }}>
         <Row justifyContent={FlexJustifyContent.Between} alignItems={FlexAlignItems.Center}>
-          <Typography variant={TypographyVariant.Title} size={Size.Large}>
+          <Typography variant={TypographyVariant.Title} size={Size.Medium}>
             {petName}
           </Typography>
-          <Icon library={IconLibraryName.Ionicons} name={gender === 'male' ? 'male-outline' : 'female-outline'} size={28} />
+          <Icon library={IconLibraryName.Ionicons} name={gender === 'male' ? 'male-outline' : 'female-outline'} size={24} />
         </Row>
 
-        <Row gap={8}>
-          <Typography variant={TypographyVariant.Body} size={Size.Small}>
-            {petAge}
-          </Typography>
-        </Row>
+        <Column gap={5}>
+          <Row gap={8}>
+            <Typography variant={TypographyVariant.Caption} size={Size.Medium}>
+            Labrador
+            </Typography>
+          </Row>
+
+          <Row gap={8}>
+            <Typography variant={TypographyVariant.Caption} size={Size.Medium}>
+              {petAge}
+            </Typography>
+          </Row>
+        </Column>
+
       </Column>
 
     </Column>

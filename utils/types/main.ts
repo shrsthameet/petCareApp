@@ -130,6 +130,7 @@ export interface IOptionList {
 
 // Gender type
 export type GenderType = 'Male' | 'Female' | 'Other';
+export type GenderValueType = 'male' | 'female' | 'other';
 
 // Define available icon libraries
 export const IconLibraries = {

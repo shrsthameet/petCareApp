@@ -1,11 +1,14 @@
 import React from 'react';
-import { Stack, useRouter } from 'expo-router';
-import { TouchableOpacity } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { Icon } from '@/components/CoreUI/Icons';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { useSelector } from 'react-redux';
 import { IconLibraryName } from '@/utils/enum';
+import { RootState } from '@/redux/rootReducer';
+import { IconButton } from '@/components/CoreUI/IconButton';
 
 export default function PetProfileLayout() {
+  const { theme } = useSelector((state: RootState) => state.theme);
+
+  const { id } = useLocalSearchParams();
   const router = useRouter();
 
   const goBack = (): void => {
@@ -13,16 +16,22 @@ export default function PetProfileLayout() {
   };
 
   const editPet = (): void => {
-    router.push('/(petProfile)/edit/1');
+    router.push(`/(petProfile)/edit/${id}`);
   };
 
   return (
     <Stack screenOptions={{
       headerTitle: '',
       headerLeft: () => (
-        <TouchableOpacity onPress={goBack}>
-          <Icon name='chevron-back' library={IconLibraryName.Ionicons} size={26} color={Colors.pitchBlack} />
-        </TouchableOpacity>
+        <>
+          <IconButton
+            iconLibrary={IconLibraryName.Ionicons}
+            iconName='chevron-back'
+            iconColor={theme.colors.onPrimaryContainer}
+            iconSize={24}
+            onPress={goBack}
+          />
+        </>
       ),
       contentStyle: {
         backgroundColor: '#fff'
@@ -32,9 +41,13 @@ export default function PetProfileLayout() {
         headerTransparent: true,
         headerRight: () => (
           <>
-            <TouchableOpacity onPress={editPet}>
-              <Icon name='mode-edit' library={IconLibraryName.MaterialIcons} size={26} color={Colors.pitchBlack} />
-            </TouchableOpacity>
+            <IconButton
+              iconLibrary={IconLibraryName.MaterialIcons}
+              iconName='mode-edit'
+              iconColor={theme.colors.onPrimaryContainer}
+              iconSize={24}
+              onPress={editPet}
+            />
           </>
         )
       }}/>

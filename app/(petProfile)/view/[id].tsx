@@ -1,26 +1,35 @@
-import { StyleSheet, Dimensions } from 'react-native';
 import React from 'react';
-import Animated, {
-  interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset 
-} from 'react-native-reanimated';
+import Animated, { useAnimatedRef } from 'react-native-reanimated';
 import { useSelector } from 'react-redux';
-import LabImg from '@/assets/images/lab.jpg';
+import { useLocalSearchParams } from 'expo-router';
 import { Typography } from '@/components/CoreUI/Typography';
 import { globalStyles } from '@/styles/global';
-import { Icon } from '@/components/CoreUI/Icons/Icons';
 import {
-  FlexAlignItems, FlexJustifyContent, Fonts, IconLibraryName, Size, TypographyVariant 
+  Fonts,
+  Size,
+  TypographyVariant
 } from '@/utils/enum';
 import { Tabs } from '@/components/CoreUI/Tabs';
 import { Column, Row } from '@/components/CoreUI/Flex';
 import { RootState } from '@/redux/rootReducer';
-import { ITheme } from '@/utils/types';
-
-const { width } = Dimensions.get('window');
-const IMG_HEIGHT = 300;
+import {
+  getPetProfileStyles,
+  PetProfileHeader,
+  PetProfileImageView,
+  PetProfileInfoCard
+} from '@/screens/petProfile/view';
+import { useGetPetProfileByIdQuery } from '@/redux/petProfileSlice/petProfileApi';
+import { PetProfileSkeleton } from '@/components/skeletons';
 
 export default function PetId() {
+  const { id } = useLocalSearchParams();
+
+  const { isLoading: isPetProfileLoading, data: petProfileData } = useGetPetProfileByIdQuery(id);
+
+  console.log('petProfileData', petProfileData);
+
   const { theme } = useSelector((state: RootState) => state.theme);
+  const styles = getPetProfileStyles(theme);
   const tabsData = [
     {
       title: 'Info',
@@ -77,132 +86,39 @@ export default function PetId() {
   ];
 
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
-  const scrollOffset = useScrollViewOffset(scrollRef);
-  const imageAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateY: interpolate(
-            scrollOffset.value, 
-            [-IMG_HEIGHT, 0, IMG_HEIGHT], 
-            [-IMG_HEIGHT / 2, 0, IMG_HEIGHT * 0.75]
-          )
-        },
-        {
-          scale: interpolate(
-            scrollOffset.value, 
-            [-IMG_HEIGHT, 0, IMG_HEIGHT],
-            [2, 1, 1]
-          )
-        }
-      ]
-    };
-  });
 
-  const customStyles = createPetCardStyles(theme);
   return (
     <Animated.ScrollView ref={scrollRef}>
-      <Column>
-        {/* Image */}
-        <Column>
-          <Animated.Image 
-            source={LabImg}
-            style={[customStyles.image, imageAnimatedStyle]}
-          />
-        </Column>
-
-        {/* Detail */}
-        <Column gap={20} style={[globalStyles.horizontalPadding, customStyles.contentWrapper]}>
-          <Column gap={10}>
-            <Row justifyContent={FlexJustifyContent.Start} alignItems={FlexAlignItems.Center}>
-              <Typography variant={TypographyVariant.Headline} size={Size.Small} fontFamilyStyle={Fonts.Montserrat_Bold}>
-                Tommy
-              </Typography>
-              <Icon library={IconLibraryName.Ionicons} name='male' size={25} />
-            </Row>
-            <Row alignItems={FlexAlignItems.Center}>
-              <Icon library={IconLibraryName.MaterialCommunityIcons} name='cake' size={15} />
-              <Typography variant={TypographyVariant.Body} size={Size.Small} fontFamilyStyle={Fonts.Montserrat_Medium}>
-                02 Nov, 2018
-              </Typography>
-            </Row>
-            <Row alignItems={FlexAlignItems.Center}>
-              <Icon library={IconLibraryName.Ionicons} name='location-sharp' size={15} />
-              <Typography variant={TypographyVariant.Body} size={Size.Small} fontFamilyStyle={Fonts.Montserrat_Medium}>
-                Parramatta, Sydney, 2150
-              </Typography>
-            </Row>
+      {isPetProfileLoading ? <PetProfileSkeleton /> : (
+        petProfileData && (
+          <Column>
+            {/* Image */}
+            <PetProfileImageView imgSrc={petProfileData.image} scrollRef={scrollRef} />
+  
+            {/* Detail */}
+            <Column gap={20} style={[globalStyles.horizontalPadding, styles.contentWrapper]}>
+              <PetProfileHeader
+                petName={petProfileData.name}
+                birthDate={petProfileData.dateOfBirth}
+                address='Parramatta, Sydney, 2018'
+                gender={petProfileData.gender}
+              />
+  
+              <PetProfileInfoCard
+                petAge={petProfileData.dateOfBirth}
+                petBreed={petProfileData.petBreed.name}
+                isSterilised={petProfileData.isSterilised}
+                petWeight={'8 kg'}
+              />
+  
+              <Row>
+                <Tabs tabs={tabsData} />
+              </Row>
+  
+            </Column>
           </Column>
-
-          <Row justifyContent={FlexJustifyContent.Between}>
-            <Column style={[customStyles.infoCard, {
-              backgroundColor: 'rgb(232, 242, 255)'
-            }]}>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onText} fontFamilyStyle={Fonts.Montserrat_Medium}>
-                Age
-              </Typography>
-              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onText}>
-                12 year
-              </Typography>
-            </Column>
-            <Column style={[customStyles.infoCard, {
-              backgroundColor: 'rgb(239, 249, 232)'
-            }]}>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onText} fontFamilyStyle={Fonts.Montserrat_Medium}>
-                Breed
-              </Typography>
-              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onText}>
-                Labrador
-              </Typography>
-            </Column>
-            <Column style={[customStyles.infoCard, {
-              backgroundColor: 'rgb(255, 238, 219)'
-            }]}>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onText} fontFamilyStyle={Fonts.Montserrat_Medium}>
-                Nutered
-              </Typography>
-              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onText}>
-                Yes
-              </Typography>
-            </Column>
-            <Column style={[customStyles.infoCard, {
-              backgroundColor: 'rgb(229, 251, 255)'
-            }]}>
-              <Typography variant={TypographyVariant.Body} size={Size.Small} color={theme.colors.onText} fontFamilyStyle={Fonts.Montserrat_Medium}>
-                Weight
-              </Typography>
-              <Typography variant={TypographyVariant.Caption} size={Size.Large} color={theme.colors.onText}>
-                8 Kg
-              </Typography>
-            </Column>
-          </Row>
-
-          <Row>
-            <Tabs tabs={tabsData} />
-          </Row>
-
-        </Column>
-      </Column>
+        )
+      )}
     </Animated.ScrollView>
   );
 }
-
-const createPetCardStyles = (theme: ITheme) => StyleSheet.create({
-  image: {
-    width: width,
-    height: IMG_HEIGHT,
-  },
-  contentWrapper: {
-    backgroundColor: theme.colors.onPrimary,
-    paddingTop: 5,
-    marginBottom: 35
-  },
-  infoCard: {
-    padding: 10,
-    borderRadius: 10,
-    width: 85
-  },
-  btn: {
-    width: '50%'
-  }
-});

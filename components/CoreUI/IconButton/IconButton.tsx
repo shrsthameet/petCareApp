@@ -8,10 +8,13 @@ import {
 import { useSelector } from 'react-redux';
 import { Icon } from '../Icons';
 import { RootState } from '@/redux/rootReducer';
+import { ShapeType, IconLibraries, SizeType } from '@/utils/types';
 import {
-  ShapeType, ColorVariantType, IconLibraries, SizeType 
-} from '@/utils/types';
-import { Shape, ColorVariant, Size } from '@/utils/enum';
+  FlexAlignItems,
+  FlexJustifyContent,
+  Shape,
+  Size
+} from '@/utils/enum';
 
 interface IconButtonProps {
   onPress?: (event: GestureResponderEvent) => void;
@@ -20,9 +23,10 @@ interface IconButtonProps {
   iconName: string;
   iconLibrary?: keyof typeof IconLibraries | 'AntDesign';
   iconSize?: number;
-  iconColor?: ColorVariantType;
+  iconColor?: string;
   shape?: ShapeType;
   size?: SizeType;
+  bgColor?: string;
 }
 
 export const IconButton = (
@@ -33,21 +37,22 @@ export const IconButton = (
     iconName,
     iconLibrary = 'AntDesign',
     iconSize = 18,
-    iconColor = ColorVariant.Primary,
+    iconColor,
     shape = Shape.Circle,
     size = Size.Medium,
+    bgColor
   }: IconButtonProps,
   ref: ForwardedRef<View>
 ) => {
   const { theme } = useSelector((state: RootState) => state.theme);
 
-  // Determine button background color
-  const getBackgroundColor = () => (disabled
-    ? theme.colors.surfaceDisabled
-    : theme.colors[iconColor as keyof typeof theme.colors] || theme.colors.primary);
-
   // Define size-based styles
   const sizeStyles = {
+    xsmall: {
+      paddingVertical: theme.spacing.xs,
+      paddingHorizontal: theme.spacing.xs,
+      fontSize: theme.typography.caption?.large.fontSize,
+    },
     small: {
       padding: theme.spacing.sm
     },
@@ -57,13 +62,18 @@ export const IconButton = (
     large: {
       padding: theme.spacing.lg
     },
+    xlarge: {
+      paddingVertical: theme.spacing.xl,
+      paddingHorizontal: theme.spacing.xl,
+      fontSize: theme.typography.caption?.large.fontSize,
+    },
   }[size];
 
   const buttonStyles: ViewStyle = {
-    backgroundColor: getBackgroundColor() as string,
+    backgroundColor: bgColor ? bgColor : theme.colors.transparent,
     borderRadius: theme.borderRadius[shape] || theme.borderRadius.circle,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: FlexAlignItems.Center,
+    justifyContent: FlexJustifyContent.Center,
     ...sizeStyles,
     ...style,
   };
@@ -80,7 +90,7 @@ export const IconButton = (
         library={iconLibrary}
         name={iconName}
         size={iconSize}
-        color={disabled ? theme.colors.onSurfaceDisabled : theme.colors.onPrimary}
+        color={disabled ? theme.colors.onSurfaceDisabled : iconColor ? iconColor :  theme.colors.onPrimary}
       />
     </TouchableOpacity>
   );

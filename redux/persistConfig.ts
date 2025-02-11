@@ -1,4 +1,5 @@
 import { authApi } from './authSlice/authApi';
+import { petProfileApi } from './petProfileSlice/petProfileApi';
 import { petsApi } from './petSlice/petsApi';
 import { userPetProfileApi } from './uersPetProfileSlice/userPetProfileApi';
 import mmkvStorage from '@/utils/mmkvStorage';
@@ -12,7 +13,8 @@ const persistConfig = {
   blacklist: [
     authApi.reducerPath,
     petsApi.reducerPath,
-    userPetProfileApi.reducerPath
+    userPetProfileApi.reducerPath,
+    petProfileApi.reducerPath
   ],
 };
 

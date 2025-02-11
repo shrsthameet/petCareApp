@@ -230,6 +230,13 @@ export enum Gender {
   Other = 'Other'
 }
 
+// export Gender enum
+export enum GenderValue {
+  Male = 'male',
+  Female = 'female',
+  Other = 'other'
+}
+
 // export Adoption enum
 export enum AdoptionStatus {
   Adopted = 'Adopted',

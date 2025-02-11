@@ -8,7 +8,12 @@ import { Typography } from '@/components/CoreUI/Typography';
 import { globalStyles } from '@/styles/global';
 import {
   Shape,
-  ButtonTitle, ButtonVariant, ColorVariant, IconLibraryName, Size, TypographyVariant, 
+  ButtonTitle,
+  ButtonVariant,
+  ColorVariant,
+  IconLibraryName,
+  Size,
+  TypographyVariant,
   Fonts
 } from '@/utils/enum';
 import { Input } from '@/components/CoreUI/Input';
@@ -83,7 +88,6 @@ const EditPet = () => {
     }));
   };
 
-  console.log('formState', formState);
   return (
     <ScrollView>
       <Column gap={15} style={[globalStyles.horizontalPadding, styles.container]}>
@@ -137,7 +141,7 @@ const EditPet = () => {
             title={ButtonTitle.Update}
             variant={ButtonVariant.Contained}
             color={ColorVariant.Primary}
-            shape={Shape.Arch}
+            shape={Shape.Pill}
           />
 
           <Button 
@@ -145,7 +149,7 @@ const EditPet = () => {
             title={ButtonTitle.Delete}
             variant={ButtonVariant.Contained}
             color={ColorVariant.Error}
-            shape={Shape.Arch}
+            shape={Shape.Pill}
           />
         </Column>
       </Column>

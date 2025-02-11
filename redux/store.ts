@@ -15,6 +15,7 @@ import { rootReducer } from './rootReducer';
 import persistConfig from './persistConfig';
 import { petsApi } from './petSlice/petsApi';
 import { userPetProfileApi } from './uersPetProfileSlice/userPetProfileApi';
+import { petProfileApi } from './petProfileSlice/petProfileApi';
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -30,7 +31,8 @@ const store = configureStore({
   }).concat(
     authApi.middleware,
     petsApi.middleware,
-    userPetProfileApi.middleware
+    userPetProfileApi.middleware,
+    petProfileApi.middleware
   ),
   enhancers: (getDefaultEnhancers) => getDefaultEnhancers().concat(devToolsEnhancer()),
 });

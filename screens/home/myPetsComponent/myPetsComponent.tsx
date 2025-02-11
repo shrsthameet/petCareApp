@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { Link } from 'expo-router';
 import { getMyPetStyles } from './myPetsComponent.style';
 import {
-  ColorVariant,
   FlexAlignItems, FlexJustifyContent, Fonts, Size, TypographyVariant 
 } from '@/utils/enum';
 import { Typography } from '@/components/CoreUI/Typography';
@@ -31,7 +30,7 @@ export const MyPetsComponent = () => {
           My Pets
         </Typography>
         <Link href='/'>
-          <IconButton iconName='plus' iconColor={ColorVariant.Primary} size={Size.Small} />
+          <IconButton iconName='plus' bgColor={theme.colors.primary} size={Size.Small} />
         </Link>
       </Row>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -42,7 +41,7 @@ export const MyPetsComponent = () => {
               {userPetProfilesData && userPetProfilesData.length ? (
                 <>
                   {userPetProfilesData.map((item, index) => (
-                    <Link href={`/(petProfile)/view/1`} key={index}>
+                    <Link href={`/(petProfile)/view/${item._id}`} key={index}>
                       <PetCard
                         imgSrc={`${IMAGE_BASE_URL}${item.image}`}
                         petName={item.name}
