@@ -1,5 +1,5 @@
 import React
-// { useState } 
+, { useState }// { useState } 
   from 'react';
 import { ScrollView } from 'react-native';
 import { Column, Row } from '@/components/CoreUI/Flex';
@@ -11,6 +11,7 @@ import {
   TypographyVariant,
 } from '@/utils/enum';
 import { Dropdown } from '@/components/CoreUI/Dropdown';
+import { Toast } from '@/components/CoreUI/Toast';
 // import { Menu } from '@/components/CoreUI/Menu';
 
 const ComponentsUI = () => {
@@ -49,12 +50,25 @@ const ComponentsUI = () => {
   //     label: 'Logout', onPress: () => handleMenuItemPress('Logout') 
   //   }
   // ];
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' | 'warning' } | null>(null);
 
   return (
     <ScrollView>
       <Column style={{
         marginBottom: 105
       }}>
+        <Button title='Show Success Toast' onPress={() => setToast({
+          message: 'Success!', type: 'success' 
+        })} />
+        {toast && (
+          <Toast
+            message={toast.message}
+            type={toast.type}
+            position='top'
+            duration={300000}
+            onClose={() => setToast(null)}
+          />
+        )}
         <Typography>
         Header
         </Typography>

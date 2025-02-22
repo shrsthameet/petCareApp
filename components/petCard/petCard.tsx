@@ -15,6 +15,7 @@ import { RootState } from '@/redux/rootReducer';
 interface IPetCard {
   imgSrc?: string | undefined;
   petName?: string;
+  petBreed?: string;
   petAge?: string;
   gender?: string;
 }
@@ -22,6 +23,7 @@ interface IPetCard {
 export const PetCard: FC<IPetCard> = ({
   imgSrc,
   petName,
+  petBreed,
   petAge,
   gender
 }) => {
@@ -57,7 +59,7 @@ export const PetCard: FC<IPetCard> = ({
         <Column gap={5}>
           <Row gap={8}>
             <Typography variant={TypographyVariant.Caption} size={Size.Medium}>
-            Labrador
+              {petBreed}
             </Typography>
           </Row>
 

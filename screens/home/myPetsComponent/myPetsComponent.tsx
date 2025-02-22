@@ -4,7 +4,11 @@ import { useSelector } from 'react-redux';
 import { Link } from 'expo-router';
 import { getMyPetStyles } from './myPetsComponent.style';
 import {
-  FlexAlignItems, FlexJustifyContent, Fonts, Size, TypographyVariant 
+  FlexAlignItems,
+  FlexJustifyContent,
+  Fonts,
+  Size,
+  TypographyVariant
 } from '@/utils/enum';
 import { Typography } from '@/components/CoreUI/Typography';
 import { Column, Row } from '@/components/CoreUI/Flex';
@@ -45,6 +49,7 @@ export const MyPetsComponent = () => {
                       <PetCard
                         imgSrc={`${IMAGE_BASE_URL}${item.image}`}
                         petName={item.name}
+                        petBreed={item.petBreed?.name}
                         petAge={formatAge(item.dateOfBirth)}
                         gender={item.gender}
                       />

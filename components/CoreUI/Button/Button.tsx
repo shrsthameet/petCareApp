@@ -94,7 +94,7 @@ export const Button = (
     };
 
     const getTextColor = () => {
-      if (disabled) return theme.colors.onSurfaceDisabled;
+      if (disabled) return theme.colors.text;
       switch (variant) {
       case ButtonVariant.Contained:
         return theme.colors.onPrimary;

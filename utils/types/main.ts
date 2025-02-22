@@ -96,7 +96,7 @@ export type FormType = 'Login' | 'Register';
 
 // Route types
 export type AuthRoutesType = '/(auth)/register' | '/(auth)/login';
-export type TabsRoute = '/(tabs)/(home)' | '/(tabs)/explore';
+export type TabsRoute = '/(drawer)/(tabs)/(home)' | '/(tabs)/explore';
 export type PetProfileSetUpRouteType = 
 '/(petProfileSetup)' |
 '/(petProfileSetup)/petTypeAndBreed' |

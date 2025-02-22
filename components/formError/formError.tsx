@@ -6,7 +6,7 @@ import { Size, TypographyVariant } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
 
 interface IFormErrorProps {
-  errMsg: string;
+  errMsg: string | undefined;
 }
 
 export const FormError: FC<IFormErrorProps> = ({ errMsg }) => {

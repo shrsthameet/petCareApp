@@ -1,96 +1,110 @@
-import React, { createContext, useContext, useState } from 'react';
-import { Text, Animated, StyleSheet } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import {
+  Animated,
+  TouchableOpacity,
+  Easing,
+} from 'react-native';
+import { useSelector } from 'react-redux';
+import { Typography } from '../Typography';
+import { Icon } from '../Icons';
+import { Column } from '../Flex';
+import { getToastStyle } from './Toast.style';
+import { RootState } from '@/redux/rootReducer';
+import { ColorVariantType, PositionType } from '@/utils/types';
+import {
+  ColorVariant, IconLibraryName, Position, Size, TypographyVariant 
+} from '@/utils/enum';
+interface ToastProps {
+  message: string;
+  type?: ColorVariantType | undefined;
+  duration?: number | undefined; // Auto-dismiss in milliseconds
+  position?: PositionType | undefined;
+  onClose?: () => void | undefined;
+}
 
-type ToastType = 'success' | 'error' | 'warning' | 'info';
+export const Toast: React.FC<ToastProps> = ({
+  message,
+  type = ColorVariant.Success,
+  duration = 300000,
+  position = Position.Top,
+  onClose,
+}) => {
+  const { theme } = useSelector((state: RootState) => state.theme);
 
-type ToastContextType = {
-  showToast: (message: string, type?: ToastType, duration?: number) => void;
-};
+  const styles = getToastStyle(theme);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const translateYAnim = useRef(new Animated.Value(position === Position.Top ? -50 : 50)).current;
 
-const ToastContext = createContext<ToastContextType | undefined>(undefined);
-
-export const useToast = () => {
-  const context = useContext(ToastContext);
-  if (!context) {
-    throw new Error('useToast must be used within a ToastProvider');
-  }
-  return context;
-};
-
-export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [toast, setToast] = useState<{ message: string; type: ToastType; visible: boolean }>({
-    message: '',
-    type: 'info',
-    visible: false,
-  });
-
-  const fadeAnim = new Animated.Value(0);
-
-  const showToast = (message: string, type: ToastType = 'info', duration: number = 3000) => {
-    setToast({
-      message, type, visible: true 
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 300,
+          easing: Easing.out(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(translateYAnim, {
+          toValue: 0,
+          duration: 300,
+          easing: Easing.out(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]).start();
     });
-    
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
 
-    setTimeout(() => {
+    const timer = setTimeout(() => {
+      handleClose();
+    }, duration);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  const handleClose = () => {
+    Animated.parallel([
       Animated.timing(fadeAnim, {
         toValue: 0,
         duration: 300,
         useNativeDriver: true,
-      }).start(() => setToast((prev) => ({
-        ...prev, visible: false 
-      })));
-    }, duration);
+      }),
+      Animated.timing(translateYAnim, {
+        toValue: position === 'top' ? -50 : 50,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      if (onClose) onClose();
+    });
   };
 
   return (
-    <ToastContext.Provider value={{
-      showToast 
-    }}>
-      {children}
-      {toast.visible && (
-        <Animated.View style={[styles.toastContainer, styles[toast.type], {
-          opacity: fadeAnim 
-        }]}> 
-          <Text style={styles.toastText}>{toast.message}</Text>
-        </Animated.View>
-      )}
-    </ToastContext.Provider>
+    <Animated.View
+      style={[
+        styles.toastContainer,
+        styles[type],
+        position === Position.Top ? styles.topPosition : styles.bottomPosition,
+        {
+          opacity: fadeAnim,
+          transform: [{
+            translateY: translateYAnim 
+          }],
+        },
+      ]}
+    >
+      <Typography
+        variant={TypographyVariant.Body}
+        size={Size.Small}
+        style={styles.toastText}
+      >
+        {message}
+      </Typography>
+      <TouchableOpacity onPress={handleClose} style={styles.closeButton}>
+        <Column>
+          <Icon name='x' library={IconLibraryName.Feather} size={18} color={theme.colors.onText} />
+        </Column>
+      </TouchableOpacity>
+    </Animated.View>
   );
 };
-
-const styles = StyleSheet.create({
-  toastContainer: {
-    position: 'absolute',
-    bottom: 50,
-    left: 20,
-    right: 20,
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 5,
-  },
-  success: {
-    backgroundColor: '#4CAF50',
-  },
-  error: {
-    backgroundColor: '#F44336',
-  },
-  warning: {
-    backgroundColor: '#FF9800',
-  },
-  info: {
-    backgroundColor: '#2196F3',
-  },
-  toastText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-});

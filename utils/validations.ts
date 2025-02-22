@@ -27,3 +27,9 @@ export const PetInfoFormSchema = z.object({
   isSterilised: z.boolean(),
   step: z.number().optional()
 });
+
+export const PetProfileUpdateSchema = z.object({
+  ...PetTypeAndBreedSchema.shape,
+  ...PetBioFormSchema.shape,
+  ...PetInfoFormSchema.shape,
+});

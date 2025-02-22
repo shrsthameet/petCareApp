@@ -30,7 +30,7 @@ import { DateTimePickerDisplayType, DateTimePickerModeType } from '@/utils/types
 type DatePickerProps = {
   label?: string;
   placeholder?: string;
-  initialDate?: Date;
+  initialDate?: any;
   onDateChange: (date: Date) => void;
   mode?: DateTimePickerModeType;
   display?: DateTimePickerDisplayType;

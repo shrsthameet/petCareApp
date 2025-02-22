@@ -18,15 +18,13 @@ import {
   PetProfileImageView,
   PetProfileInfoCard
 } from '@/screens/petProfile/view';
-import { useGetPetProfileByIdQuery } from '@/redux/petProfileSlice/petProfileApi';
 import { PetProfileSkeleton } from '@/components/skeletons';
+import { useGetPetProfileByIdQuery } from '@/redux/uersPetProfileSlice/userPetProfileApi';
 
 export default function PetId() {
   const { id } = useLocalSearchParams();
 
   const { isLoading: isPetProfileLoading, data: petProfileData } = useGetPetProfileByIdQuery(id);
-
-  console.log('petProfileData', petProfileData);
 
   const { theme } = useSelector((state: RootState) => state.theme);
   const styles = getPetProfileStyles(theme);
