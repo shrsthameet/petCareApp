@@ -1,7 +1,7 @@
 import { authApi } from './authSlice/authApi';
-import { petProfileApi } from './petProfileSlice/petProfileApi';
 import { petsApi } from './petSlice/petsApi';
 import { userPetProfileApi } from './uersPetProfileSlice/userPetProfileApi';
+import { petHealthRecordsApi } from './petHealthRecordSlice/petHealthRecordsApi';
 import mmkvStorage from '@/utils/mmkvStorage';
 
 // Config for redux-persist
@@ -14,7 +14,7 @@ const persistConfig = {
     authApi.reducerPath,
     petsApi.reducerPath,
     userPetProfileApi.reducerPath,
-    petProfileApi.reducerPath
+    petHealthRecordsApi.reducerPath,
   ],
 };
 

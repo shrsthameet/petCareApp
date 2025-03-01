@@ -39,7 +39,7 @@ export const IconButton = (
     iconSize = 18,
     iconColor,
     shape = Shape.Circle,
-    size = Size.Medium,
+    size = Size.None,
     bgColor
   }: IconButtonProps,
   ref: ForwardedRef<View>
@@ -48,6 +48,8 @@ export const IconButton = (
 
   // Define size-based styles
   const sizeStyles = {
+    none: {
+    },
     xsmall: {
       paddingVertical: theme.spacing.xs,
       paddingHorizontal: theme.spacing.xs,

@@ -16,7 +16,10 @@ export const API_ROUTES = {
     BREED_ID: '/petBreeds/:id',
 
     PROFILE: '/petProfiles',
-    PROFILE_ID: '/petProfiles/:id'
+    PROFILE_ID: '/petProfiles/:id',
+
+    HEALTH_RECORD: '/petProfiles/:petProfileId/healthRecords',
+    HEALTH_RECORD_ID: '/petProfiles/:petProfileId/healthRecords/:healthRecordsId'
   },
 
   HEALTH: {

@@ -31,6 +31,7 @@ export enum OSType {
 }
 
 export enum Size {
+  None = 'none',
   XSmall = 'xsmall',
   Small = 'small',
   Medium = 'medium',
@@ -247,4 +248,18 @@ export enum AdoptionStatus {
 export enum SterilisationStatus {
   Sterilised = 'Sterilised',
   NotSterilised = 'Not Sterilised',
+}
+
+// export Pet Health Record enum
+export enum PetHealthRecord {
+  PetVaccination = 'PetVaccination',
+  PetMedication = 'PetMedication',
+  PetMedicalCondition = 'PetMedicalCondition',
+  PetWeightRecord = 'PetWeightRecord',
+}
+
+// export pet medical condition status
+export enum PetMedicalConditionStatus {
+  Ongoing = 'ongoing',
+  Recovered = 'recovered'
 }

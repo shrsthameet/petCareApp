@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { IconLibraryName } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
 import { IconButton } from '@/components/CoreUI/IconButton';
+import { BackButton } from '@/components/backButton';
 
 export default function PetProfileLayout() {
   const { theme } = useSelector((state: RootState) => state.theme);
@@ -23,15 +24,9 @@ export default function PetProfileLayout() {
     <Stack screenOptions={{
       headerTitle: '',
       headerLeft: () => (
-        <>
-          <IconButton
-            iconLibrary={IconLibraryName.Ionicons}
-            iconName='chevron-back'
-            iconColor={theme.colors.onPrimaryContainer}
-            iconSize={24}
-            onPress={goBack}
-          />
-        </>
+        <BackButton 
+          onClick={goBack}
+        />
       ),
       contentStyle: {
         backgroundColor: '#fff'

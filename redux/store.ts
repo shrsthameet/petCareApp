@@ -15,44 +15,37 @@ import { rootReducer } from './rootReducer';
 import persistConfig from './persistConfig';
 import { petsApi } from './petSlice/petsApi';
 import { userPetProfileApi } from './uersPetProfileSlice/userPetProfileApi';
+import { petHealthRecordsApi } from './petHealthRecordSlice/petHealthRecordsApi';
 
+// Persisted reducer for redux-persist
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Define the store
-// Uncomment it when implementing redux persist
+// Configure store
 const store = configureStore({
   reducer: persistedReducer,
   devTools: false,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }).concat(
-    authApi.middleware,
-    petsApi.middleware,
-    userPetProfileApi.middleware,
-  ),
-  enhancers: (getDefaultEnhancers) => getDefaultEnhancers().concat(devToolsEnhancer()),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(
+      authApi.middleware,
+      petsApi.middleware,
+      userPetProfileApi.middleware,
+      petHealthRecordsApi.middleware
+    ),
+  enhancers: (getDefaultEnhancers) =>
+    getDefaultEnhancers().concat(devToolsEnhancer()),
 });
 
+// Persistor for redux-persist
 const persistor = persistStore(store);
 
-// const store = configureStore({
-//   reducer: rootReducer,
-//   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-//     serializableCheck: false,
-//     getDefaultMiddleware().concat(authApi.middleware)
-//   })
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware().concat(authApi.middleware),
-// });
-
-
-// Define RootState and AppDispatch types based on the store itself
+// Define RootState and AppDispatch types
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export {
-  store,
-  persistor
+  store, persistor 
 };

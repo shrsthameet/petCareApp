@@ -9,13 +9,16 @@ import { RootState } from '@/redux/rootReducer';
 import { Icon } from '@/components/CoreUI/Icons';
 import { IconLibraryName } from '@/utils/enum';
 
+const grey = 'rgb(169,169,169)';
+
 export default function TabLayout() {
   const { theme } = useSelector((state: RootState) => state.theme);
   return (
     <Tabs
       screenOptions={{
         // tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        tabBarActiveTintColor: theme.colors.onText,
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: grey,
         headerShown: false,
         tabBarButton: HapticTab,
         // tabBarBackground: () => (
@@ -29,8 +32,17 @@ export default function TabLayout() {
         name='(home)'
         options={{
           title: 'Home',
-          tabBarIcon: () => (
-            <Icon name='home' library={IconLibraryName.MaterialIcons} size={28} color={theme.colors.onText} />
+          tabBarIcon: ({ focused }) => (
+            <Icon name='home' library={IconLibraryName.AntDesign} size={24} color={focused ? theme.colors.primary : grey} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='(petHealthRecords)'
+        options={{
+          title: 'Health Records',
+          tabBarIcon: ({ focused }) => (
+            <Icon name='heart-pulse' library={IconLibraryName.MaterialCommunityIcons} size={28} color={focused ? theme.colors.primary : grey} />
           ),
         }}
       />
@@ -38,8 +50,8 @@ export default function TabLayout() {
         name='explore'
         options={{
           title: 'Explore',
-          tabBarIcon: () => (
-            <Icon name='edit' library={IconLibraryName.MaterialIcons} size={28} color={theme.colors.onText} />
+          tabBarIcon: ({ focused }) => (
+            <Icon name='edit' library={IconLibraryName.MaterialIcons} size={28} color={focused ? theme.colors.primary : grey} />
           ),
         }}
       />
@@ -47,8 +59,8 @@ export default function TabLayout() {
         name='(components)'
         options={{
           title: 'UI Library',
-          tabBarIcon: () => (
-            <Icon name='library' library={IconLibraryName.Ionicons} size={28} color={theme.colors.onText} />
+          tabBarIcon: ({ focused }) => (
+            <Icon name='library' library={IconLibraryName.Ionicons} size={28} color={focused ? theme.colors.primary : grey} />
           ),
         }}
       />

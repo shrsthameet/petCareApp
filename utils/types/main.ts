@@ -71,7 +71,7 @@ export type TypographyFontType =
 'MontserratExtraBoldItalic';
 
 // Define size
-export type SizeType = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+export type SizeType = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'none';
 export type PositionType = 'top' | 'right' | 'bottom' | 'left' | 'center';
 export type ColorVariantType = 'default' | 'primary' | 'success' | 'secondary' | 'error' | 'info' | 'warning' | 'link';
 
@@ -131,6 +131,10 @@ export interface IOptionList {
 // Gender type
 export type GenderType = 'Male' | 'Female' | 'Other';
 export type GenderValueType = 'male' | 'female' | 'other';
+
+// Pet health record
+export type PetHealthRecordType = 'PetVaccination' | 'PetMedication' | 'PetMedicalCondition' | 'PetWeightRecord';
+export type PetMedicalConditionStatusType = 'ongoing' | 'recovered';
 
 // Define available icon libraries
 export const IconLibraries = {

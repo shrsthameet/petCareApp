@@ -3,14 +3,18 @@ import { ITheme } from '@/utils/types';
 
 export const lightTheme: ITheme = {
   colors: {
-    primary: 'rgb(1, 160, 195)',
+    // primary: 'rgb(1, 160, 195)',
+    primary: 'rgb(157,103,239)',
     onPrimary: 'rgb(255, 255, 255)',
-    primaryContainer: 'rgb(229, 251, 255)',
-    onPrimaryContainer: 'rgb(1, 181, 217)',
-    secondary: 'rgb(164, 240, 255)', // New secondary
+    primaryContainer: 'rgb(246,241,253)',
+    // onPrimaryContainer: 'rgb(1, 181, 217)',
+    onPrimaryContainer: 'rgb(176,133,242)',
+    //secondary: 'rgb(164, 240, 255)', // New secondary
+    secondary: 'rgb(231,218,251)',
     onSecondary: 'rgb(255, 255, 255)',
-    secondaryContainer: 'rgb(201,247,255)',
-    onSecondaryContainer: 'rgb(1,155,186)',
+    // secondaryContainer: 'rgb(201,247,255)',
+    secondaryContainer: 'rgb(231,218,251)',
+    onSecondaryContainer: 'rgb(215,194,248)',
     tertiary: 'rgb(180, 75, 60)', // New tertiary
     onTertiary: 'rgb(255, 255, 255)',
     tertiaryContainer: 'rgb(255, 205, 195)',
