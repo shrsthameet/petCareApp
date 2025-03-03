@@ -1,10 +1,9 @@
 import React from 'react';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useSelector } from 'react-redux';
-import { IconLibraryName } from '@/utils/enum';
+import { IconLibraryName, Size } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
 import { IconButton } from '@/components/CoreUI/IconButton';
-import { BackButton } from '@/components/backButton';
 
 export default function PetProfileLayout() {
   const { theme } = useSelector((state: RootState) => state.theme);
@@ -24,8 +23,14 @@ export default function PetProfileLayout() {
     <Stack screenOptions={{
       headerTitle: '',
       headerLeft: () => (
-        <BackButton 
-          onClick={goBack}
+        <IconButton
+          iconLibrary={IconLibraryName.Ionicons}
+          iconName='chevron-back'
+          iconColor={theme.colors.onPrimaryContainer}
+          iconSize={20}
+          onPress={goBack}
+          size={Size.XSmall}
+          bgColor={theme.colors.onPrimary}
         />
       ),
       contentStyle: {
@@ -39,9 +44,11 @@ export default function PetProfileLayout() {
             <IconButton
               iconLibrary={IconLibraryName.MaterialIcons}
               iconName='mode-edit'
-              iconColor={theme.colors.onPrimaryContainer}
-              iconSize={24}
+              iconColor={theme.colors.primary}
+              iconSize={20}
               onPress={editPet}
+              size={Size.XSmall}
+              bgColor={theme.colors.onPrimary}
             />
           </>
         )

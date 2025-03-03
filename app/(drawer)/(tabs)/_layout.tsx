@@ -20,6 +20,9 @@ export default function TabLayout() {
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: grey,
         headerShown: false,
+        tabBarStyle: {
+          borderTopWidth: 0
+        },
         tabBarButton: HapticTab,
         // tabBarBackground: () => (
         //   <BlurView tint='light' intensity={100} style={StyleSheet.absoluteFill} />

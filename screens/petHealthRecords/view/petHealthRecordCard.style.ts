@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { ITheme } from '@/utils/types';
 
 export const getPetHealthRecordStyles = (theme: ITheme) => StyleSheet.create({
+  // Border left card
   card: {
     gap: 15,
     marginTop: 20,
@@ -36,5 +37,28 @@ export const getPetHealthRecordStyles = (theme: ITheme) => StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 4,
     marginRight: 12,
+  },
+
+  // Floating button card
+  cardContainer: {
+    position: 'relative',
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginTop: 5,
+    height: 200,
+    borderRadius: 16,
+  },
+  cardFloatingTitle: {
+    position: 'absolute',
+    backgroundColor: 'rgb(254, 231, 228)',
+    color: 'rgb(252, 113 87)',
+    padding: 10,
+    width: 200,
+    borderRadius: 50,
+    top: -15,
+    borderColor: 'rgb(250, 247, 254)',
+    borderWidth: 6,
+    left: 10
   },
 });
