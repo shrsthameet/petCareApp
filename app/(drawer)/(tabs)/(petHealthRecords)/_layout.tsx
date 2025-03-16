@@ -35,6 +35,7 @@ export default function PetHealthRecordsLayout() {
       }}
     >
       <Stack.Screen name='index' />
+      <Stack.Screen name='view/[id]' />
     </Stack>
   );
 }

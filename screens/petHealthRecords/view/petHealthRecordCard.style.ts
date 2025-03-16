@@ -59,6 +59,7 @@ export const getPetHealthRecordStyles = (theme: ITheme) => StyleSheet.create({
     top: -15,
     borderColor: 'rgb(250, 247, 254)',
     borderWidth: 6,
+    // left: '25%'
     left: 10
   },
 });

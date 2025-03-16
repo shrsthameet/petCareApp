@@ -9,19 +9,18 @@ export const getTabsStyles = (theme: ITheme) => StyleSheet.create({
     // backgroundColor: '#f1f1f1',
   },
   tabButton: {
-    width: '50%',
+    width: '30%',
     paddingVertical: 10,
-    // backgroundColor: 'grey',
     display: 'flex',
     alignItems: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   activeTabButton: {
     borderBottomWidth: 2,
     borderBottomColor: theme.colors.primary,
   },
   tabText: {
-    fontSize: 16,
+    // fontSize: 16,
     color: '#333',
   },
   activeTabText: {

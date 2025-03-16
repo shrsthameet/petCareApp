@@ -8,6 +8,7 @@ import {
   FlexJustifyContent, Fonts, Size, TypographyVariant 
 } from '@/utils/enum';
 import { RootState } from '@/redux/rootReducer';
+import { SizeType, TypographyFontType, TypographyVariantsType } from '@/utils/types';
 
 interface Tab {
   title: string;
@@ -16,9 +17,17 @@ interface Tab {
 
 interface TabsProps {
   tabs: Tab[];
+  titleSize?: SizeType;
+  titleVariant?: TypographyVariantsType;
+  titleFontStyle?: TypographyFontType;
 }
 
-export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
+export const Tabs: React.FC<TabsProps> = ({
+  tabs,
+  titleSize = Size.Small,
+  titleVariant = TypographyVariant.Body,
+  titleFontStyle = Fonts.Montserrat_Medium
+}) => {
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const { theme } = useSelector((state: RootState) => state.theme);
@@ -35,11 +44,11 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
             style={[styles.tabButton, activeTab === index && styles.activeTabButton]}
             onPress={() => setActiveTab(index)}
           >
-            <Typography 
-              variant={TypographyVariant.Title}
-              size={Size.Large}
+            <Typography
+              variant={titleVariant}
+              size={titleSize}
               style={[styles.tabText, ...(activeTab === index ? [styles.activeTabText] : [])]}
-              fontFamilyStyle={Fonts.Montserrat_Medium}
+              fontFamilyStyle={titleFontStyle}
             >
               {tab.title}
             </Typography>
@@ -54,34 +63,3 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
     </Column>
   );
 };
-//   container: {
-//     flex: 1,
-//   },
-//   tabHeaders: {
-//     // backgroundColor: '#f1f1f1',
-//   },
-//   tabButton: {
-//     width: '50%',
-//     paddingVertical: 10,
-//     // backgroundColor: 'grey',
-//     display: 'flex',
-//     alignItems: 'center',
-//     textAlign: 'center'
-//   },
-//   activeTabButton: {
-//     borderBottomWidth: 2,
-//     borderBottomColor: '#007bff',
-//   },
-//   tabText: {
-//     fontSize: 16,
-//     color: '#333',
-//   },
-//   activeTabText: {
-//     color: '#007bff',
-//     fontWeight: 'bold',
-//   },
-//   tabContent: {
-//     flex: 1,
-//     paddingVertical: 20,
-//   },
-// });

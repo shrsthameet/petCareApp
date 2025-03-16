@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import { Animated } from 'react-native';
-import { Image } from 'expo-image';
+import { CartesianChart, Line, useChartPressState } from 'victory-native';
+import { Circle, useFont } from '@shopify/react-native-skia';
+import type { SharedValue } from 'react-native-reanimated';
 import { getPetHealthRecordStyles } from './petHealthRecordCard.style';
 import { Button } from '@/components/CoreUI/Button';
 import { Row, Column } from '@/components/CoreUI/Flex';
@@ -10,6 +12,7 @@ import {
   PetHealthRecord,
   FlexJustifyContent,
   FlexAlignItems,
+  Fonts,
 } from '@/utils/enum';
 import { IHealthRecordData, ITheme } from '@/utils/types';
 import { Icon } from '@/components/CoreUI/Icons';
@@ -18,6 +21,14 @@ import { globalStyles } from '@/styles/global';
 import LabImg from '@/assets/images/lab.jpg';
 import LineImg from '@/assets/images/line.png';
 import { IconButton } from '@/components/CoreUI/IconButton';
+import { Tabs } from '@/components/CoreUI/Tabs';
+import Montserrat from '@/assets/fonts/Montserrat-Medium.ttf';
+
+// ...
+
+function ToolTip({ x, y }: { x: SharedValue<number>; y: SharedValue<number> }) {
+  return <Circle cx={x} cy={y} r={8} color='black' />;
+}
 
 interface IPetHealthRecordCardProps {
   theme: ITheme,
@@ -206,6 +217,21 @@ export const PetHealthRecordCard: FC<IPetHealthRecordCardProps> = ({
     }).start();
   }, []);
 
+
+  const DATA = Array.from({
+    length: 31 
+  }, (_, i) => ({
+    day: i,
+    highTmp: 40 + 30 * Math.random(),
+  }));
+
+  const font = useFont(Montserrat, 12);
+  const { state, isActive } = useChartPressState({
+    x: 0, y: {
+      highTmp: 0 
+    } 
+  });
+
   return (
     <Column gap={30} style={globalStyles.horizontalPadding}>
       <Row 
@@ -242,14 +268,46 @@ export const PetHealthRecordCard: FC<IPetHealthRecordCardProps> = ({
         </Row>
       </Row>
 
-      <Column>
-        <Image source={LineImg} style={{
-          width: '100%', height: 250 
-        }} />
+      <Column gap={20} style={{
+        height: 250
+      }}>
+        <Row justifyContent={FlexJustifyContent.Between} alignItems={FlexAlignItems.Center}>
+          <Row justifyContent={FlexJustifyContent.End} alignItems={FlexAlignItems.Center}>
+            <Typography variant={TypographyVariant.Body} size={Size.Medium} fontFamilyStyle={Fonts.Montserrat_SemiBold}>
+              Weight track
+            </Typography>
+          </Row>
+          <Row justifyContent={FlexJustifyContent.End} alignItems={FlexAlignItems.Center}>
+            <Typography variant={TypographyVariant.Caption} size={Size.Medium} style={{
+              color: theme.colors.primary
+            }}>
+              Filter
+            </Typography>
+            <Icon name='filter-list' library={IconLibraryName.MaterialIcons} size={20} color={theme.colors.primary} />
+          </Row>
+        </Row>
+        <CartesianChart
+          data={DATA}
+          xKey='day'
+          yKeys={['highTmp']}
+          axisOptions={{
+            font
+          }}
+          chartPressState={state}
+        >
+          {({ points }) => (
+            <>
+              <Line points={points.highTmp} color={theme.colors.primary} strokeWidth={1} />
+              {isActive ? (
+                <ToolTip x={state.x.position} y={state.y.highTmp.position} />
+              ) : null}
+            </>
+          )}
+        </CartesianChart>
       </Column>
 
       <Column gap={30}>
-        {healthRecords.map((item, index) => (
+        {/* {healthRecords.map((item, index) => (
           <Column key={index}>
             <Row justifyContent={FlexJustifyContent.End} alignItems={FlexAlignItems.Center}>
               <Typography variant={TypographyVariant.Caption} size={Size.Medium} style={{
@@ -270,7 +328,41 @@ export const PetHealthRecordCard: FC<IPetHealthRecordCardProps> = ({
               <Button title='Show details' size={Size.Small} shape={Shape.Pill} />
             </Column>
           </Column>
-        ))}
+        ))} */}
+        <Tabs
+          tabs={healthRecords.map((item, index) => {
+            if (item.recordType !== 'PetWeightRecord') {
+              return {
+                title: item.recordType === 'PetMedicalCondition' ? 'Health' : item.recordType.replace('Pet', ''),
+                content: (
+                  <Column key={index}>
+                    <Row justifyContent={FlexJustifyContent.End} alignItems={FlexAlignItems.Center}>
+                      <Typography variant={TypographyVariant.Caption} size={Size.Medium} style={{
+                        color: theme.colors.primary
+                      }}>
+                        {/* See all */}
+                        Filter
+                      </Typography>
+                      <Icon name='filter-list' library={IconLibraryName.MaterialIcons} size={20} color={theme.colors.primary} />
+                    </Row>
+                    <Column style={styles.cardContainer}>
+                      <Row alignItems={FlexAlignItems.Center} style={styles.cardFloatingTitle}>
+                        {iconMap[item.recordType]}
+                        <Typography color='rgb(252, 113 87)' variant={TypographyVariant.Body} size={Size.Small}>
+                          {item.recordType.replace('Pet', '')}
+                        </Typography>
+                      </Row>
+                      <PetHealthInfo
+                        record={item}
+                      />
+                      <Button title='Show details' size={Size.Small} shape={Shape.Pill} />
+                    </Column>
+                  </Column>
+                )
+              };
+            } 
+          }).filter(Boolean)}  // Filter out null values
+        />
       </Column>
     </Column>
   );
